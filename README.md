@@ -1,4 +1,4 @@
-# PACMANVS
+﻿# PACMANVS
 PACMAN GAME FOR NETWORK
 
 TITULO DEL JUEGO: PAC-MAN VS.
@@ -10,5 +10,7 @@ Trabaja en equipo y consigue derrotar a tu rival. Podrás jugar con tus amigos a
 INTEGRANTES: 
 
 -INTEGRANTE 1: Laura Hidalgo Rueda. 			CORREO: l.hidalgor@alumnos.urjc.es 	CUENTA EN GITHUB: darku97
+
 -INTEGRANTE 2: Iván Críspulo Martín de Eugenio García. 	CORREO: ic.marting@alumnos.urjc.es 	CUENTA EN GITHUB: ivanmartin
+
 -INTEGRANTE 3: Álvaro Jesús Rodríguez Nomparte. 	CORREO: aj.rodriguezn@alumnos.urjc.es 	CUENTA EN GITHUB: alvarete212
