@@ -3,12 +3,12 @@ PACMAN GAME FOR NETWORK
 
 TITULO DEL JUEGO: PAC-MAN VS.
 
-DESCRIPCI”N DE LA TEM¡TICA DEL JUEGO: °PAC-MAN HA VUELTO! Pero adapt·ndose a las jugabilidades de hoy en dÌa, para dar un cambio fresco y nuevo a sus mec·nicas ya conocidas.
-øQuÈ ser·s en cada partida? øPAC-MAN? øO alguno de los fantasmas?. Lucha por conseguir la mayor puntuaciÛn y por atrapar a tu rival. Todo cuenta. Power-Ups, bolitas... 
-Trabaja en equipo y consigue derrotar a tu rival. Podr·s jugar con tus amigos a travÈs de la red y dar caza a tus rivales. 
+DESCRIPCI√ìN DE LA TEM√ÅTICA DEL JUEGO: ¬°PAC-MAN HA VUELTO! Pero adapt√°ndose a las jugabilidades de hoy en d√≠a, para dar un cambio fresco y nuevo a sus mec√°nicas ya conocidas.
+¬øQu√© ser√°s en cada partida? ¬øPAC-MAN? ¬øO alguno de los fantasmas?. Lucha por conseguir la mayor puntuaci√≥n y por atrapar a tu rival. Todo cuenta. Power-Ups, cocos... 
+Trabaja en equipo y consigue derrotar a tu rival. Podr√°s jugar con tus amigos a trav√©s de la red y dar caza a tus rivales. 
 
 INTEGRANTES: 
 
 -INTEGRANTE 1: Laura Hidalgo Rueda. 			CORREO: l.hidalgor@alumnos.urjc.es 	CUENTA EN GITHUB: darku97
--INTEGRANTE 2: Iv·n CrÌspulo MartÌn de Eugenio GarcÌa. 	CORREO: ic.marting@alumnos.urjc.es 	CUENTA EN GITHUB: ivanmartin
--INTEGRANTE 3: ¡lvaro Jes˙s RodrÌguez Nomparte. 	CORREO: aj.rodriguezn@alumnos.urjc.es 	CUENTA EN GITHUB: alvarete212
+-INTEGRANTE 2: Iv√°n Cr√≠spulo Mart√≠n de Eugenio Garc√≠a. 	CORREO: ic.marting@alumnos.urjc.es 	CUENTA EN GITHUB: ivanmartin
+-INTEGRANTE 3: √Ålvaro Jes√∫s Rodr√≠guez Nomparte. 	CORREO: aj.rodriguezn@alumnos.urjc.es 	CUENTA EN GITHUB: alvarete212
