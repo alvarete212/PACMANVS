@@ -8,14 +8,10 @@ DESCRIPCIÓN DE LA TEMÁTICA DEL JUEGO: ¡PAC-MAN HA VUELTO! Pero adaptándose a
 Trabaja en equipo y consigue derrotar a tu rival. Podrás jugar con tus amigos a través de la red y dar caza a tus rivales.
 
 MECÁNICAS JUGABLES.
-En PACMAN VS. Tendremos la posibilidad de pertenecer a uno de los dos equipos. El equipo fantasma y el equipo PACMAN. Cada equipo está compuesto por 2 integrantes. A su vez,
-el equipo PACMAN tendrá 2 integrantes y el fantasma, otros dos. La selección será de forma automática. Ambos personajes podrán comer los distintos "cocos" distribuidos por 
-todo el mundo.
+En PACMAN VS. Tendremos la posibilidad de pertenecer a uno de los dos equipos. El equipo fantasma y el equipo PACMAN: el equipo PACMAN tendrá dos integrantes y el fantasma, otros dos. La selección será de forma automática. Ambos personajes podrán comer los distintos "cocos" distribuidos por todo el mundo.
 
 Si dos personajes opuestos chocan entre sí, ambos morirán y volverán al lugar de partida de cada uno de los equipos, no pudiendo volver a la partida en unos 5-10 segundos.
-Ambos equipos dispondrán de dos PowerUps. Como en el juego original, si PACMAN recoge un PowerUp, podrá durante unos 10 segundos atacar a los miembros del equipo contrario
-"comiéndoselos" y obteniendo 150 puntos extra para su equipo. La diferencia es que el equipo fantasma también podrá hacer lo mismo, por lo que obtener la mayor puntuación
-para tu equipo será una dura batalla. 
+Ambos equipos dispondrán de dos PowerUps. Como en el juego original, si PACMAN recoge un PowerUp, podrá durante unos 10 segundos atacar a los miembros del equipo contrario "comiéndoselos" y obteniendo 150 puntos extra para su equipo. La diferencia es que el equipo fantasma también podrá hacer lo mismo, por lo que obtener la mayor puntuación para tu equipo será una dura batalla. 
 
 También aparecerán de forma aleatoria, durante la duración del juego Frutas que, al obtenerse, subirán en 100 puntos el marcador del equipo que la haya obtenido. 
 
