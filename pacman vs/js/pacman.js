@@ -92,8 +92,8 @@ function create(){
 
     game.map = game.add.tilemap('map');
     game.map.addTilesetImage('pacman-tiles', 'tiles');
-   // game.add.sprite(0,0,'pacman');
-   game.layer = game.map.createLayer('Pacman');
+    game.add.sprite(0,0,'pacman');
+    game.layer = game.map.createLayer('Pacman');
 
    game.dots = game.add.physicsGroup();
    game.numDots = game.map.createFromTiles(7, game.safetile, 'dot', game.layer, game.dots);
@@ -104,6 +104,13 @@ function create(){
    //  El primer valor de la funcion createFromTiles corresponde a las posiciones del tilemap que se quieren cambiar por objetos, en este caso, la imagen "pill"
    game.dots.setAll('x', 6, false, false, 1);
    game.dots.setAll('y', 6, false, false, 1);
+
+   game.map.setCollisionByExclusion([game.safetile], true, game.layer);
+    /* El primer parametro son los ids que no van a tener colision. El true es que lo demas es colisionable y el tercer parametro es
+    la capa donde se crea la colision */
+
+    
+
 }
 
 function update(){}
