@@ -33,6 +33,7 @@ function create(){
      /* El primer parametro son los ids que no van a tener colision. El true es que lo demas es colisionable y el tercer parametro es
         la capa donde se crea la colision */
 
+    var pacman = new PACMAN(game,'pacman');
     var score = 0;
     var time = 30;
     scoreText = game.add.text(8,272,"Score: " + score,{fontsize: "16",fill:"red"});
@@ -58,9 +59,5 @@ function create(){
 }
 
 function update(){
-
-
-
-
 
 }

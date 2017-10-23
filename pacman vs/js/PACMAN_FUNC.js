@@ -1,6 +1,5 @@
 var PACMAN = function (game, key){
 
-    PACMAN.game = game;
     PACMAN.key = key;
 
     //Parametros de pacman
@@ -11,8 +10,8 @@ var PACMAN = function (game, key){
 
     //Damos los valores a pacman del mismo mundo que del mundo game que pasamos
 
-    PACMAN.gridSize = this.game.gridSize;
-    PACMAN.safetile = this.game.safetile;
+    PACMAN.gridSize = game.gridSize;
+    PACMAN.safetile = game.safetile;
 
     //Creamos los diferentes puntos de navegacion
 
@@ -32,7 +31,7 @@ var PACMAN = function (game, key){
 
     //Ahora creamos el sprite PACMAN
 
-    PACMAN.sprite = game.add.sprite((14 * 16 ) + 8, (17*16) + 8, key, 0);
+    sprite = game.add.sprite((14 * 16 ) + 8, (17*16) + 8, key, 0);
 
     //Podemos escalar a pacman, para que se vea más grande
 
@@ -40,17 +39,17 @@ var PACMAN = function (game, key){
 
     ///////ANIMACIONES DE PACMAN////////
 
-    PACMAN.sprite.animation.add('comer', [0, 1, 2, 1], 10, true); //Queremos que se repita en bucle.
-    PACMAN.sprite.animation.add('muerte', [3, 4 ,5 ,6, 7, 8, 9, 10, 11, 12, 13], 10, false) //No queremos que se repita en bucle
+    sprite.animations.add('comer', [0, 1, 2,1], 10, true); //Queremos que se repita en bucle.
+    sprite.animations.add('muerte', [3, 4 ,5 ,6, 7, 8, 9, 10, 11, 12, 13], 10, false) //No queremos que se repita en bucle
 
     //////////////////////////////////
 
-    PACMAN.game.physics.arcade.enable(PACMAN.sprite);
-    PACMAN.sprite.play('comer');
+    game.physics.arcade.enable(sprite);
+    sprite.play('comer');
 
     //Llamamos al prototipo de pacman, que tendrá la función de mover.
 
-    PACMAN.mover(Phaser.right);
+    this.mover(Phaser.RIGHT);
 
 
 };
@@ -63,36 +62,35 @@ PACMAN.prototype.mover = function(direccion){
 
     if(direccion === Phaser.NONE){
 
-        PACMAN.sprite.body.velocity.x = 0;
-        PACMAN.sprite.body.velocity.y = 0;
+        sprite.body.velocity.x = 0;
+        sprite.body.velocity.y = 0;
         return;
 
     }
 
     //La velocidad debe ir, cuando va a la izquierda como cuando va hacia arriba, en negativo.
-
-    if(direccion === Phaser.LEFT){
-
-        velocidad = -velocidad;
-
-    }
-
-    if(direccion == Phaser.UP){
-
-        velocidad = -velocidad;
-
-    }
-
     if(direccion === Phaser.RIGHT){
 
-        PACMAN.sprite.body.velocity.x = velocidad;
-
+        sprite.body.velocity.x = velocidad;
     }
 
-    if(direccion === Phaser.DOWN){
+    this.sprite.scale.x = 1;
+    this.sprite.angle = 0;
 
-        PACMAN.sprite.body.velocity.y = velocidad;
-
+    if (direction === Phaser.LEFT)
+    {
+        velocidad = -velocidad;
+        this.sprite.scale.x = -1;
+    }
+    else if (direction === Phaser.UP)
+    {
+        velocidad = -velocidad;
+        this.sprite.angle = 270;
+    }
+    else if (direction === Phaser.DOWN)
+    {
+        this.sprite.angle = 90;
+        sprite.body.velocity.y = velocidad;
     }
 
 
