@@ -1,82 +1,6 @@
 
 var game = new Phaser.Game(450, 500, Phaser.AUTO, '', { preload: preload, create: create, update: update });
-var PacmanGame = function () {    
-    game.map = null;
-    game.layer = null;
-    
-    game.numDots = 0;
-    game.TOTAL_DOTS = 0;
-    game.score = 0;
-    game.scoreText = null;
-    
-    game.pacman = null; 
-    game.clyde = null;
-    game.pinky = null;
-    game.inky = null;
-    game.blinky = null;
-    game.isInkyOut = false;
-    game.isClydeOut = false;
-    game.ghosts = [];
 
-    game.safetile = 14;
-    game.gridsize = 16;       
-    game.threshold = 3;
-    
-    game.SPECIAL_TILES = [
-        { x: 12, y: 11 },
-        { x: 15, y: 11 },
-        { x: 12, y: 23 },
-        { x: 15, y: 23 }
-    ];
-    
-    game.TIME_MODES = [
-        {
-            mode: "scatter",
-            time: 7000
-        },
-        {
-            mode: "chase",
-            time: 20000
-        },
-        {
-            mode: "scatter",
-            time: 7000
-        },
-        {
-            mode: "chase",
-            time: 20000
-        },
-        {
-            mode: "scatter",
-            time: 5000
-        },
-        {
-            mode: "chase",
-            time: 20000
-        },
-        {
-            mode: "scatter",
-            time: 5000
-        },
-        {
-            mode: "chase",
-            time: -1 // -1 = infinite
-        }
-    ];
-    game.changeModeTimer = 0;
-    game.remainingTime = 0;
-    game.currentMode = 0;
-    game.isPaused = false;
-    game.FRIGHTENED_MODE_TIME = 7000;
-    
-    game.ORIGINAL_OVERFLOW_ERROR_ON = true;
-    game.DEBUG_ON = true;
-    
-    game.KEY_COOLING_DOWN_TIME = 250;
-    game.lastKeyPressed = 0;
-    
-    game.game = game;
-};
 function preload(){
 
     game.load.image("pill", "assets/pill16.png");
@@ -92,25 +16,51 @@ function create(){
 
     game.map = game.add.tilemap('map');
     game.map.addTilesetImage('pacman-tiles', 'tiles');
-    game.add.sprite(0,0,'pacman');
     game.layer = game.map.createLayer('Pacman');
 
-   game.dots = game.add.physicsGroup();
-   game.numDots = game.map.createFromTiles(7, game.safetile, 'dot', game.layer, game.dots);
-   game.TOTAL_DOTS = game.numDots;
+   //game.add.sprite(0,275,'pacman');
+    dots = game.add.physicsGroup();//bolitas pequeñas
+    numDots = game.map.createFromTiles(7, game.safetile, 'dot', game.layer, dots);
+    totaldots = numDots;
    
-   game.pills = game.add.physicsGroup();
-   game.numPills = game.map.createFromTiles(40, game.safetile, "pill", game.layer, game.pills);
-   //  El primer valor de la funcion createFromTiles corresponde a las posiciones del tilemap que se quieren cambiar por objetos, en este caso, la imagen "pill"
-   game.dots.setAll('x', 6, false, false, 1);
-   game.dots.setAll('y', 6, false, false, 1);
+    pills = game.add.physicsGroup();//bolitas grandes
+    numPills = game.map.createFromTiles(40, game.safetile, "pill", game.layer, pills);
+    //  El primer valor de la funcion createFromTiles corresponde a las posiciones del tilemap que se quieren cambiar por objetos, en este caso, la imagen "pill"
+    dots.setAll('x', 6, false, false, 1);
+    dots.setAll('y', 6, false, false, 1);
 
-   game.map.setCollisionByExclusion([game.safetile], true, game.layer);
-    /* El primer parametro son los ids que no van a tener colision. El true es que lo demas es colisionable y el tercer parametro es
-    la capa donde se crea la colision */
+    game.map.setCollisionByExclusion([game.safetile], true, game.layer);
+     /* El primer parametro son los ids que no van a tener colision. El true es que lo demas es colisionable y el tercer parametro es
+        la capa donde se crea la colision */
 
+    var score = 0;
+    var time = 30;
+    scoreText = game.add.text(8,272,"Score: " + score,{fontsize: "16",fill:"red"});
+    timeText = game.add.text(400,400,"Time: " + time,{fontsize:"18",fill:"purple"});
+    cursors = input.keyboard.createCursorKeys();
+
+    //Controles pacman1
+    cursors["w"] = input.keyboard.addKey(Phaser.Keyboard.W);
+    cursors["a"] = input.keyboard.addKey(Phaser.Keyboard.A);
+    cursors["s"] = input.keyboard.addKey(Phaser.Keyboard.S);
+    cursors["d"] = input.keyboard.addKey(Phaser.Keyboard.D);
+
+    //Controles pacman2
+    cursors["i"] = input.keyboard.addKey(Phaser.Keyboard.I);
+    cursors["j"] = input.keyboard.addKey(Phaser.Keyboard.J);
+    cursors["k"] = input.keyboard.addKey(Phaser.Keyboard.K);
+    cursors["l"] = input.keyboard.addKey(Phaser.Keyboard.L);
+    //Controles fantasma1
+
+    //Controles fantasma2
     
 
 }
 
-function update(){}
+function update(){
+
+
+
+
+
+}
