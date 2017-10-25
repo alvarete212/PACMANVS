@@ -7,6 +7,7 @@ function preload(){
     game.load.image("dot","assets/dot.png");
     game.load.image('tiles', 'assets/pacman-tiles.png');
     game.load.spritesheet('pacman','assets/pacman.png',32,32);
+    game.load.spritesheet('pacman2','assets/pacman_2.png',32,32);
     game.load.spritesheet("ghosts", "assets/ghosts32.png", 32, 32);
     game.load.tilemap('map', 'assets/pacman-map.json', null, Phaser.Tilemap.TILED_JSON);
     
@@ -34,11 +35,24 @@ function create(){
         la capa donde se crea la colision */
 
     var pacman = new PACMAN(game,'pacman');
+    var pacman2 = new PACMAN(game,'pacman2');
+    /*var fantasma1 = new fantasma1('ghosts');
+        fantasma1.animations.add('derecha',[3],10,true);
+        fantasma1.animations.add('izquierda',[0],10,true);
+        fantasma1.animations.add('arriba',[1],10,true);
+        fantasma1.animations.add('abajo',[2],10,true);
+    
+    var fantasma2 = new fantasma1('ghosts');
+        fantasma2.animations.add('derecha',[7],10,true);
+        fantasma2.animations.add('izquierda',[4],10,true);
+        fantasma2.animations.add('arriba',[5],10,true);
+        fantasma2.animations.add('abajo',[6],10,true);*/
+
     var score = 0;
     var time = 30;
     scoreText = game.add.text(8,272,"Score: " + score,{fontsize: "16",fill:"red"});
     timeText = game.add.text(400,400,"Time: " + time,{fontsize:"18",fill:"purple"});
-    cursors = input.keyboard.createCursorKeys();
+    cursors = game.input.keyboard.createCursorKeys();
 
     //Controles pacman1
     cursors["w"] = input.keyboard.addKey(Phaser.Keyboard.W);
