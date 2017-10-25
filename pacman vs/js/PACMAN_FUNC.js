@@ -181,5 +181,17 @@ PACMAN.prototype.comprobarTeclas = function(cursors){
 
     }
 
+    if (game.tiempo.tiempo > this.keyPressTimer)
+    {
+       
+        girando = Phaser.NONE;
+        quieroIr = Phaser.NONE;
+
+    } else {
+
+        checkDirection(quieroIr);  
+
+    }
+
 
 }
