@@ -1,44 +1,44 @@
-var PACMAN = function (game, key){
+var PACMAN = function (key){
 
-    PACMAN.key = key;
+    this.key = key;
 
-    //Parametros de pacman
+    //Parametros de this
 
-    PACMAN.muerto = false;
-    PACMAN.velocidad = 300;
-    PACMAN.estaMuriendo = false;
-    PACMAN.tiempo = 0;
+    this.muerto = false;
+    this.velocidad = 300;
+    this.estaMuriendo = false;
+    this.tiempo = 0;
 
-    //Damos los valores a pacman del mismo mundo que del mundo game que pasamos
+    //Damos los valores a this del mismo mundo que del mundo game que pasamos
 
-    PACMAN.gridSize = game.gridSize;
-    PACMAN.safetile = game.safetile;
+    this.gridSize = game.gridSize;
+    this.safetile = game.safetile;
 
     //Creamos los diferentes puntos de navegacion
 
-    PACMAN.marcador = new Phaser.Point();
-    PACMAN.curva = new Phaser.Point();
-    PACMAN.treshold = 6;
+    this.marcador = new Phaser.Point();
+    this.curva = new Phaser.Point();
+    this.treshold = 6;
 
-    PACMAN.direcciones = [ null, null, null, null, null ];
-    PACMAN.contrarios = [ Phaser.NONE, Phaser.RIGHT, Phaser.LEFT, Phaser.DOWN, Phaser.UP ];
+    this.direcciones = [ null, null, null, null, null ];
+    this.contrarios = [ Phaser.NONE, Phaser.RIGHT, Phaser.LEFT, Phaser.DOWN, Phaser.UP ];
 
-    PACMAN.actual = Phaser.NONE;
-    PACMAN.girando = Phaser.NONE;
-    PACMAN.quieroIr = Phaser.NONE;
+    this.actual = Phaser.NONE;
+    this.girando = Phaser.NONE;
+    this.quieroIr = Phaser.NONE;
     
-    PACMAN.keyPressTimer = 0;
-    PACMAN.KEY_COOLING_DOWN_TIME = 750;
+    this.keyPressTimer = 0;
+    this.KEY_COOLING_DOWN_TIME = 750;
 
-    //Ahora creamos el sprite PACMAN
+    //Ahora creamos el sprite this
 
     sprite = game.add.sprite((14 * 16 ) + 8, (17*16) + 8, key, 0);
 
-    //Podemos escalar a pacman, para que se vea más grande
+    //Podemos escalar a this, para que se vea más grande
 
-    //PACMAN.sprite.anchor.setTo(0.5);
+    //this.sprite.anchor.setTo(0.5);
 
-    ///////ANIMACIONES DE PACMAN////////
+    ///////ANIMACIONES DE this////////
 
     sprite.animations.add('comer', [0, 1, 2,1], 10, true); //Queremos que se repita en bucle.
     sprite.animations.add('muerte', [3, 4 ,5 ,6, 7, 8, 9, 10, 11, 12, 13], 10, false) //No queremos que se repita en bucle
@@ -48,7 +48,7 @@ var PACMAN = function (game, key){
     game.physics.arcade.enable(sprite);
     sprite.play('comer');
 
-    //Llamamos al prototipo de pacman, que tendrá la función de mover.
+    //Llamamos al prototipo de this, que tendrá la función de mover.
 
     this.mover(Phaser.LEFT);
 
@@ -57,7 +57,7 @@ var PACMAN = function (game, key){
 
 PACMAN.prototype.mover = function(direccion){
 
-    var velocidad = PACMAN.velocidad;
+    var velocidad = this.velocidad;
 
     //Primero comprobamos si no hay direccion alguna
 
@@ -99,23 +99,22 @@ PACMAN.prototype.mover = function(direccion){
 };
 
 PACMAN.prototype.update = function() {
-
-    if(muerto != false){
+    if(this.muerto != false){
 
         game.physics.arcade.collide(sprite, game.layer);
-        game.physics.arcade.overlap(sprite, dots, eatDot, null, this);
-        game.physics.arcade.overlap(sprite, pills, eatPill, null, this);
+        //game.physics.arcade.overlap(sprite, dots, eatDot, null, this);
+        //game.physics.arcade.overlap(sprite, pills, eatPill, null, this);
 
-        marker.x = game.match.snapToFloor(Math.floor(sprite.x), gridsize) / gridsize;
-        marker.y = game.match.snapToFloor(Math.floor(sprite.y), gridsize) / gridsize;
+        this.marker.x = game.match.snapToFloor(Math.floor(sprite.x), this.gridsize) / this.gridsize;
+        this.marker.y = game.match.snapToFloor(Math.floor(sprite.y), this.gridsize) / this.gridsize;
 
-        if(marker.x < 0){
+        if(this.marker.x < 0){
 
-            sprite.x = this.game.map.widthInPixels - 1;
+            sprite.x = game.map.widthInPixels - 1;
 
         }
 
-        if(marker.x >= game.map.width){
+        if(this.marker.x >= game.map.width){
 
             sprite.x = 1;
 
@@ -123,13 +122,13 @@ PACMAN.prototype.update = function() {
 
         //Ahora nos creamos las direcciones.
 
-        direcciones[1] = game.map.getTileLeft(game.layer.index, marker.x, marker.y);
-        direcciones[2] = game.map.getTileRight(game.layer.index, marker.x, marker.y);
-        direcciones[3] = game.map.getTileAbove(game.layer.index, marker.x, marker.y);
-        direcciones[4] = game.map.getTileBelow(game.layer.index, marker.x, marker.y);
+        this.direcciones[1] = game.map.getTileLeft(game.layer.index, marker.x, marker.y);
+        this.direcciones[2] = game.map.getTileRight(game.layer.index, marker.x, marker.y);
+        this.direcciones[3] = game.map.getTileAbove(game.layer.index, marker.x, marker.y);
+        this.direcciones[4] = game.map.getTileBelow(game.layer.index, marker.x, marker.y);
        
 
-        if(girando !== Phaser.NONE){
+        if(this.girando !== Phaser.NONE){
 
             turn();
 
@@ -137,11 +136,11 @@ PACMAN.prototype.update = function() {
 
     }else{
 
-        move(Phaser.NONE);
-        if(!estaMuriendo){
+        this.mover(Phaser.NONE);
+        if(!this.estaMuriendo){
 
             sprite.play("muerte");
-            estaMuriendo = true;
+            this.estaMuriendo = true;
 
         }
 
@@ -151,41 +150,36 @@ PACMAN.prototype.update = function() {
 
 PACMAN.prototype.comprobarTeclas = function(cursors){
 
-    if(cursors.left.isDown || cursors.right.isDown || cursors.up.isDown || cursors.down.isDown){
-
-        keyPressTimer = game.time.time + KEY_COOLING_DOWN_TIME;
-
-    }
 
     if(cursors.left.isDown && actual !== Phaser.LEFT){
 
-        quieroIr = Phaser.LEFT;
+        this.quieroIr = Phaser.LEFT;
 
     }
 
     if(cursors.right.isDown && actual !== Phaser.RIGHT){
 
-        quieroIr = Phaser.RIGHT;
+        this.quieroIr = Phaser.RIGHT;
 
     }
 
     if(cursors.up.isDown && actual !== Phaser.UP){
 
-        quieroIr = Phaser.UP;
+        this.quieroIr = Phaser.UP;
 
     }
 
     if(cursors.down.isDown && actual !== Phaser.DOWN){
 
-        quieroIr = Phaser.DOWN;
+        this.quieroIr = Phaser.DOWN;
 
     }
 
     if (game.tiempo.tiempo > this.keyPressTimer)
     {
        
-        girando = Phaser.NONE;
-        quieroIr = Phaser.NONE;
+        this.girando = Phaser.NONE;
+        this.quieroIr = Phaser.NONE;
 
     } else {
 

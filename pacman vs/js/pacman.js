@@ -1,5 +1,7 @@
 
 var game = new Phaser.Game(450, 500, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var pacman;
+var pacman2;
 
 function preload(){
 
@@ -34,8 +36,8 @@ function create(){
      /* El primer parametro son los ids que no van a tener colision. El true es que lo demas es colisionable y el tercer parametro es
         la capa donde se crea la colision */
 
-    var pacman = new PACMAN(game,'pacman');
-    var pacman2 = new PACMAN(game,'pacman2');
+    pacman = new PACMAN('pacman');
+    pacman2 = new PACMAN('pacman2');
     /*var fantasma1 = new fantasma1('ghosts');
         fantasma1.animations.add('derecha',[3],10,true);
         fantasma1.animations.add('izquierda',[0],10,true);
@@ -55,16 +57,16 @@ function create(){
     cursors = game.input.keyboard.createCursorKeys();
 
     //Controles pacman1
-    cursors["w"] = input.keyboard.addKey(Phaser.Keyboard.W);
-    cursors["a"] = input.keyboard.addKey(Phaser.Keyboard.A);
-    cursors["s"] = input.keyboard.addKey(Phaser.Keyboard.S);
-    cursors["d"] = input.keyboard.addKey(Phaser.Keyboard.D);
+    cursors["w"] = game.input.keyboard.addKey(Phaser.Keyboard.W);
+    cursors["a"] = game.input.keyboard.addKey(Phaser.Keyboard.A);
+    cursors["s"] = game.input.keyboard.addKey(Phaser.Keyboard.S);
+    cursors["d"] = game.input.keyboard.addKey(Phaser.Keyboard.D);
 
     //Controles pacman2
-    cursors["i"] = input.keyboard.addKey(Phaser.Keyboard.I);
-    cursors["j"] = input.keyboard.addKey(Phaser.Keyboard.J);
-    cursors["k"] = input.keyboard.addKey(Phaser.Keyboard.K);
-    cursors["l"] = input.keyboard.addKey(Phaser.Keyboard.L);
+    cursors["i"] = game.input.keyboard.addKey(Phaser.Keyboard.I);
+    cursors["j"] = game.input.keyboard.addKey(Phaser.Keyboard.J);
+    cursors["k"] = game.input.keyboard.addKey(Phaser.Keyboard.K);
+    cursors["l"] = game.input.keyboard.addKey(Phaser.Keyboard.L);
     //Controles fantasma1
 
     //Controles fantasma2
@@ -74,4 +76,6 @@ function create(){
 
 function update(){
 
+    pacman.update();
+    pacman2.update();
 }
