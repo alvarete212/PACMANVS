@@ -4,8 +4,9 @@ var PACMAN = function (game, key){
 
     //Parametros de pacman
 
-    PACMAN.vivo = true;
+    PACMAN.muerto = false;
     PACMAN.velocidad = 300;
+    PACMAN.estaMuriendo = false;
     PACMAN.tiempo = 0;
 
     //Damos los valores a pacman del mismo mundo que del mundo game que pasamos
@@ -86,6 +87,7 @@ PACMAN.prototype.mover = function(direccion){
     else if (direccion === Phaser.UP)
     {
         velocidad = -velocidad;
+        sprite.body.velocity.y = velocidad;
         sprite.angle = 270;
     }
     else if (direccion === Phaser.DOWN)
@@ -94,9 +96,90 @@ PACMAN.prototype.mover = function(direccion){
         sprite.body.velocity.y = velocidad;
     }
 
+};
 
+PACMAN.prototype.update = function() {
 
+    if(muerto != false){
 
+        game.physics.arcade.collide(sprite, game.layer);
+        game.physics.arcade.overlap(sprite, dots, eatDot, null, this);
+        game.physics.arcade.overlap(sprite, pills, eatPill, null, this);
+
+        marker.x = game.match.snapToFloor(Math.floor(sprite.x), gridsize) / gridsize;
+        marker.y = game.match.snapToFloor(Math.floor(sprite.y), gridsize) / gridsize;
+
+        if(marker.x < 0){
+
+            sprite.x = this.game.map.widthInPixels - 1;
+
+        }
+
+        if(marker.x >= game.map.width){
+
+            sprite.x = 1;
+
+        }
+
+        //Ahora nos creamos las direcciones.
+
+        direcciones[1] = game.map.getTileLeft(game.layer.index, marker.x, marker.y);
+        direcciones[2] = game.map.getTileRight(game.layer.index, marker.x, marker.y);
+        direcciones[3] = game.map.getTileAbove(game.layer.index, marker.x, marker.y);
+        direcciones[4] = game.map.getTileBelow(game.layer.index, marker.x, marker.y);
+       
+
+        if(girando !== Phaser.NONE){
+
+            turn();
+
+        }
+
+    }else{
+
+        move(Phaser.NONE);
+        if(!estaMuriendo){
+
+            sprite.play("muerte");
+            estaMuriendo = true;
+
+        }
+
+    }
+
+};
+
+PACMAN.prototype.comprobarTeclas = function(cursors){
+
+    if(cursors.left.isDown || cursors.right.isDown || cursors.up.isDown || cursors.down.isDown){
+
+        keyPressTimer = game.time.time + KEY_COOLING_DOWN_TIME;
+
+    }
+
+    if(cursors.left.isDown && actual !== Phaser.LEFT){
+
+        quieroIr = Phaser.LEFT;
+
+    }
+
+    if(cursors.right.isDown && actual !== Phaser.RIGHT){
+
+        quieroIr = Phaser.RIGHT;
+
+    }
+
+    if(cursors.up.isDown && actual !== Phaser.UP){
+
+        quieroIr = Phaser.UP;
+
+    }
+
+    if(cursors.down.isDown && actual !== Phaser.DOWN){
+
+        quieroIr = Phaser.DOWN;
+
+    }
 
 
 }
