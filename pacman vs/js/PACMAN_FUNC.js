@@ -49,7 +49,7 @@ var PACMAN = function (game, key){
 
     //Llamamos al prototipo de pacman, que tendrá la función de mover.
 
-    this.mover(Phaser.RIGHT);
+    this.mover(Phaser.LEFT);
 
 
 };
@@ -74,22 +74,23 @@ PACMAN.prototype.mover = function(direccion){
         sprite.body.velocity.x = velocidad;
     }
 
-    this.sprite.scale.x = 1;
-    this.sprite.angle = 0;
+    sprite.scale.x = 1;
+    sprite.angle = 0;
 
-    if (direction === Phaser.LEFT)
+    if (direccion === Phaser.LEFT)
     {
         velocidad = -velocidad;
-        this.sprite.scale.x = -1;
+        sprite.body.velocity.x = velocidad;
+        sprite.scale.x = -1;
     }
-    else if (direction === Phaser.UP)
+    else if (direccion === Phaser.UP)
     {
         velocidad = -velocidad;
-        this.sprite.angle = 270;
+        sprite.angle = 270;
     }
-    else if (direction === Phaser.DOWN)
+    else if (direccion === Phaser.DOWN)
     {
-        this.sprite.angle = 90;
+        sprite.angle = 90;
         sprite.body.velocity.y = velocidad;
     }
 
