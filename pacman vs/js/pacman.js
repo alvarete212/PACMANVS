@@ -3,6 +3,8 @@ var game = new Phaser.Game(450, 500, Phaser.AUTO, '', { preload: preload, create
 var pacman;
 var pacman2;
 
+var botonPulsar;
+
 function preload(){
 
     game.load.image("pill", "assets/pill16.png");
@@ -12,12 +14,24 @@ function preload(){
     game.load.spritesheet('pacman2','assets/pacman_2.png',32,32);
     game.load.spritesheet("ghosts", "assets/ghosts32.png", 32, 32);
     game.load.tilemap('map', 'assets/pacman-map.json', null, Phaser.Tilemap.TILED_JSON);
+
+    //Carga de los botones
+    //game.load.spritesheet('boton', 'assets/...', 193, 71);
     
+}
+
+function accionPulsar(){
+
+    //Lo que queremos que haga cuando se pulsa el botón.
+
 }
 
 function create(){
 
     game.map = game.add.tilemap('map');
+
+    //botonPulsar = game.add.button(game.world.centerX - 95, 400, '...', accionPulsar, this, 2, 1, 0);
+
     game.map.addTilesetImage('pacman-tiles', 'tiles');
     game.layer = game.map.createLayer('Pacman');
 
