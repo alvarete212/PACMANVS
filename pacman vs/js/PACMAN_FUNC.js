@@ -102,8 +102,8 @@ PACMAN.prototype.update = function() {
     if(this.muerto != false){
 
         game.physics.arcade.collide(sprite, game.layer);
-        //game.physics.arcade.overlap(sprite, dots, eatDot, null, this);
-        //game.physics.arcade.overlap(sprite, pills, eatPill, null, this);
+        //game.physics.arcade.overlap(sprite, dots, comerDot, null, this);
+        //game.physics.arcade.overlap(sprite, pills, comerPill, null, this);
 
         this.marker.x = game.match.snapToFloor(Math.floor(sprite.x), this.gridsize) / this.gridsize;
         this.marker.y = game.match.snapToFloor(Math.floor(sprite.y), this.gridsize) / this.gridsize;
@@ -187,5 +187,98 @@ PACMAN.prototype.comprobarTeclas = function(cursors){
 
     }
 
+
+};
+
+PACMAN.prototype.comerDot = function(PACMAN, dot){
+
+    dot.kill(); //matamos el dot
+
+    game.score = game.score + 1;
+    game.numDots = game.numDots - 1; //COMPROBAR SI LAURA LO LLAMA ASÍ EN LA FUNCION GENERAL.
+
+    if(game.dots.total == 0){
+
+        game.dots.callAll('revive');
+
+    }
+
+};
+
+PACMAN.prototype.comerPill = function(PACMAN, pill){
+
+    pill.kill();
+
+    game.score = game.score + 10; //Comprobar si era 10 lo que subíamos
+    game.numPills = game.numPills -1;
+
+    game.entrarPersecucion();
+
+};
+
+//Ahora entramos en la función de giro
+
+
+PACMAN.prototype.girar = function(){
+
+    var sx = Math.floor(sprite.x);
+    var sy = Math.floor(sprite.y);
+
+    //Tenemos que tener en cuenta que, debido al rápido movimiento de PACMAN, deberemos tener cuidado, porque muchas veces
+    //entre la pulsación y cuando se puede realizar el giro, PACMAN ya puede haber pasado la zona de giro.
+
+    if(!game.math.fuzzyEqual(sx, curva.x, treshold) || game.math.fuzzyEqual(sy, curva.y, treshold)){
+        return false;
+    }
+
+    //Tenemos que alinear el grid donde nos movemos con las posiciones del sprite de pacman
+
+    sprite.x = curva.x;
+    sprite.y = curva.y;
+
+    sprite.body.reset(curva.x, curva.y);
+    mover(girando);
+    girando = Phaser.NONE;
+
+    return true;
+
+};
+
+//Debemos comprobar si se puede girar en la dirección que se le ha pedido
+
+PACMAN.prototype.comprobarDireccion = function(girarA){
+
+    if(girando === girarA || direcciones[girarA] === null || direcciones[girarA].index !== safetile){ //Estamos comprobando que no puede girar hacia la direccion que quiere porque ya está en esa direccion, o no puede.
+
+        return;
+
+    }
+
+    if(actual === contrarios[girarA]){
+
+        mover(girarA);
+        keyPressTimer = game.time.time;
+
+    }else{
+
+        girando = girarA;
+        curva.x = (marker.x * gridsize) + (gridsize / 2);
+        curva.y = (marker.y * gridsize) + (gridsize / 2);
+        quieroIr = Phaser.NONE;
+    }
+
+
+};
+
+PACMAN.prototype.posicionActual = function(){
+
+    return new Phaser.Point((marker.x * gridsize) + (gridsize / 2), (marker.y * gridsize) + (gridsize / 2));
+
+    //devolvemos la posicion actual de pacman usando PhaserPoint
+}
+
+PACMAN.prototype.direccionActual = function(){
+
+    return actual;
 
 }
