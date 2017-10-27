@@ -1,21 +1,25 @@
 
-var game = new Phaser.Game(450, 500, Phaser.AUTO, 'game');
+var game = new Phaser.Game(448, 496, Phaser.AUTO, 'game');
 var juego = function(game){
+
+    this.map = null;
+    this.layer = null;
 
     this.pacman = null;
     this.pacman2 = null;
     this.fantasma1 = null;
     this.fantasma2 = null;
+
     this.dots = null;
     this.numDots = 0;
     this.totaldots = 0;
     this.pills = null;
     this.numPills = 0;
-    this.time = 30;
+
+    //this.time = 30;
     this.safetile = 14;
     this.gridsize = 16;       
     this.threshold = 3;
-
 
 }
 
@@ -23,6 +27,10 @@ juego.prototype = {
 
     init: function(){
 
+        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        this.scale.pageAlignHorizontally = true;
+        this.scale.pageAlignVertically = true;
+        
         Phaser.Canvas.setImageRenderingCrisp(this.game.canvas);
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -72,12 +80,11 @@ juego.prototype = {
                 la capa donde se crea la colision */
         
             this.pacman = new PACMAN('pacman',this,{x:(14 * 16 ) + 8,y:(17*16) + 8});
-            this.pacman2 = new PACMAN('pacman2',this,{x:(14 * 16 ) + 16,y:(18*16) + 16});
-        
-            this.cursors = this.game.input.keyboard.createCursorKeys();
+            //this.pacman2 = new PACMAN('pacman2',this,{x:(14 * 16 ) + 16,y:(18*16) + 16});
+            this.cursors = this.input.keyboard.createCursorKeys();
         
             //Controles pacman1
-            this.cursors["w"] = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
+            /*this.cursors["w"] = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
             this.cursors["a"] = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
             this.cursors["s"] = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
             this.cursors["d"] = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
@@ -86,7 +93,7 @@ juego.prototype = {
             this.cursors["i"] = this.game.input.keyboard.addKey(Phaser.Keyboard.I);
             this.cursors["j"] = this.game.input.keyboard.addKey(Phaser.Keyboard.J);
             this.cursors["k"] = this.game.input.keyboard.addKey(Phaser.Keyboard.K);
-            this.cursors["l"] = this.game.input.keyboard.addKey(Phaser.Keyboard.L);
+            this.cursors["l"] = this.game.input.keyboard.addKey(Phaser.Keyboard.L);*/
             //Controles fantasma1
         
             //Controles fantasma2
@@ -94,11 +101,16 @@ juego.prototype = {
         
         },
         
+        checkKeys: function () {
+            this.pacman.comprobarTeclas(this.cursors);
+        },
+
         update: function(){
         
+            //this.pacman.comprobarTeclas(this.cursors);
             this.pacman.update();
-            this.pacman2.update();
-            this.pacman.comprobarTeclas(this.cursors);
+            this.checkKeys();
+            //this.pacman2.update();
         },
         
         accionPulsar: function(){
