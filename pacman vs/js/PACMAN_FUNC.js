@@ -21,7 +21,7 @@ var PACMAN = function (key,game,startpos){
     this.treshold = 6;
 
     this.direcciones = [ null, null, null, null, null];
-    this.contrarios = [ Phaser.NONE, Phaser.RIGHT, Phaser.LEFT, Phaser.DOWN, Phaser.UP ];
+    this.contrarios = [ Phaser.NONE, Phaser.LEFT, Phaser.RIGHT, Phaser.DOWN, Phaser.UP ];
 
     this.actual = Phaser.NONE;
     this.girando = Phaser.NONE;
@@ -255,10 +255,6 @@ PACMAN.prototype.comprobarDireccion = function(girarA){
     //console.log("Queremos girar a:" + girarA);
     if(this.girando === girarA || this.direcciones[girarA] === null || this.direcciones[girarA].index !== this.safetile){ //Estamos comprobando que no puede girar hacia la direccion que quiere porque ya está en esa direccion, o no puede.
 
-        console.log(this.girando);
-        console.log(girarA);
-        console.log(this.direcciones[girarA].index);
-        console.log(this.safetile);
         return;
 
     }
