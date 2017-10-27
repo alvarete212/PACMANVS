@@ -1,7 +1,7 @@
-var PACMAN = function (key){
+var PACMAN = function (key,game,startpos){
 
     this.key = key;
-
+    this.game = game;
     //Parametros de this
 
     this.muerto = false;
@@ -11,8 +11,8 @@ var PACMAN = function (key){
 
     //Damos los valores a this del mismo mundo que del mundo game que pasamos
 
-    this.gridSize = game.gridSize;
-    this.safetile = game.safetile;
+    this.gridSize = this.game.gridSize;
+    this.safetile = this.game.safetile;
 
     //Creamos los diferentes puntos de navegacion
 
@@ -29,10 +29,11 @@ var PACMAN = function (key){
     
     this.keyPressTimer = 0;
     this.KEY_COOLING_DOWN_TIME = 750;
+    this.score = 0;
 
     //Ahora creamos el sprite this
 
-    sprite = game.add.sprite((14 * 16 ) + 8, (17*16) + 8, key, 0);
+    this.sprite = this.game.add.sprite(startpos.x, startpos.y, key, 0);
 
     //Podemos escalar a this, para que se vea más grande
 
@@ -40,13 +41,13 @@ var PACMAN = function (key){
 
     ///////ANIMACIONES DE this////////
 
-    sprite.animations.add('comer', [0, 1, 2,1], 10, true); //Queremos que se repita en bucle.
-    sprite.animations.add('muerte', [3, 4 ,5 ,6, 7, 8, 9, 10, 11, 12, 13], 10, false) //No queremos que se repita en bucle
+    this.sprite.animations.add('comer', [0, 1, 2,1], 10, true); //Queremos que se repita en bucle.
+    this.sprite.animations.add('muerte', [3, 4 ,5 ,6, 7, 8, 9, 10, 11, 12, 13], 10, false) //No queremos que se repita en bucle
 
     //////////////////////////////////
 
-    game.physics.arcade.enable(sprite);
-    sprite.play('comer');
+    this.game.physics.arcade.enable(this.sprite);
+    this.sprite.play('comer');
 
     //Llamamos al prototipo de this, que tendrá la función de mover.
 
@@ -63,8 +64,8 @@ PACMAN.prototype.mover = function(direccion){
 
     if(direccion === Phaser.NONE){
 
-        sprite.body.velocity.x = 0;
-        sprite.body.velocity.y = 0;
+        this.sprite.body.velocity.x = 0;
+        this.sprite.body.velocity.y = 0;
         return;
 
     }
@@ -72,65 +73,65 @@ PACMAN.prototype.mover = function(direccion){
     //La velocidad debe ir, cuando va a la izquierda como cuando va hacia arriba, en negativo.
     if(direccion === Phaser.RIGHT){
 
-        sprite.body.velocity.x = velocidad;
+        this.sprite.body.velocity.x = this.velocidad;
     }
 
-    sprite.scale.x = 1;
-    sprite.angle = 0;
+    this.sprite.scale.x = 1;
+    this.sprite.angle = 0;
 
     if (direccion === Phaser.LEFT)
     {
-        velocidad = -velocidad;
-        sprite.body.velocity.x = velocidad;
-        sprite.scale.x = -1;
+        this.velocidad = -velocidad;
+        this.sprite.body.velocity.x = this.velocidad;
+        this.sprite.scale.x = -1;
     }
     else if (direccion === Phaser.UP)
     {
-        velocidad = -velocidad;
-        sprite.body.velocity.y = velocidad;
-        sprite.angle = 270;
+        this.velocidad = -velocidad;
+        this.sprite.body.velocity.y = this.velocidad;
+        this.sprite.angle = 270;
     }
     else if (direccion === Phaser.DOWN)
     {
-        sprite.angle = 90;
-        sprite.body.velocity.y = velocidad;
+        this.sprite.angle = 90;
+        this.sprite.body.velocity.y = this.velocidad;
     }
 
 };
 
 PACMAN.prototype.update = function() {
-    if(this.muerto != false){
+    if(!this.muerto ){
 
-        game.physics.arcade.collide(sprite, game.layer);
-        //game.physics.arcade.overlap(sprite, dots, comerDot, null, this);
-        //game.physics.arcade.overlap(sprite, pills, comerPill, null, this);
+        this.game.physics.arcade.collide(this.sprite, this.game.layer);
+        this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.comerDot, null, this);
+        this.game.physics.arcade.overlap(this.sprite, this.game.pills, this.comerPill, null, this);
 
-        this.marker.x = game.match.snapToFloor(Math.floor(sprite.x), this.gridsize) / this.gridsize;
-        this.marker.y = game.match.snapToFloor(Math.floor(sprite.y), this.gridsize) / this.gridsize;
+        this.marcador.x = this.game.math.snapToFloor(Math.floor(this.sprite.x), this.gridsize) / this.gridsize;
+        this.marcador.y = this.game.math.snapToFloor(Math.floor(this.sprite.y), this.gridsize) / this.gridsize;
 
-        if(this.marker.x < 0){
+        if(this.marcador.x < 0){
 
-            sprite.x = game.map.widthInPixels - 1;
+            this.sprite.x = this.game.map.widthInPixels - 1;
 
         }
 
-        if(this.marker.x >= game.map.width){
+        if(this.marcador.x >= this.game.map.width){ 
 
-            sprite.x = 1;
+            this.sprite.x = 1;
 
         }
 
         //Ahora nos creamos las direcciones.
 
-        this.direcciones[1] = game.map.getTileLeft(game.layer.index, marker.x, marker.y);
-        this.direcciones[2] = game.map.getTileRight(game.layer.index, marker.x, marker.y);
-        this.direcciones[3] = game.map.getTileAbove(game.layer.index, marker.x, marker.y);
-        this.direcciones[4] = game.map.getTileBelow(game.layer.index, marker.x, marker.y);
+        this.direcciones[1] = this.game.map.getTileLeft(this.game.layer.index, this.marcador.x, this.marcador.y);
+        this.direcciones[2] = this.game.map.getTileRight(this.game.layer.index, this.marcador.x, this.marcador.y);
+        this.direcciones[3] = this.game.map.getTileAbove(this.game.layer.index, this.marcador.x, this.marcador.y);
+        this.direcciones[4] = this.game.map.getTileBelow(this.game.layer.index, this.marcador.x, this.marcador.y);
        
 
         if(this.girando !== Phaser.NONE){
 
-            turn();
+            this.girar();
 
         }
 
@@ -139,7 +140,7 @@ PACMAN.prototype.update = function() {
         this.mover(Phaser.NONE);
         if(!this.estaMuriendo){
 
-            sprite.play("muerte");
+            this.sprite.play("muerte");
             this.estaMuriendo = true;
 
         }
@@ -151,31 +152,31 @@ PACMAN.prototype.update = function() {
 PACMAN.prototype.comprobarTeclas = function(cursors){
 
 
-    if(cursors.left.isDown && actual !== Phaser.LEFT){
+    if(cursors.left.isDown && this.actual !== Phaser.LEFT){
 
         this.quieroIr = Phaser.LEFT;
 
     }
 
-    if(cursors.right.isDown && actual !== Phaser.RIGHT){
+    if(cursors.right.isDown && this.actual !== Phaser.RIGHT){
 
         this.quieroIr = Phaser.RIGHT;
 
     }
 
-    if(cursors.up.isDown && actual !== Phaser.UP){
+    if(cursors.up.isDown && this.actual !== Phaser.UP){
 
         this.quieroIr = Phaser.UP;
 
     }
 
-    if(cursors.down.isDown && actual !== Phaser.DOWN){
+    if(cursors.down.isDown && this.actual !== Phaser.DOWN){
 
         this.quieroIr = Phaser.DOWN;
 
     }
 
-    if (game.tiempo.tiempo > this.keyPressTimer)
+    if (this.game.tiempo > this.keyPressTimer)
     {
        
         this.girando = Phaser.NONE;
@@ -183,23 +184,23 @@ PACMAN.prototype.comprobarTeclas = function(cursors){
 
     } else {
 
-        checkDirection(quieroIr);  
+        this.comprobarDireccion(this.quieroIr);  
 
     }
 
 
 };
 
-PACMAN.prototype.comerDot = function(PACMAN, dot){
+PACMAN.prototype.comerDot = function(PACMAN,dot){
 
-    dot.kill(); //matamos el dot
+    dot.kill();
 
-    game.score = game.score + 1;
-    game.numDots = game.numDots - 1; //COMPROBAR SI LAURA LO LLAMA ASÍ EN LA FUNCION GENERAL.
+    //this.score = PACMAN.score + 1;
+    this.game.numDots--; //COMPROBAR SI LAURA LO LLAMA ASÍ EN LA FUNCION GENERAL.
 
-    if(game.dots.total == 0){
+    if(this.game.totaldots === 0){
 
-        game.dots.callAll('revive');
+        dots.callAll('revive');
 
     }
 
@@ -209,10 +210,10 @@ PACMAN.prototype.comerPill = function(PACMAN, pill){
 
     pill.kill();
 
-    game.score = game.score + 10; //Comprobar si era 10 lo que subíamos
-    game.numPills = game.numPills -1;
+    PACMAN.score = PACMAN.score + 10; //Comprobar si era 10 lo que subíamos
+    numPills = numPills -1;
 
-    game.entrarPersecucion();
+    entrarPersecucion();
 
 };
 
@@ -221,50 +222,51 @@ PACMAN.prototype.comerPill = function(PACMAN, pill){
 
 PACMAN.prototype.girar = function(){
 
-    var sx = Math.floor(sprite.x);
-    var sy = Math.floor(sprite.y);
+    var sx = Math.floor(this.sprite.x);
+    var sy = Math.floor(this.sprite.y);
 
     //Tenemos que tener en cuenta que, debido al rápido movimiento de PACMAN, deberemos tener cuidado, porque muchas veces
     //entre la pulsación y cuando se puede realizar el giro, PACMAN ya puede haber pasado la zona de giro.
 
-    if(!game.math.fuzzyEqual(sx, curva.x, treshold) || game.math.fuzzyEqual(sy, curva.y, treshold)){
+    if(!this.game.math.fuzzyEqual(sx, this.curva.x, this.treshold) || game.math.fuzzyEqual(sy, this.curva.y, this.treshold)){
         return false;
     }
 
     //Tenemos que alinear el grid donde nos movemos con las posiciones del sprite de pacman
 
-    sprite.x = curva.x;
-    sprite.y = curva.y;
+    this.sprite.x = this.curva.x;
+    this.sprite.y = this.curva.y;
 
-    sprite.body.reset(curva.x, curva.y);
-    mover(girando);
-    girando = Phaser.NONE;
+    this.sprite.body.reset(this.curva.x, this.curva.y);
+    this.mover(this.girando);
+    this.girando = Phaser.NONE;
 
     return true;
 
 };
 
+
 //Debemos comprobar si se puede girar en la dirección que se le ha pedido
 
 PACMAN.prototype.comprobarDireccion = function(girarA){
 
-    if(girando === girarA || direcciones[girarA] === null || direcciones[girarA].index !== safetile){ //Estamos comprobando que no puede girar hacia la direccion que quiere porque ya está en esa direccion, o no puede.
+    if(this.girando === girarA || this.direcciones[girarA] === null || this.direcciones[girarA].index !== safetile){ //Estamos comprobando que no puede girar hacia la direccion que quiere porque ya está en esa direccion, o no puede.
 
         return;
 
     }
 
-    if(actual === contrarios[girarA]){
+    if(this.actual === this.contrarios[girarA]){
 
-        mover(girarA);
-        keyPressTimer = game.time.time;
+        this.mover(girarA);
+        this.keyPressTimer = this.game.time.time;
 
     }else{
 
-        girando = girarA;
-        curva.x = (marker.x * gridsize) + (gridsize / 2);
-        curva.y = (marker.y * gridsize) + (gridsize / 2);
-        quieroIr = Phaser.NONE;
+        this.girando = girarA;
+        this.curva.x = (this.marcador.x * this.gridsize) + (this.gridsize / 2);
+        this.curva.y = (this.marcador.y * this.gridsize) + (this.gridsize / 2);
+        this.quieroIr = Phaser.NONE;
     }
 
 
@@ -272,13 +274,13 @@ PACMAN.prototype.comprobarDireccion = function(girarA){
 
 PACMAN.prototype.posicionActual = function(){
 
-    return new Phaser.Point((marker.x * gridsize) + (gridsize / 2), (marker.y * gridsize) + (gridsize / 2));
+    return new Phaser.Point((this.marcador.x * this.gridsize) + (this.gridsize / 2), (this.marcador.y * this.gridsize) + (this.gridsize / 2));
 
     //devolvemos la posicion actual de pacman usando PhaserPoint
 }
 
 PACMAN.prototype.direccionActual = function(){
 
-    return actual;
+    return this.actual;
 
 }
