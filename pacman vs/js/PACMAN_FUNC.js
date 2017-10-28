@@ -78,7 +78,7 @@ PACMAN.prototype.mover = function (direccion) {
     {
         this.sprite.body.velocity.y = velocidad;
     }
-    //  Reset the scale and angle (Pacman is facing to the right in the sprite sheet)
+    //  Reset the scale and angle (PACMAN is facing to the right in the sprite sheet)
     this.sprite.scale.x = 1;
     this.sprite.angle = 0;
     if (direccion === Phaser.LEFT)
@@ -109,7 +109,7 @@ PACMAN.prototype.update = function() {
             this.marcador.x = this.game.math.snapToFloor(Math.floor(this.sprite.x), this.gridsize) / this.gridsize;
             this.marcador.y = this.game.math.snapToFloor(Math.floor(this.sprite.y), this.gridsize) / this.gridsize;
     
-            if(this.marcador.x < 0){
+            if(this.marcador.x < 0){//Si llega al borde sin borde, sale por el otro lado
     
                 this.sprite.x = this.game.map.widthInPixels - 1;
     
@@ -235,7 +235,7 @@ PACMAN.prototype.girar = function(){
         return false;
     }
 
-    //Tenemos que alinear el grid donde nos movemos con las posiciones del sprite de pacman
+    //Tenemos que alinear el grid donde nos movemos con las posiciones del sprite de PACMAN
 
     this.sprite.x = this.curva.x;
     this.sprite.y = this.curva.y;

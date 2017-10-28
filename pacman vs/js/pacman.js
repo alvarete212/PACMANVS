@@ -1,4 +1,5 @@
 
+
 var game = new Phaser.Game(448, 496, Phaser.AUTO, 'game');
 var juego = function(game){
 
@@ -20,6 +21,8 @@ var juego = function(game){
     this.safetile = 14;
     this.gridsize = 16;       
     this.threshold = 3;
+
+    this.game = game;
 
 }
 
@@ -79,7 +82,9 @@ juego.prototype = {
              /* El primer parametro son los ids que no van a tener colision. El true es que lo demas es colisionable y el tercer parametro es
                 la capa donde se crea la colision */
         
+
             this.pacman = new PACMAN('pacman',this,{x:(14 * 16 ) + 8,y:(17*16) + 8});
+
             //this.pacman2 = new PACMAN('pacman2',this,{x:(14 * 16 ) + 16,y:(18*16) + 16});
             this.cursors = this.input.keyboard.createCursorKeys();
         
@@ -101,9 +106,10 @@ juego.prototype = {
         
         },
         
-        checkKeys: function () {
-            this.pacman.comprobarTeclas(this.cursors);
-        },
+    checkKeys: function () {
+        this.pacman.comprobarTeclas(this.cursors);
+        //this.pacman2.comprobarTeclas(this.cursors);
+    },
 
         update: function(){
         
@@ -125,5 +131,6 @@ juego.prototype = {
         
         }*/
 };
+
 
 game.state.add('Game', juego, true);
