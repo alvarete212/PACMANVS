@@ -42,3 +42,8 @@ INTEGRANTES:
 -INTEGRANTE 2: Iván Críspulo Martín de Eugenio García. 	CORREO: ic.marting@alumnos.urjc.es 	CUENTA EN GITHUB: ivanmartin
 
 -INTEGRANTE 3: Álvaro Jesús Rodríguez Nomparte. 	CORREO: aj.rodriguezn@alumnos.urjc.es 	CUENTA EN GITHUB: alvarete212
+
+PRUEBA DE IMAGEN
+
+![alt text](PANTALLA_2_DESCRIPCCION.png)
+
