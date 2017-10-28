@@ -86,6 +86,7 @@ juego.prototype = {
         
 
             this.pacman = new PACMAN('pacman',this,{x:(14 * 16 ) + 8,y:(17*16) + 8});
+            this.fantasma1 = new FANTASMA1('ghosts',this,{x:80,y:120});
 
             //this.pacman2 = new PACMAN('pacman2',this,{x:(14 * 16 ) + 16,y:(18*16) + 16});
             this.cursors = this.input.keyboard.createCursorKeys();
@@ -119,6 +120,7 @@ juego.prototype = {
         
     checkKeys: function () {
         this.pacman.comprobarTeclas(this.cursors);
+        this.fantasma1.comprobarTeclas(this.cursors);
         //this.pacman2.comprobarTeclas(this.cursors);
     },
 
@@ -127,6 +129,7 @@ juego.prototype = {
             this.scoreText.text = "Score Pacman: " + this.scoreP;
             //this.pacman.comprobarTeclas(this.cursors);
             this.pacman.update();
+            this.fantasma1.update();
             this.checkKeys();
             //this.pacman2.update();
         },

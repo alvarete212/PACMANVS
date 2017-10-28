@@ -1,4 +1,4 @@
-var PACMAN = function (key,game,startpos){
+var FANTASMA1 = function (key,game,startpos){
 
     this.game = game;
     this.key = key;
@@ -40,24 +40,26 @@ var PACMAN = function (key,game,startpos){
 
     ///////ANIMACIONES DE this////////
 
-    this.sprite.animations.add('comer', [0, 1, 2,1], 10, true); //Queremos que se repita en bucle.
-    this.sprite.animations.add('muerte', [3, 4 ,5 ,6, 7, 8, 9, 10, 11, 12, 13], 10, false) //No queremos que se repita en bucle
+    this.sprite.animations.add('derecha', [11], 10, true); 
+    this.sprite.animations.add('arriba', [9], 10, true);
+    this.sprite.animations.add('abajo', [10], 10, true);
+    this.sprite.animations.add('izquierda', [8], 10, true);//Queremos que se repita en bucle.
 
     //////////////////////////////////
 
     this.game.physics.arcade.enable(this.sprite);
     this.sprite.body.setSize(16, 16, 0, 0);
-    this.sprite.play('comer');
+    this.sprite.play('derecha');
 
     //Llamamos al prototipo de this, que tendrá la función de mover.
 
-    this.mover(Phaser.LEFT);
+    this.mover(Phaser.RIGHT);
 
 
 };
 
 
-PACMAN.prototype.mover = function (direccion) {
+FANTASMA1.prototype.mover = function (direccion) {
 
     var velocidad = this.velocidad;
 
@@ -78,27 +80,26 @@ PACMAN.prototype.mover = function (direccion) {
     {
         this.sprite.body.velocity.y = velocidad;
     }
-    //  Reset the scale and angle (PACMAN is facing to the right in the sprite sheet)
-    this.sprite.scale.x = 1;
-    this.sprite.angle = 0;
+    //  Reset the scale and angle (FANTASMA1 is facing to the right in the sprite sheet)
+    this.sprite.play('derecha');
     if (direccion === Phaser.LEFT)
     {
-        this.sprite.scale.x = -1;
+        this.sprite.play('izquierda');
     }
     else if (direccion === Phaser.UP)
     {
-        this.sprite.angle = 270;
+        this.sprite.play('arriba');
     }
     else if (direccion === Phaser.DOWN)
     {
-        this.sprite.angle = 90;
+        this.sprite.play('abajo');
     }
 
     this.actual = direccion;
 
 };
 
-PACMAN.prototype.update = function() {
+FANTASMA1.prototype.update = function() {
     
     
         if(!this.muerto ){
@@ -141,7 +142,7 @@ PACMAN.prototype.update = function() {
             this.mover(Phaser.NONE);
             if(!this.estaMuriendo){
     
-                this.sprite.play("muerte");
+                //this.sprite.play("muerte");
                 this.estaMuriendo = true;
     
             }
@@ -150,7 +151,7 @@ PACMAN.prototype.update = function() {
     
     };
     
-PACMAN.prototype.comprobarTeclas = function(){
+FANTASMA1.prototype.comprobarTeclas = function(){
 
     if (this.game.cursors.j.isDown ||
         this.game.cursors.l.isDown ||
@@ -193,11 +194,11 @@ PACMAN.prototype.comprobarTeclas = function(){
 
 };
 
-PACMAN.prototype.comerDot = function(PACMAN,dot){
+FANTASMA1.prototype.comerDot = function(FANTASMA1,dot){
 
     dot.kill();
 
-    //this.score = PACMAN.score + 1;
+    //this.score = FANTASMA1.score + 1;
     this.game.numDots--; //COMPROBAR SI LAURA LO LLAMA ASÍ EN LA FUNCION GENERAL.
 
     if(this.game.totaldots === 0){
@@ -208,11 +209,11 @@ PACMAN.prototype.comerDot = function(PACMAN,dot){
 
 };
 
-PACMAN.prototype.comerPill = function(PACMAN, pill){
+FANTASMA1.prototype.comerPill = function(FANTASMA1, pill){
 
     pill.kill();
 
-    PACMAN.score = PACMAN.score + 10; //Comprobar si era 10 lo que subíamos
+    FANTASMA1.score = FANTASMA1.score + 10; //Comprobar si era 10 lo que subíamos
     numPills = numPills -1;
 
     entrarPersecucion();
@@ -222,20 +223,20 @@ PACMAN.prototype.comerPill = function(PACMAN, pill){
 //Ahora entramos en la función de giro
 
 
-PACMAN.prototype.girar = function(){
+FANTASMA1.prototype.girar = function(){
 
     var sx = Math.floor(this.sprite.x);
     var sy = Math.floor(this.sprite.y);
 
-    //Tenemos que tener en cuenta que, debido al rápido movimiento de PACMAN, deberemos tener cuidado, porque muchas veces
-    //entre la pulsación y cuando se puede realizar el giro, PACMAN ya puede haber pasado la zona de giro.
+    //Tenemos que tener en cuenta que, debido al rápido movimiento de FANTASMA1, deberemos tener cuidado, porque muchas veces
+    //entre la pulsación y cuando se puede realizar el giro, FANTASMA1 ya puede haber pasado la zona de giro.
 
     if(!this.game.math.fuzzyEqual(sx, this.curva.x, this.treshold) || !this.game.math.fuzzyEqual(sy, this.curva.y, this.treshold))
     {
         return false;
     }
 
-    //Tenemos que alinear el grid donde nos movemos con las posiciones del sprite de PACMAN
+    //Tenemos que alinear el grid donde nos movemos con las posiciones del sprite de FANTASMA1
 
     this.sprite.x = this.curva.x;
     this.sprite.y = this.curva.y;
@@ -250,7 +251,7 @@ PACMAN.prototype.girar = function(){
 
 //Debemos comprobar si se puede girar en la dirección que se le ha pedido
 
-PACMAN.prototype.comprobarDireccion = function(girarA){
+FANTASMA1.prototype.comprobarDireccion = function(girarA){
 
     //console.log("Queremos girar a:" + girarA);
     if(this.girando === girarA || this.direcciones[girarA] === null || this.direcciones[girarA].index !== this.safetile){ //Estamos comprobando que no puede girar hacia la direccion que quiere porque ya está en esa direccion, o no puede.
