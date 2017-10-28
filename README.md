@@ -1,6 +1,8 @@
 ﻿# PACMANVS
 PACMAN GAME FOR NETWORK
 
+![alt text](LOGO.png)
+
 TITULO DEL JUEGO: PAC-MAN VS.
 
 DESCRIPCIÓN DE LA TEMÁTICA DEL JUEGO: ¡PAC-MAN HA VUELTO! Pero adaptándose a las jugabilidades de hoy en día, para dar un cambio fresco y nuevo a sus mecánicas ya conocidas.
@@ -43,7 +45,10 @@ INTEGRANTES:
 
 -INTEGRANTE 3: Álvaro Jesús Rodríguez Nomparte. 	CORREO: aj.rodriguezn@alumnos.urjc.es 	CUENTA EN GITHUB: alvarete212
 
-PRUEBA DE IMAGEN
 
-![alt text](PANTALLA_2_DESCRIPCCION.png)
+﻿# DESCRIPCION DE PANTALLAS
+ 
+Las pantallas y como se consigue acceder a ellases bastante simple. Se ha uilizado como base el PACMAN original, que únicamente mostraba un escenario y pantalla. Por ello, hemos añadido para comenzar partida un botón de comienzo y además, las puntuaciones individuales de cada personaje, porque recordemos que estamos ante un videojuego para 4 personas que se unirán por la red. Tenemos 3 pantallas principales, y se puede acceder a ella tal y como se muestra a continuación.
 
+
+![alt text](DIAGRAMA_PANTALLAS.png)
