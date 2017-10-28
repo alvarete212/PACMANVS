@@ -22,6 +22,8 @@ var juego = function(game){
     this.gridsize = 16;       
     this.threshold = 3;
 
+    this.scoreP = 0;
+    this.scoreF = 0;
     this.game = game;
 
 }
@@ -88,20 +90,29 @@ juego.prototype = {
             //this.pacman2 = new PACMAN('pacman2',this,{x:(14 * 16 ) + 16,y:(18*16) + 16});
             this.cursors = this.input.keyboard.createCursorKeys();
         
+            this.scoreText = this.game.add.text(8, 272, "Score: " + this.scoreP, { fontSize: "16px", fill: "#fff" });
             //Controles pacman1
-            /*this.cursors["w"] = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
+            this.cursors["w"] = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
             this.cursors["a"] = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
             this.cursors["s"] = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
             this.cursors["d"] = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
+
+            //Controles Pacman2
+
+            this.cursors["t"] = this.game.input.keyboard.addKey(Phaser.Keyboard.T);
+            this.cursors["f"] = this.game.input.keyboard.addKey(Phaser.Keyboard.F);
+            this.cursors["g"] = this.game.input.keyboard.addKey(Phaser.Keyboard.G);
+            this.cursors["h"] = this.game.input.keyboard.addKey(Phaser.Keyboard.H);
         
-            //Controles pacman2
+        
+            //Controles fantasma1
             this.cursors["i"] = this.game.input.keyboard.addKey(Phaser.Keyboard.I);
             this.cursors["j"] = this.game.input.keyboard.addKey(Phaser.Keyboard.J);
             this.cursors["k"] = this.game.input.keyboard.addKey(Phaser.Keyboard.K);
-            this.cursors["l"] = this.game.input.keyboard.addKey(Phaser.Keyboard.L);*/
-            //Controles fantasma1
-        
-            //Controles fantasma2
+            this.cursors["l"] = this.game.input.keyboard.addKey(Phaser.Keyboard.L);
+
+            //Controles fantasma2 --> flechas de direccion
+
             
         
         },
@@ -113,6 +124,7 @@ juego.prototype = {
 
         update: function(){
         
+            this.scoreText.text = "Score Pacman: " + this.scoreP;
             //this.pacman.comprobarTeclas(this.cursors);
             this.pacman.update();
             this.checkKeys();

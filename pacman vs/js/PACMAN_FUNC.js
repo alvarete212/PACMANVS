@@ -26,7 +26,6 @@ var PACMAN = function (key,game,startpos){
     this.actual = Phaser.NONE;
     this.girando = Phaser.NONE;
     this.quieroIr = Phaser.NONE;
-    this.score = 0;
     this.keyPressTimer = 0;
     this.KEY_COOLING_DOWN_TIME = 750;
 
@@ -197,7 +196,7 @@ PACMAN.prototype.comerDot = function(PACMAN,dot){
 
     dot.kill();
 
-    //this.score = PACMAN.score + 1;
+    this.game.scoreP ++;
     this.game.numDots--; //COMPROBAR SI LAURA LO LLAMA ASÍ EN LA FUNCION GENERAL.
 
     if(this.game.totaldots === 0){
@@ -212,10 +211,10 @@ PACMAN.prototype.comerPill = function(PACMAN, pill){
 
     pill.kill();
 
-    PACMAN.score = PACMAN.score + 10; //Comprobar si era 10 lo que subíamos
-    numPills = numPills -1;
+    this.game.scoreP += 10; //Comprobar si era 10 lo que subíamos
+    this.game.numPills --;
 
-    entrarPersecucion();
+   // entrarPersecucion();
 
 };
 
