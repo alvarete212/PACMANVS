@@ -151,30 +151,30 @@ PACMAN.prototype.update = function() {
     
 PACMAN.prototype.comprobarTeclas = function(){
 
-    if (this.game.cursors.left.isDown ||
-        this.game.cursors.right.isDown ||
-        this.game.cursors.up.isDown ||
-        this.game.cursors.down.isDown) {
+    if (this.game.cursors.a.isDown ||
+        this.game.cursors.d.isDown ||
+        this.game.cursors.w.isDown ||
+        this.game.cursors.s.isDown) {
         this.keyPressTimer = this.game.time.time + this.KEY_COOLING_DOWN_TIME;
     }
 
-    if(this.game.cursors.left.isDown && this.actual !== Phaser.LEFT){
+    if(this.game.cursors.a.isDown && this.actual !== Phaser.LEFT){
 
         this.quieroIr = Phaser.LEFT;
 
-    }else if(this.game.cursors.right.isDown && this.actual !== Phaser.RIGHT){
+    }else if(this.game.cursors.d.isDown && this.actual !== Phaser.RIGHT){
 
         this.quieroIr = Phaser.RIGHT;
 
     }
 
-    else if(this.game.cursors.up.isDown && this.actual !== Phaser.UP){
+    else if(this.game.cursors.w.isDown && this.actual !== Phaser.UP){
 
         this.quieroIr = Phaser.UP;
 
     }
 
-    else if(this.game.cursors.down.isDown && this.actual !== Phaser.DOWN){
+    else if(this.game.cursors.s.isDown && this.actual !== Phaser.DOWN){
 
         this.quieroIr = Phaser.DOWN;
 
