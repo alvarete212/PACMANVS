@@ -54,8 +54,8 @@ juego.prototype = {
             this.game.load.image("pill", "assets/pill16.png");
             this.game.load.image("dot","assets/dot.png");
             this.game.load.image('tiles', 'assets/pacman-tiles.png');
-            this.game.load.spritesheet('pacman','assets/pacman.png',32,32);
-            this.game.load.spritesheet('pacman2','assets/pacman_2.png',32,32);
+            this.game.load.spritesheet('pacman','assets/pacman asustado.png',32,32);
+            this.game.load.spritesheet('pacman2','assets/pacman_2 asustado.png',32,32);
             this.game.load.spritesheet("ghosts", "assets/ghosts32.png", 32, 32);
             this.game.load.tilemap('map', 'assets/pacman-map.json', null, Phaser.Tilemap.TILED_JSON);
         

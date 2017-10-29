@@ -47,12 +47,13 @@ var PACMAN = function (key,game,startpos){
 
     this.sprite.animations.add('comer', [0, 1, 2,1], 10, true); //Queremos que se repita en bucle.
     this.sprite.animations.add('muerte', [3, 4 ,5 ,6, 7, 8, 9, 10, 11, 12, 13], 10, false) //No queremos que se repita en bucle
+    this.sprite.animations.add('asustado',[14,15,16,15],10,true);
 
     //////////////////////////////////
 
     this.game.physics.arcade.enable(this.sprite);
     this.sprite.body.setSize(16, 16, 0, 0);
-    this.sprite.play('comer');
+    this.sprite.play('asustado');
 
     //Llamamos al prototipo de this, que tendrá la función de mover.
 
