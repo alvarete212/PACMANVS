@@ -1,7 +1,13 @@
 
 
-var game = new Phaser.Game(448, 496, Phaser.AUTO, 'game');
+//var game = new Phaser.Game(448, 496, Phaser.AUTO, 'game');
 
+var puntuacion_pacmans = 0;
+var puntuacion_fantasmas = 0;
+var puntuacion_pacman_uno = 0;
+var puntuacion_pacman_dos = 0;
+var puntuacion_fantasma_uno = 0;
+var puntuacion_fantasma_dos = 0;
 
 var juego = function(game){
 
@@ -34,6 +40,8 @@ var juego = function(game){
     this.tiempo = 0;
     this.final = 120;
     this.contador  = this.final;
+    this.comer;
+    
 }
 
 juego.prototype = {
@@ -58,7 +66,7 @@ juego.prototype = {
             this.game.load.spritesheet('pacman2','assets/pacman_2 asustado.png',32,32);
             this.game.load.spritesheet("ghosts", "assets/ghosts32.png", 32, 32);
             this.game.load.tilemap('map', 'assets/pacman-map.json', null, Phaser.Tilemap.TILED_JSON);
-        
+            this.game.load.audio('comiendo', 'assets/sonidos/pacman_chomp.mp3');
             //Carga de los botones
             //game.load.spritesheet('boton', 'assets/...', 193, 71);
             
@@ -77,7 +85,7 @@ juego.prototype = {
 
             this.timer = this.game.time.create(false);
             this.map = this.add.tilemap('map');
-        
+            this.comer = game.add.audio('comiendo');
             //botonPulsar = game.add.button(game.world.centerX - 95, 400, '...', accionPulsar, this, 2, 1, 0);
             var that = this;
             this.timer.loop(1000,that.updateTimer,this);
@@ -109,6 +117,7 @@ juego.prototype = {
             this.fantasma1 = new FANTASMA1('ghosts',this,{x:300,y:185});
             this.fantasma2 = new FANTASMA2('ghosts',this, {x: 300,y: 280});
             this.cursors = this.input.keyboard.createCursorKeys();
+            this.comer.loopFull(0.6);
         
             this.scoreTextP = this.game.add.text(1, 255, "PacMan" +this.scoreP, { fontSize: "16px", fill: "#fff" });
             this.scoreTextF = this.game.add.text(1, 160, "Ghosts" + this.scoreF, { fontSize: "16px", fill: "#fff" });
@@ -157,9 +166,21 @@ juego.prototype = {
             this.fantasma2.update();
             this.checkKeys();
             console.log("Tiempo global " + this.tiempo );
-            if(this.tiempo === this.final)
+            if(this.tiempo === this.final || this.totaldots === 0){
 
-                this.timer.destroy();
+                    this.timer.destroy();
+                    this.comer.stop();
+                    puntuacion_pacmans = this.scoreP;
+                    puntuacion_fantasmas = this.scoreF;
+                    puntuacion_pacman_uno = this.pacman.score;
+                    puntuacion_pacman_dos = this.pacman2.score;
+                    puntuacion_fantasma_uno = this.fantasma1.score;
+                    puntuacion_fantasma_dos = this.fantasma2.score;
+                    game.state.start("pantallaFinal");
+
+            }
+
+               
 
     },
         
@@ -170,5 +191,5 @@ juego.prototype = {
     },
 
 };
-game.state.add('Game', juego, true);
+//game.state.add('Game', juego, true);
 
