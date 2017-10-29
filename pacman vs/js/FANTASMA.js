@@ -138,7 +138,7 @@ FANTASMA1.prototype.atacar = function(){
 FANTASMA1.prototype.update = function() {
     
     
-        if(this.game.tiempo < this.game.final && this.game.totaldots != 0){
+        if(this.game.tiempo < this.game.final && this.game.totaldots > 0){
     
             this.game.physics.arcade.collide(this.sprite, this.game.layer);
             this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.comerDot, null, this);
@@ -267,14 +267,7 @@ FANTASMA1.prototype.comerDot = function(FANTASMA1,dot){
 
     this.game.scoreF += 100;
     this.score += 100;
-    this.game.numDots--; //COMPROBAR SI LAURA LO LLAMA ASÍ EN LA FUNCION GENERAL.
-
-
-    if(this.game.totaldots === 0){
-
-        dots.callAll('revive');
-
-    }
+    this.game.totaldots--; //COMPROBAR SI LAURA LO LLAMA ASÍ EN LA FUNCION GENERAL.
 
 };
 

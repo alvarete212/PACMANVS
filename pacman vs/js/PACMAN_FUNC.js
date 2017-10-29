@@ -53,7 +53,7 @@ var PACMAN = function (key,game,startpos){
 
     this.game.physics.arcade.enable(this.sprite);
     this.sprite.body.setSize(16, 16, 0, 0);
-    this.sprite.play('asustado');
+    this.sprite.play('comer');
 
     //Llamamos al prototipo de this, que tendrá la función de mover.
 
@@ -129,88 +129,95 @@ PACMAN.prototype.mover = function (direccion) {
 };
 
 PACMAN.prototype.update = function() {
-    
-    
-        if(this.game.tiempo < this.game.final && this.game.numDots != 0 ){
-    
-            this.game.physics.arcade.collide(this.sprite, this.game.layer);
-            this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.comerDot, null, this);
-            this.game.physics.arcade.overlap(this.sprite, this.game.pills, this.comerPill, null, this);
 
-            if(this.huir){
+    if(this.game.tiempo < this.game.final && this.game.totaldots > 0 ){
 
-                this.game.physics.arcade.overlap(this.sprite,this.game.fantasma1.sprite, this.volver,null,this);
-                this.game.physics.arcade.overlap(this.sprite,this.game.fantasma2.sprite, this.volver,null,this);
-            }
-            
+        if(this.game.fantasma1.ataque || this.game.fantasma2.ataque)
+        
+            this.sprite.play('asustado');
+        
+        else
+    
+            this.sprite.play('comer');
 
-            if(this.ataque){
+        this.game.physics.arcade.collide(this.sprite, this.game.layer);
+        this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.comerDot, null, this);
+        this.game.physics.arcade.overlap(this.sprite, this.game.pills, this.comerPill, null, this);
 
-                if(this.tiempo < 10000){
+        if(this.huir){
 
-                    this.game.physics.arcade.overlap(this.sprite,this.game.fantasma1.sprite,this.atacar,null,this);
-                    this.game.physics.arcade.overlap(this.sprite,this.game.fantasma2.sprite,this.atacar,null,this);
-                    var that = this;
-                    this.timer.loop(1000,that.updateCounter,this);
-                    this.timer.start();
-                    //console.log("Tiempo" + this.tiempo);
-
-                }else{
-                    
-                    this.ataque = false;
-                    this.huir = true;
-                    this.tiempo = 0;
-                    this.timer.destroy();
-                    //console.log("Modo normal");
-
-                }
-
-            }
-
-            //this.game.physics.arcade.overlap(this.sprite,this.game.fantasma2.sprite,this.volver,null,this);
-            this.marcador.x = this.game.math.snapToFloor(Math.floor(this.sprite.x), this.gridsize) / this.gridsize;
-            this.marcador.y = this.game.math.snapToFloor(Math.floor(this.sprite.y), this.gridsize) / this.gridsize;
-    
-            if(this.marcador.x < 0){//Si llega al borde sin borde, sale por el otro lado
-    
-                this.sprite.x = this.game.map.widthInPixels - 1;
-    
-            }
-    
-            if(this.marcador.x >= this.game.map.width){ 
-    
-                this.sprite.x = 1;
-    
-            }
-    
-            //Ahora nos creamos las direcciones.
-    
-            this.direcciones[1] = this.game.map.getTileLeft(this.game.layer.index, this.marcador.x, this.marcador.y);
-            this.direcciones[2] = this.game.map.getTileRight(this.game.layer.index, this.marcador.x, this.marcador.y);
-            this.direcciones[3] = this.game.map.getTileAbove(this.game.layer.index, this.marcador.x, this.marcador.y);
-            this.direcciones[4] = this.game.map.getTileBelow(this.game.layer.index, this.marcador.x, this.marcador.y);
-
-            this.comprobarTeclas();
-    
-            if(this.girando !== Phaser.NONE){
-    
-                this.girar();
-    
-            }
-    
-        }else{
-    
-            this.mover(Phaser.NONE);
-            if(!this.estaMuriendo){
-    
-                this.sprite.play("muerte");
-                this.estaMuriendo = true;
-    
-            }
-    
+            this.game.physics.arcade.overlap(this.sprite,this.game.fantasma1.sprite, this.volver,null,this);
+            this.game.physics.arcade.overlap(this.sprite,this.game.fantasma2.sprite, this.volver,null,this);
         }
-    
-    };
+        
+
+        if(this.ataque){
+
+            if(this.tiempo < 10000){
+
+                this.game.physics.arcade.overlap(this.sprite,this.game.fantasma1.sprite,this.atacar,null,this);
+                this.game.physics.arcade.overlap(this.sprite,this.game.fantasma2.sprite,this.atacar,null,this);
+                var that = this;
+                this.timer.loop(1000,that.updateCounter,this);
+                this.timer.start();
+                //console.log("Tiempo" + this.tiempo);
+
+            }else{
+                
+                this.ataque = false;
+                this.huir = true;
+                this.tiempo = 0;
+                this.timer.destroy();
+                //console.log("Modo normal");
+
+            }
+
+        }
+
+        //this.game.physics.arcade.overlap(this.sprite,this.game.fantasma2.sprite,this.volver,null,this);
+        this.marcador.x = this.game.math.snapToFloor(Math.floor(this.sprite.x), this.gridsize) / this.gridsize;
+        this.marcador.y = this.game.math.snapToFloor(Math.floor(this.sprite.y), this.gridsize) / this.gridsize;
+
+        if(this.marcador.x < 0){//Si llega al borde sin borde, sale por el otro lado
+
+            this.sprite.x = this.game.map.widthInPixels - 1;
+
+        }
+
+        if(this.marcador.x >= this.game.map.width){ 
+
+            this.sprite.x = 1;
+
+        }
+
+        //Ahora nos creamos las direcciones.
+
+        this.direcciones[1] = this.game.map.getTileLeft(this.game.layer.index, this.marcador.x, this.marcador.y);
+        this.direcciones[2] = this.game.map.getTileRight(this.game.layer.index, this.marcador.x, this.marcador.y);
+        this.direcciones[3] = this.game.map.getTileAbove(this.game.layer.index, this.marcador.x, this.marcador.y);
+        this.direcciones[4] = this.game.map.getTileBelow(this.game.layer.index, this.marcador.x, this.marcador.y);
+
+        this.comprobarTeclas();
+
+        if(this.girando !== Phaser.NONE){
+
+            this.girar();
+
+        }
+
+    }else{
+
+        this.mover(Phaser.NONE);
+        if(!this.estaMuriendo){
+
+            this.sprite.play('muerte');
+            this.estaMuriendo = true;
+
+        }
+
+    }
+
+};
     
 PACMAN.prototype.comprobarTeclas = function(){
 
@@ -261,13 +268,7 @@ PACMAN.prototype.comerDot = function(PACMAN,dot){
 
     this.game.scoreP += 100;
     this.score += 100;
-    this.game.numDots--; //COMPROBAR SI LAURA LO LLAMA ASÍ EN LA FUNCION GENERAL.
-
-    if(this.game.totaldots === 0){
-
-        dots.callAll('revive');
-
-    }
+    this.game.totaldots--; //COMPROBAR SI LAURA LO LLAMA ASÍ EN LA FUNCION GENERAL.
 
 };
 
