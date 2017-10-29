@@ -71,6 +71,7 @@ FANTASMA1.prototype.updateCounter = function() {
 FANTASMA1.prototype.volver = function(){
 
     this.game.scoreF -= 50;
+    this.score -= 50;
     this.sprite.x = this.startPos.x;
     this.sprite.y = this.startPos.y;
     this.mover(Phaser.RIGHT);
@@ -130,6 +131,7 @@ FANTASMA1.prototype.atacar = function(){
 
     console.log("ataque"); 
     this.game.scoreF += 150;
+    this.score += 150;
 
 
 }
@@ -264,6 +266,7 @@ FANTASMA1.prototype.comerDot = function(FANTASMA1,dot){
     dot.kill();
 
     this.game.scoreF += 100;
+    this.score += 100;
     this.game.numDots--; //COMPROBAR SI LAURA LO LLAMA ASÍ EN LA FUNCION GENERAL.
 
 

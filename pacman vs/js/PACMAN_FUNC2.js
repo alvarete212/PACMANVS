@@ -13,6 +13,7 @@ var PACMAN2 = function (key,game,startpos){
         this.ataque = false;
         this.huir = true;
     
+        this.score = 0;
         //Damos los valores a this del mismo mundo que del mundo game que pasamos
     
         this.gridsize = game.gridsize;
@@ -69,6 +70,7 @@ var PACMAN2 = function (key,game,startpos){
     PACMAN2.prototype.volver = function(){
         
             this.game.scoreP -= 50;
+            this.score -= 50;
             this.sprite.x = this.startPos.x;
             this.sprite.y = this.startPos.y;
             this.mover(Phaser.LEFT);
@@ -79,6 +81,7 @@ var PACMAN2 = function (key,game,startpos){
         
             console.log("ataque"); 
             this.game.scoreP += 150;
+            this.score += 150;
         
         
     };
@@ -256,6 +259,7 @@ var PACMAN2 = function (key,game,startpos){
         dot.kill();
     
         this.game.scoreP += 100;
+        this.score += 100;
         this.game.numDots--; //COMPROBAR SI LAURA LO LLAMA ASÍ EN LA FUNCION GENERAL.
     
         if(this.game.totaldots === 0){

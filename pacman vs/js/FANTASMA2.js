@@ -70,6 +70,7 @@ var FANTASMA2 = function (key,game,startpos){
     FANTASMA2.prototype.volver = function(){
         
         this.game.scoreF -= 50;
+        this.score -= 50;
         this.sprite.x = this.startPos.x;
         this.sprite.y = this.startPos.y;
         this.mover(Phaser.RIGHT);
@@ -129,6 +130,7 @@ var FANTASMA2 = function (key,game,startpos){
     
         console.log("ataque"); 
         this.game.scoreF += 150;
+        this.score += 150;
     
     
     }
@@ -262,6 +264,7 @@ FANTASMA2.prototype.comerDot = function(FANTASMA2,dot){
         dot.kill();
     
         this.game.scoreF += 100;
+        this.score += 100;
         this.game.numDots--; //COMPROBAR SI LAURA LO LLAMA ASÍ EN LA FUNCION GENERAL.
     
         if(this.game.totaldots === 0){
