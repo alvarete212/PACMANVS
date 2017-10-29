@@ -2,12 +2,16 @@ var PACMAN = function (key,game,startpos){
 
     this.game = game;
     this.key = key;
+    this.startPos = startpos;
     //Parametros de this
 
-    this.muerto = false;
     this.velocidad = 30;
     this.estaMuriendo = false;
+
     this.tiempo = 0;
+    this.timer = 0;
+    this.ataque = false;
+    this.huir = true;
 
     //Damos los valores a this del mismo mundo que del mundo game que pasamos
 
@@ -31,8 +35,9 @@ var PACMAN = function (key,game,startpos){
 
     //Ahora creamos el sprite this
 
-    this.sprite = this.game.add.sprite(startpos.x, startpos.y, key, 0);
+    this.sprite = this.game.add.sprite(this.startPos.x, this.startPos.y, key, 0);
 
+    this.timer = this.game.time.create(false);
     //Podemos escalar a this, para que se vea más grande
 
     this.sprite.anchor.setTo(0.5);
@@ -55,6 +60,28 @@ var PACMAN = function (key,game,startpos){
 
 };
 
+PACMAN.prototype.updateCounter = function() {
+    
+        this.tiempo++;
+    
+};
+
+PACMAN.prototype.volver = function(){
+    
+        this.game.scoreP -= 10;
+        this.sprite.x = this.startPos.x;
+        this.sprite.y = this.startPos.y;
+        this.mover(Phaser.LEFT);
+    
+};
+
+PACMAN.prototype.atacar = function(){
+    
+        console.log("ataque"); 
+        this.game.scoreP += 100;
+    
+    
+};
 
 PACMAN.prototype.mover = function (direccion) {
 
@@ -100,11 +127,43 @@ PACMAN.prototype.mover = function (direccion) {
 PACMAN.prototype.update = function() {
     
     
-        if(!this.muerto ){
+        if(this.game.tiempo < 30 && this.game.numDots != 0 ){
     
             this.game.physics.arcade.collide(this.sprite, this.game.layer);
             this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.comerDot, null, this);
             this.game.physics.arcade.overlap(this.sprite, this.game.pills, this.comerPill, null, this);
+
+            if(this.huir){
+
+                this.game.physics.arcade.overlap(this.sprite,this.game.fantasma1.sprite, this.volver,null,this);
+                this.game.physics.arcade.overlap(this.sprite,this.game.fantasma2.sprite, this.volver,null,this);
+            }
+            
+
+            if(this.ataque){
+
+                if(this.tiempo < 10000){
+
+                    this.game.physics.arcade.overlap(this.sprite,this.game.fantasma1.sprite,this.atacar,null,this);
+                    this.game.physics.arcade.overlap(this.sprite,this.game.fantasma2.sprite,this.atacar,null,this);
+                    var that = this;
+                    this.timer.loop(1000,that.updateCounter,this);
+                    this.timer.start();
+                    //console.log("Tiempo" + this.tiempo);
+
+                }else{
+                    
+                    this.ataque = false;
+                    this.huir = true;
+                    this.tiempo = 0;
+                    this.timer.destroy();
+                    //console.log("Modo normal");
+
+                }
+
+            }
+
+            //this.game.physics.arcade.overlap(this.sprite,this.game.fantasma2.sprite,this.volver,null,this);
             this.marcador.x = this.game.math.snapToFloor(Math.floor(this.sprite.x), this.gridsize) / this.gridsize;
             this.marcador.y = this.game.math.snapToFloor(Math.floor(this.sprite.y), this.gridsize) / this.gridsize;
     
@@ -211,7 +270,9 @@ PACMAN.prototype.comerPill = function(PACMAN, pill){
 
     pill.kill();
 
-    this.game.scoreP += 10; //Comprobar si era 10 lo que subíamos
+    this.huir = false;
+    this.ataque = true;
+    this.timer = this.game.time.create(false);
     this.game.numPills --;
 
    // entrarPersecucion();

@@ -1,11 +1,15 @@
 
 
 var game = new Phaser.Game(448, 496, Phaser.AUTO, 'game');
+
+
 var juego = function(game){
 
     this.map = null;
     this.layer = null;
 
+    this.cereza = null;
+    this.fresa = null;
     this.pacman = null;
     this.pacman2 = null;
     this.fantasma1 = null;
@@ -26,6 +30,8 @@ var juego = function(game){
     this.scoreF = 0;
     this.game = game;
 
+    this.timer = 0;
+    this.tiempo = 0;
 }
 
 juego.prototype = {
@@ -57,16 +63,25 @@ juego.prototype = {
         },
         
         
-        create: function(){
+    updateTimer: function(){
+
+        this.tiempo++;
+
+    },
+
+    create: function(){
         
 
+            this.timer = this.game.time.create(false);
             this.map = this.add.tilemap('map');
         
             //botonPulsar = game.add.button(game.world.centerX - 95, 400, '...', accionPulsar, this, 2, 1, 0);
-        
+            var that = this;
+            this.timer.loop(1000,that.updateTimer,this);
             this.map.addTilesetImage('pacman-tiles', 'tiles');
             this.layer = this.map.createLayer('Pacman');
-        
+
+            this.timer.start();
            //game.add.sprite(0,275,'pacman');
             this.dots = this.add.physicsGroup();//bolitas pequeñas
             //this.dots.enableBody = true;
@@ -85,13 +100,15 @@ juego.prototype = {
                 la capa donde se crea la colision */
         
 
+            this.pos = 1;  
             this.pacman = new PACMAN('pacman',this,{x:(14 * 16 ) + 8,y:(17*16) + 8});
+            this.pacman2 = new PACMAN2('pacman2',this,{x:(14 * 16 ) + 8,y:(17*16) + 8});
             this.fantasma1 = new FANTASMA1('ghosts',this,{x:80,y:120});
-
-            //this.pacman2 = new PACMAN('pacman2',this,{x:(14 * 16 ) + 16,y:(18*16) + 16});
+            this.fantasma2 = new FANTASMA2('ghosts',this, {x: 90,y: 125});
             this.cursors = this.input.keyboard.createCursorKeys();
         
-            this.scoreText = this.game.add.text(8, 272, "Score: " + this.scoreP, { fontSize: "16px", fill: "#fff" });
+            this.scoreTextP = this.game.add.text(1, 272, "PacMan" + this.scoreP, { fontSize: "16px", fill: "#fff" });
+            this.scoreTextF = this.game.add.text(1, 170, "Ghosts" + this.scoreF, { fontSize: "16px", fill: "#fff" });
             //Controles pacman1
             this.cursors["w"] = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
             this.cursors["a"] = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
@@ -116,36 +133,36 @@ juego.prototype = {
 
             
         
-        },
+    },
         
     checkKeys: function () {
         this.pacman.comprobarTeclas(this.cursors);
         this.fantasma1.comprobarTeclas(this.cursors);
-        //this.pacman2.comprobarTeclas(this.cursors);
+        this.pacman2.comprobarTeclas(this.cursors);
+        this.fantasma2.comprobarTeclas(this.cursors);
     },
 
-        update: function(){
+    update: function(){
         
-            this.scoreText.text = "Score Pacman: " + this.scoreP;
-            //this.pacman.comprobarTeclas(this.cursors);
+            this.scoreTextP.text = "Pacman: " + this.scoreP;
+            this.scoreTextF.text = "Ghosts: " + this.scoreF;
             this.pacman.update();
             this.fantasma1.update();
+            this.pacman2.update();
+            this.fantasma2.update();
             this.checkKeys();
-            //this.pacman2.update();
-        },
+            console.log("Tiempo global " + this.tiempo );
+            if(this.tiempo === 30)
+
+                this.timer.destroy();
+    },
         
-        accionPulsar: function(){
+    accionPulsar: function(){
             
                 //Lo que queremos que haga cuando se pulsa el botón.
             
-            },
-        
-        
-        /*comerPill: function(){
-        
-        
-        }*/
+    },
+
 };
-
-
 game.state.add('Game', juego, true);
+
