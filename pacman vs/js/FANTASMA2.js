@@ -4,7 +4,7 @@ var FANTASMA2 = function (key,game,startpos){
         this.key = key;
         //Parametros de this
     
-        this.velocidad = 30;
+        this.velocidad = 60;
         this.estaMuriendo = false;
         this.tiempo = 0;
         this.startPos = startpos;
@@ -43,12 +43,12 @@ var FANTASMA2 = function (key,game,startpos){
     
         ///////ANIMACIONES DE this////////
     
-        this.sprite.animations.add('derecha', [11], 10, true); 
-        this.sprite.animations.add('arriba', [9], 10, true);
-        this.sprite.animations.add('abajo', [10], 10, true);
-        this.sprite.animations.add('izquierda', [8], 10, true);//Queremos que se repita en bucle.
+        this.sprite.animations.add('derecha', [3], 10, true); 
+        this.sprite.animations.add('arriba', [1], 10, true);
+        this.sprite.animations.add('abajo', [2], 10, true);
+        this.sprite.animations.add('izquierda', [0], 10, true);//Queremos que se repita en bucle.
         this.sprite.animations.add('huir', [16, 17], 10, true);
-    
+        this.sprite.animations.add('morir', [20], 10, true);
         //////////////////////////////////
     
         this.game.physics.arcade.enable(this.sprite);
@@ -69,7 +69,7 @@ var FANTASMA2 = function (key,game,startpos){
     
     FANTASMA2.prototype.volver = function(){
         
-        this.game.scoreF -= 10;
+        this.game.scoreF -= 50;
         this.sprite.x = this.startPos.x;
         this.sprite.y = this.startPos.y;
         this.mover(Phaser.RIGHT);
@@ -128,14 +128,14 @@ var FANTASMA2 = function (key,game,startpos){
     FANTASMA2.prototype.atacar = function(){
     
         console.log("ataque"); 
-        this.game.scoreF += 100;
+        this.game.scoreF += 150;
     
     
     }
     FANTASMA2.prototype.update = function() {
         
         
-            if(this.game.tiempo < 30 && this.game.totaldots != 0){
+            if(this.game.tiempo < this.game.final && this.game.totaldots != 0){
         
                 this.game.physics.arcade.collide(this.sprite, this.game.layer);
                 this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.comerDot, null, this);
@@ -206,6 +206,7 @@ var FANTASMA2 = function (key,game,startpos){
                 if(!this.estaMuriendo){
         
                     this.estaMuriendo = true;
+                    this.sprite.play('morir');
         
                 }
         
@@ -260,7 +261,7 @@ FANTASMA2.prototype.comerDot = function(FANTASMA2,dot){
     
         dot.kill();
     
-        this.game.scoreF ++;
+        this.game.scoreF += 100;
         this.game.numDots--; //COMPROBAR SI LAURA LO LLAMA ASÍ EN LA FUNCION GENERAL.
     
         if(this.game.totaldots === 0){
@@ -278,7 +279,7 @@ FANTASMA2.prototype.comerDot = function(FANTASMA2,dot){
         this.huir = false;
         this.ataque = true;
         this.timer = this.game.time.create(false);
-        this.game.scoreF += 10; //Comprobar si era 10 lo que subíamos
+        
         this.game.numPills--;
         
     

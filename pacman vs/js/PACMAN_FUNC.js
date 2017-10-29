@@ -5,7 +5,7 @@ var PACMAN = function (key,game,startpos){
     this.startPos = startpos;
     //Parametros de this
 
-    this.velocidad = 30;
+    this.velocidad = 60;
     this.estaMuriendo = false;
 
     this.tiempo = 0;
@@ -68,7 +68,7 @@ PACMAN.prototype.updateCounter = function() {
 
 PACMAN.prototype.volver = function(){
     
-        this.game.scoreP -= 10;
+        this.game.scoreP -= 50;
         this.sprite.x = this.startPos.x;
         this.sprite.y = this.startPos.y;
         this.mover(Phaser.LEFT);
@@ -78,7 +78,7 @@ PACMAN.prototype.volver = function(){
 PACMAN.prototype.atacar = function(){
     
         console.log("ataque"); 
-        this.game.scoreP += 100;
+        this.game.scoreP += 150;
     
     
 };
@@ -127,7 +127,7 @@ PACMAN.prototype.mover = function (direccion) {
 PACMAN.prototype.update = function() {
     
     
-        if(this.game.tiempo < 30 && this.game.numDots != 0 ){
+        if(this.game.tiempo < this.game.final && this.game.numDots != 0 ){
     
             this.game.physics.arcade.collide(this.sprite, this.game.layer);
             this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.comerDot, null, this);
@@ -255,7 +255,7 @@ PACMAN.prototype.comerDot = function(PACMAN,dot){
 
     dot.kill();
 
-    this.game.scoreP ++;
+    this.game.scoreP += 100;
     this.game.numDots--; //COMPROBAR SI LAURA LO LLAMA ASÍ EN LA FUNCION GENERAL.
 
     if(this.game.totaldots === 0){

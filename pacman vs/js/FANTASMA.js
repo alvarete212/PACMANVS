@@ -4,9 +4,9 @@ var FANTASMA1 = function (key,game,startpos){
     this.key = key;
     //Parametros de this
 
-    this.velocidad = 30;
+    this.velocidad = 60;
     this.estaMuriendo = false;
-    this.tiempo = 0;
+    this.tiempoAtaque = 0;
     this.startPos = startpos;
 
     this.timer = 0;
@@ -48,6 +48,7 @@ var FANTASMA1 = function (key,game,startpos){
     this.sprite.animations.add('abajo', [10], 10, true);
     this.sprite.animations.add('izquierda', [8], 10, true);//Queremos que se repita en bucle.
     this.sprite.animations.add('huir', [16, 17], 10, true);
+    this.sprite.animations.add('morir', [20], 10, true);
 
     //////////////////////////////////
 
@@ -63,13 +64,13 @@ var FANTASMA1 = function (key,game,startpos){
 };
 FANTASMA1.prototype.updateCounter = function() {
     
-        this.tiempo++;
+        this.tiempoAtaque++;
     
     }
 
 FANTASMA1.prototype.volver = function(){
 
-    this.game.scoreF -= 10;
+    this.game.scoreF -= 50;
     this.sprite.x = this.startPos.x;
     this.sprite.y = this.startPos.y;
     this.mover(Phaser.RIGHT);
@@ -128,14 +129,14 @@ FANTASMA1.prototype.mover = function (direccion) {
 FANTASMA1.prototype.atacar = function(){
 
     console.log("ataque"); 
-    this.game.scoreF += 100;
+    this.game.scoreF += 150;
 
 
 }
 FANTASMA1.prototype.update = function() {
     
     
-        if(this.game.tiempo < 50 && this.game.totaldots != 0){
+        if(this.game.tiempo < this.game.final && this.game.totaldots != 0){
     
             this.game.physics.arcade.collide(this.sprite, this.game.layer);
             this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.comerDot, null, this);
@@ -148,21 +149,21 @@ FANTASMA1.prototype.update = function() {
                 
             if(this.ataque){
 
-                if(this.tiempo < 10000){
+                if(this.tiempoAtaque < 10000){
 
                     this.game.physics.arcade.overlap(this.sprite,this.game.pacman.sprite,this.atacar,null,this);
                     this.game.physics.arcade.overlap(this.sprite,this.game.pacman2.sprite,this.atacar,null,this);
                     var that = this;
                     this.timer.loop(1000,that.updateCounter,this);
                     this.timer.start();
-                    //console.log("Tiempo" + this.tiempo);
+                    //console.log("Tiempo" + this.tiempoAtaque);
 
                 }else{
                     
                     this.ataque = false;
                     this.huir = true;
                     this.timer.destroy();
-                    this.tiempo = 0;
+                    this.tiempoAtaque = 0;
                     //console.log("Modo normal");
                     
 
@@ -207,6 +208,7 @@ FANTASMA1.prototype.update = function() {
             if(!this.estaMuriendo){
     
                 this.estaMuriendo = true;
+                this.sprite.play('morir');
     
             }
     
@@ -261,8 +263,9 @@ FANTASMA1.prototype.comerDot = function(FANTASMA1,dot){
 
     dot.kill();
 
-    this.game.scoreF ++;
+    this.game.scoreF += 100;
     this.game.numDots--; //COMPROBAR SI LAURA LO LLAMA ASÍ EN LA FUNCION GENERAL.
+
 
     if(this.game.totaldots === 0){
 
@@ -279,7 +282,7 @@ FANTASMA1.prototype.comerPill = function(FANTASMA1, pill){
     this.huir = false;
     this.ataque = true;
     this.timer = this.game.time.create(false);
-    this.game.scoreF += 10; //Comprobar si era 10 lo que subíamos
+    
     this.game.numPills--;
     
 

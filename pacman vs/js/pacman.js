@@ -32,6 +32,8 @@ var juego = function(game){
 
     this.timer = 0;
     this.tiempo = 0;
+    this.final = 120;
+    this.contador  = this.final;
 }
 
 juego.prototype = {
@@ -66,6 +68,7 @@ juego.prototype = {
     updateTimer: function(){
 
         this.tiempo++;
+        this.contador--;
 
     },
 
@@ -100,15 +103,16 @@ juego.prototype = {
                 la capa donde se crea la colision */
         
 
-            this.pos = 1;  
-            this.pacman = new PACMAN('pacman',this,{x:(14 * 16 ) + 8,y:(17*16) + 8});
-            this.pacman2 = new PACMAN2('pacman2',this,{x:(14 * 16 ) + 8,y:(17*16) + 8});
-            this.fantasma1 = new FANTASMA1('ghosts',this,{x:80,y:120});
-            this.fantasma2 = new FANTASMA2('ghosts',this, {x: 90,y: 125});
+              
+            this.pacman = new PACMAN('pacman',this,{x:148,y:185});
+            this.pacman2 = new PACMAN2('pacman2',this,{x:148,y:280});
+            this.fantasma1 = new FANTASMA1('ghosts',this,{x:300,y:185});
+            this.fantasma2 = new FANTASMA2('ghosts',this, {x: 300,y: 280});
             this.cursors = this.input.keyboard.createCursorKeys();
         
-            this.scoreTextP = this.game.add.text(1, 272, "PacMan" + this.scoreP, { fontSize: "16px", fill: "#fff" });
-            this.scoreTextF = this.game.add.text(1, 170, "Ghosts" + this.scoreF, { fontSize: "16px", fill: "#fff" });
+            this.scoreTextP = this.game.add.text(1, 255, "PacMan" +this.scoreP, { fontSize: "16px", fill: "#fff" });
+            this.scoreTextF = this.game.add.text(1, 160, "Ghosts" + this.scoreF, { fontSize: "16px", fill: "#fff" });
+            this.contadorTiempo = this.game.add.text(180, 1, "Contador" + this.contador, {fontSize: "16px", fill: "#fff"});
             //Controles pacman1
             this.cursors["w"] = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
             this.cursors["a"] = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
@@ -144,17 +148,19 @@ juego.prototype = {
 
     update: function(){
         
-            this.scoreTextP.text = "Pacman: " + this.scoreP;
-            this.scoreTextF.text = "Ghosts: " + this.scoreF;
+            this.scoreTextP.text = "Pacman: "+"\n" + this.scoreP;
+            this.scoreTextF.text = "Ghosts: "+"\n" + this.scoreF;
+            this.contadorTiempo.text = "Tiempo: " + this.contador;
             this.pacman.update();
             this.fantasma1.update();
             this.pacman2.update();
             this.fantasma2.update();
             this.checkKeys();
             console.log("Tiempo global " + this.tiempo );
-            if(this.tiempo === 30)
+            if(this.tiempo === this.final)
 
                 this.timer.destroy();
+
     },
         
     accionPulsar: function(){
