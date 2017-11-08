@@ -1,0 +1,3 @@
+-Como crear mapas basados en tiles y en formato JSON: https://www.codeandweb.com/texturepacker/tutorials/creating-spritesheets-for-phaser-with-texturepacker
+-Como cargar archivos JSON en PHASER: http://examples.phaser.io/_site/view_full.html?d=loader&f=load+tilemap+json.js&t=load%20tilemap%20json
+-Info sobre JSON: http://www.html5gamedevs.com/topic/7102-how-to-use-tiled-map-editor-with-phaser/
