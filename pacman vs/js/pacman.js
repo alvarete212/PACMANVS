@@ -38,7 +38,7 @@ var juego = function(game){
 
     this.timer = 0;
     this.tiempo = 0;
-    this.final = 120;
+    this.final = 5;
     this.contador  = this.final;
     this.comer;
     
@@ -176,8 +176,28 @@ juego.prototype = {
                     puntuacion_pacman_dos = this.pacman2.score;
                     puntuacion_fantasma_uno = this.fantasma1.score;
                     puntuacion_fantasma_dos = this.fantasma2.score;
-                    game.state.start("pantallaFinal");
 
+                    $.ajax({
+
+                        method:"POST",
+                        url: "http://localhost:8080/subirPuntuacion",
+                        data: JSON.stringify({puntuacion_pacmans, puntuacion_fantasmas}),
+                        processData: false,
+                        headers: {
+
+                            "Content-type":"application/json"
+
+                        }
+                        }).done(function(data, textStatus, jqXHR){
+                            console.log(textStatus+" " + jqXHR.statusCode());
+                        }).fail(function(data, textStatus, jqXHR){
+
+                            console.log(textStatus + " " + jqXHR.statusCode());
+
+                    });
+
+                    game.state.start("pantallaFinal");
+      
             }
 
                
