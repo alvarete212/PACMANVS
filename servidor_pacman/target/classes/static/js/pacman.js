@@ -2,12 +2,12 @@
 
 //var game = new Phaser.Game(448, 496, Phaser.AUTO, 'game');
 
-var puntuacion_pacmans = 0;
-var puntuacion_fantasmas = 0;
-var puntuacion_pacman_uno = 0;
-var puntuacion_pacman_dos = 0;
-var puntuacion_fantasma_uno = 0;
-var puntuacion_fantasma_dos = 0;
+var puntuacion_pacmans;
+var puntuacion_fantasmas;
+var puntuacion_pacman_uno;
+var puntuacion_pacman_dos;
+var puntuacion_fantasma_uno;
+var puntuacion_fantasma_dos;
 
 var juego = function(game){
 
@@ -32,14 +32,14 @@ var juego = function(game){
     this.gridsize = 16;       
     this.threshold = 3;
 
-    this.scoreP = 0;
-    this.scoreF = 0;
+    this.scoreP;
+    this.scoreF;
     this.game = game;
 
     this.timer = 0;
     this.tiempo = 0;
-    this.final = 120;
-    this.contador  = this.final;
+    this.final = 5;
+    this.contador;
     this.comer;
     
 }
@@ -83,7 +83,17 @@ juego.prototype = {
     create: function(){
         
 
+            this.contador = this.final;
             this.timer = this.game.time.create(false);
+
+            this.scoreP = 0;
+            this.scoreF = 0;
+            puntuacion_pacmans = 0;
+            puntuacion_fantasmas = 0;
+            puntuacion_pacman_uno = 0;
+            puntuacion_pacman_dos = 0;
+            puntuacion_fantasma_uno = 0;
+            puntuacion_fantasma_dos = 0;
             this.map = this.add.tilemap('map');
             this.comer = game.add.audio('comiendo');
             //botonPulsar = game.add.button(game.world.centerX - 95, 400, '...', accionPulsar, this, 2, 1, 0);
@@ -176,8 +186,30 @@ juego.prototype = {
                     puntuacion_pacman_dos = this.pacman2.score;
                     puntuacion_fantasma_uno = this.fantasma1.score;
                     puntuacion_fantasma_dos = this.fantasma2.score;
-                    game.state.start("pantallaFinal");
 
+                    $.ajax({
+
+                        method:"PUT",
+                        url: "http://localhost:8080/subirPuntuacion",
+                        data: JSON.stringify({puntuacion_pacmans, puntuacion_fantasmas,puntuacion_pacman_uno,puntuacion_pacman_dos,puntuacion_fantasma_uno,puntuacion_fantasma_dos}),
+                        processData: false,
+                        headers: {
+
+                            "Content-type":"application/json"
+
+                        }
+                        }).done(function(data, textStatus, jqXHR){
+
+                            console.log(textStatus+" " + jqXHR.statusCode());
+                            
+                        }).fail(function(data, textStatus, jqXHR){
+
+                            console.log(textStatus + " " + jqXHR.statusCode());
+
+                    });
+
+                    game.state.start("pantallaFinal");
+      
             }
 
                
