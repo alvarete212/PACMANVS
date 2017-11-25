@@ -60,6 +60,6 @@ final.prototype = {
 
 	},
 	playTheGame: function(){
-		this.game.state.start("menu");
+		this.game.state.start("pantallaPuntuaciones");
 	}
 }

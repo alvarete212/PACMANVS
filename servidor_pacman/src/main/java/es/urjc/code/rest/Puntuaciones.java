@@ -12,7 +12,7 @@ import java.io.PrintStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.json.simple.parser.ParseException;
+//import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -97,7 +97,7 @@ public class Puntuaciones {
 
     @GetMapping("/actualizarPuntuacion")
 
-    public String puntuacion() throws ParseException, FileNotFoundException{
+    public String puntuacion() {
         
         String cadena = null;
         
