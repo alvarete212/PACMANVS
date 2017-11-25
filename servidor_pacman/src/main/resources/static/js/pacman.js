@@ -187,11 +187,13 @@ juego.prototype = {
                     puntuacion_fantasma_uno = this.fantasma1.score;
                     puntuacion_fantasma_dos = this.fantasma2.score;
 
+                    //var puntos = {puntuacion_pacmans,puntuacion_fantasmas};
+
                     $.ajax({
 
-                        method:"PUT",
+                        method:"POST",
                         url: "http://localhost:8080/subirPuntuacion",
-                        data: JSON.stringify({puntuacion_pacmans, puntuacion_fantasmas,puntuacion_pacman_uno,puntuacion_pacman_dos,puntuacion_fantasma_uno,puntuacion_fantasma_dos}),
+                        data: JSON.stringify({puntuacion_pacmans,puntuacion_fantasmas}),
                         processData: false,
                         headers: {
 

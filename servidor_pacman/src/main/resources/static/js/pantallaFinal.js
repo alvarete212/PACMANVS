@@ -1,7 +1,7 @@
 var final = function(game){
 	//console.log("%cStarting my awesome game", "color:white; background:red");
 };
-
+var dato;
 final.prototype = {
 	preload: function(){
 
@@ -28,7 +28,36 @@ final.prototype = {
         var playButton = this.game.add.button(230,390,"boton",this.playTheGame,this)
         playButton.scale.x = 0.7;
         playButton.scale.y = 0.7;
-		playButton.anchor.setTo(0.5,0.5);
+        playButton.anchor.setTo(0.5,0.5);
+        
+        var obj = null;
+
+       $.ajax({
+            
+            method:"GET",
+            url: "http://localhost:8080/actualizarPuntuacion",          
+            processData: false,
+            headers: {
+
+                "Content-type":"application/json"
+
+            }
+            }).done(function(data, textStatus, jqXHR){
+                dato = data;
+                dato.array.forEach(function(element) {
+                    
+                }, this);
+                console.log(textStatus+" " + jqXHR.statusCode());
+                this.score = game.add.text(1, 255, "PacMan" + dato.puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
+                this.score.text = "Puntos: "+"\n" + dato.puntuacion_pacmans + dato.puntuacion_fantasmas;
+                
+            }).fail(function(data, textStatus, jqXHR){
+
+                console.log(textStatus + " " + jqXHR.statusCode());
+
+        });
+        
+
 	},
 	playTheGame: function(){
 		this.game.state.start("menu");
