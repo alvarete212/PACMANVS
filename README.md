@@ -104,8 +104,12 @@ Las pantallas y como se consigue acceder a ellases bastante simple. Se ha uiliza
 
 ![alt text](diagramas_pantallas2.jpg)
 
+Actualización: Se añade una pantalla adicional una vez se finaliza la partida, en el que se mostrarán las últimas tres partidas jugadas.
+
 **PANTALLAS FINALES**
 
 Una vez terminado el juego, podemos ver las diferentes pantallas que se muestran. La funcionalidad no cambia con respecto al diagrama anteriormente presentado, por lo que la funcionalidad es la misma. Se muestra ya con los cambios gráficos finales. Si fuese necesario, puede sufrir cambios debido a la integración en diferentes equipos.
 
 ![alt text](diagramas_pantallas_imagenes.png)
+
+Actualización: Se ha añadido la imagen final correspondiente a la pantalla de puntuaciones.
