@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class Puntuaciones {
+public class PuntuacionesController {
 
     @Autowired
     static Puntuacion ptos;
-    static Gson gson = new GsonBuilder().setPrettyPrinting().create();;
+    static Gson gson = new GsonBuilder().setPrettyPrinting().create();
     static List<Puntuacion> puntos = new ArrayList();
     
     public static void puntuaciones() throws IOException{
@@ -33,7 +33,7 @@ public class Puntuaciones {
         añadirFichero(cadena);
       
     }
-    
+   
     public static void añadirFichero(String c) throws FileNotFoundException, IOException{
         
         try{
@@ -58,23 +58,24 @@ public class Puntuaciones {
         
         try{
 
-            File json = new File("puntuaciones.json");  
+            File json = new File("puntuaciones.json"); //Contiene el fichero 
             ptos = gson.fromJson(data, Puntuacion.class);// data = los datos procedentes de javascript, se guardan en una variable del tipo Puntuacion
-             
-            if(json.exists()){ //el fichero ya estaba creado
+            //Datos de javascript se mapean en Puntuacion.class, de forma que quedan almacenados en ptos 
+            
+            if(json.exists()){ //el fichero ya estaba creado 
 
                 if(puntos.isEmpty()){ //Si la lista esta vacia, la llenamos con los valores del fichero
 
                     FileReader archivo = new FileReader("puntuaciones.json");
                     BufferedReader br = new BufferedReader(archivo);
-                    java.lang.reflect.Type tipoListaPuntuacion = new TypeToken<List<Puntuacion>>(){}.getType();
-                    puntos = gson.fromJson(br, tipoListaPuntuacion);
+                    java.lang.reflect.Type tipoListaPuntuacion = new TypeToken<List<Puntuacion>>(){}.getType();//Separa los objetos y los mete en la lista
+                    puntos = gson.fromJson(br, tipoListaPuntuacion);//los mete aqui 
                     
                 }
                 
             }
             
-            puntos.add(ptos);//añadimos la nueva puntuacion de la partida
+            puntos.add(ptos);//añadimos la nueva puntuacion de la partida 
 
             puntuaciones();
                  

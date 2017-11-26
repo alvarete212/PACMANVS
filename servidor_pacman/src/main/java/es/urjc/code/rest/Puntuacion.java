@@ -6,16 +6,17 @@ public class Puntuacion {
     private String puntuacion_fantasmas;
     
     //private List<String> puntos = new ArrayList();
+   
 
     public void setPuntuacion(String[] puntos){
     
         puntuacion_pacmans = puntos[0];
         puntuacion_fantasmas = puntos[1];
-    
+        
     }
-    
+   
     public String[] getPuntuacion(){ 
-
+    
         String[] puntos = new String[2];
         
         puntos[0] = puntuacion_pacmans;
@@ -38,10 +39,10 @@ public class Puntuacion {
         List<String> nueva = new ArrayList();
         nueva = this.puntos;
         for(String item: pts.getPuntuaciones()){
-        
+    
             nueva.add(item);
         
-        }
+}
     
         this.puntos = nueva;
         
