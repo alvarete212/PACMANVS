@@ -41,22 +41,22 @@ puntuaciones.prototype = {
                 if(dato.length === 2){
                                     
                                     //this.puntuacionUnica = game.add.text(0, 0, "Partida 1" + dato[0].puntuacion_pacmans, { fontSize: "16px", fill: "#fff" });
-                                    this.prueba = game.add.text(70,90, "Partida 1: PACMANS: " +dato[1].puntuacion_pacmans+ " Fantasmas: "+dato[1].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
-                                    this.prueba = game.add.text(70,120, "Partida 2: PACMANS: " +dato[0].puntuacion_pacmans+ " Fantasmas: "+dato[0].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
+                                    this.prueba = game.add.text(70,90, "Partida 2: PACMANS: " +dato[1].puntuacion_pacmans+ " Fantasmas: "+dato[1].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
+                                    this.prueba = game.add.text(70,120, "Partida 1: PACMANS: " +dato[0].puntuacion_pacmans+ " Fantasmas: "+dato[0].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
                                 }
                 if(dato.length === 3){
                                     
                                     //this.puntuacionUnica = game.add.text(0, 0, "Partida 1" + dato[0].puntuacion_pacmans, { fontSize: "16px", fill: "#fff" });
-                                    this.prueba = game.add.text(70,90, "Partida 1: PACMANS: " +dato[2].puntuacion_pacmans+ " Fantasmas: "+dato[2].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
+                                    this.prueba = game.add.text(70,90, "Partida 3: PACMANS: " +dato[2].puntuacion_pacmans+ " Fantasmas: "+dato[2].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
                                     this.prueba = game.add.text(70,120, "Partida 2: PACMANS: " +dato[1].puntuacion_pacmans+ " Fantasmas: "+dato[1].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
-                                    this.prueba = game.add.text(70,150, "Partida 3: PACMANS: " +dato[0].puntuacion_pacmans+ " Fantasmas: "+dato[0].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
+                                    this.prueba = game.add.text(70,150, "Partida 1: PACMANS: " +dato[0].puntuacion_pacmans+ " Fantasmas: "+dato[0].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
                                 }
 
                 if(dato.length > 3){
                                     
                                     var altura = 90;
                                     for(var i = dato.length-1; i>dato.length-4; i--){
-                                    this.prueba = game.add.text(70,altura, "Partida " +i+": PACMANS: " +dato[i].puntuacion_pacmans+ " Fantasmas: "+dato[i].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
+                                    this.prueba = game.add.text(70,altura, "Partida " +(i+1)+": PACMANS: " +dato[i].puntuacion_pacmans+ " Fantasmas: "+dato[i].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
                                     altura = altura + 30;
                                     }
                                 }
