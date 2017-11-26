@@ -119,3 +119,30 @@ Actualización: Se ha añadido la imagen final correspondiente a la pantalla de 
 El siguiente diagrama UML del juego. Se compone de las clases Puntuacion, PuntuacionesController, RestEjem1bApplication y las asociaciones que se establecen entre ellas. Se han incluido los métodos POST y GET porque se consideran importantes dentro de lo que es el uso de la aplicación.
 
 ![alt text](diagramaUMLPacman.png)
+
+**INSTRUCCIONES DE EJECUCIÓN**
+
+**Para ejecutar el juego se deben seguir los siguientes pasos:**
+
+1.-Descomprimir el .zip correspondiente al repositorio
+
+2.-Disponer los archivos en la ruta del ordenador deseada.
+
+3.-Ir a la ruta "PACMANVS\servidor_pacman\target",
+
+4.-Ejecutar el archivo pacmanvs-v2.0.jar
+
+5.-Ejecutar el explorador web(preferentemente Google Chrome)
+
+6.-Insertar esta URL: localhost:8080/pacman.html
+
+**Si se produce algún fallo:** 
+
+1.- Comprobar que se tiene descargado jre 1.8 de java.
+
+2.-Descomprimir libreriaGson.zip, situado en la raíz del repositorio.
+
+3.-Copiar los archivos en la siguiente ruta: C:\Program Files\Java\jre1.8.0_151\lib\ext
+
+4.-Volver a ejecutar el juego.
+
