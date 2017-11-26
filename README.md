@@ -102,10 +102,10 @@ obtenido también cada jugador de forma individual, aunque está pendiente de te
 Las pantallas y como se consigue acceder a ellases bastante simple. Se ha uilizado como base el PACMAN original, que únicamente mostraba un escenario y pantalla. Por ello, hemos añadido para comenzar partida un botón de comienzo y además, las puntuaciones individuales de cada personaje, porque recordemos que estamos ante un videojuego para 4 personas que se unirán por la red. Tenemos 3 pantallas principales, y se puede acceder a ella tal y como se muestra a continuación.
 
 
-![alt text](DIAGRAMA_PANTALLAS.png)
+![alt text](diagrama_pantallas2.jpg)
 
 **PANTALLAS FINALES**
 
 Una vez terminado el juego, podemos ver las diferentes pantallas que se muestran. La funcionalidad no cambia con respecto al diagrama anteriormente presentado, por lo que la funcionalidad es la misma. Se muestra ya con los cambios gráficos finales. Si fuese necesario, puede sufrir cambios debido a la integración en diferentes equipos.
 
-![alt text](DIAGRAMA_IMG_FINAL.png)
+![alt text](diagrama_pantallas_imagenes.png)
