@@ -113,3 +113,9 @@ Una vez terminado el juego, podemos ver las diferentes pantallas que se muestran
 ![alt text](diagramas_pantallas_imagenes.png)
 
 Actualización: Se ha añadido la imagen final correspondiente a la pantalla de puntuaciones.
+
+**DIAGRAMA UML**
+
+El siguiente diagrama UML del juego. Se compone de las clases Puntuacion, PuntuacionesController, RestEjem1bApplication y las asociaciones que se establecen entre ellas. Se han incluido los métodos POST y GET porque se consideran importantes dentro de lo que es el uso de la aplicación.
+
+![alt text](diagramaUMLPacman.png)
