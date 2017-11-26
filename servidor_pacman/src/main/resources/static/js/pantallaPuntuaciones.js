@@ -6,7 +6,7 @@ var puntuaciones = function(game){
 puntuaciones.prototype = {
 	preload: function(){
 
-        game.load.image('botonFinal', 'assets/boton_nueva_partida.png', 193, 71);
+        game.load.image('botonFinal', 'assets/boton_volver.png', 100, 71);
     
     },
 
@@ -32,24 +32,25 @@ puntuaciones.prototype = {
                 //this.score.text = "Puntos: "+"\n" + dato[1].puntuacion_pacmans;
                 console.log(textStatus+" " + jqXHR.statusCode());
                 
+                this.prueba = game.add.text(120,50, "PUNTUACIONES ", { fontSize: "24px", fill: "#fff" });
                 if(dato.length === 1){
                     
                                     //this.puntuacionUnica = game.add.text(0, 0, "Partida 1" + dato[0].puntuacion_pacmans, { fontSize: "16px", fill: "#fff" });
-                                    this.prueba = game.add.text(70,90, "Partida Actual: PACMANS: " +dato[0].puntuacion_pacmans+ " Fantasmas: "+dato[0].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
+                                    this.prueba = game.add.text(70,110, "Partida Actual: PACMANS: " +dato[0].puntuacion_pacmans+ " Fantasmas: "+dato[0].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
                                 }
 
                 if(dato.length === 2){
                                     
                                     //this.puntuacionUnica = game.add.text(0, 0, "Partida 1" + dato[0].puntuacion_pacmans, { fontSize: "16px", fill: "#fff" });
-                                    this.prueba = game.add.text(70,90, "Partida 2: PACMANS: " +dato[1].puntuacion_pacmans+ " Fantasmas: "+dato[1].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
-                                    this.prueba = game.add.text(70,120, "Partida 1: PACMANS: " +dato[0].puntuacion_pacmans+ " Fantasmas: "+dato[0].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
+                                    this.prueba = game.add.text(70,110, "Partida 2: PACMANS: " +dato[1].puntuacion_pacmans+ " Fantasmas: "+dato[1].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
+                                    this.prueba = game.add.text(70,150, "Partida 1: PACMANS: " +dato[0].puntuacion_pacmans+ " Fantasmas: "+dato[0].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
                                 }
                 if(dato.length === 3){
                                     
                                     //this.puntuacionUnica = game.add.text(0, 0, "Partida 1" + dato[0].puntuacion_pacmans, { fontSize: "16px", fill: "#fff" });
-                                    this.prueba = game.add.text(70,90, "Partida 3: PACMANS: " +dato[2].puntuacion_pacmans+ " Fantasmas: "+dato[2].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
-                                    this.prueba = game.add.text(70,120, "Partida 2: PACMANS: " +dato[1].puntuacion_pacmans+ " Fantasmas: "+dato[1].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
-                                    this.prueba = game.add.text(70,150, "Partida 1: PACMANS: " +dato[0].puntuacion_pacmans+ " Fantasmas: "+dato[0].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
+                                    this.prueba = game.add.text(70,110, "Partida 3: PACMANS: " +dato[2].puntuacion_pacmans+ " Fantasmas: "+dato[2].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
+                                    this.prueba = game.add.text(70,150, "Partida 2: PACMANS: " +dato[1].puntuacion_pacmans+ " Fantasmas: "+dato[1].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
+                                    this.prueba = game.add.text(70,180, "Partida 1: PACMANS: " +dato[0].puntuacion_pacmans+ " Fantasmas: "+dato[0].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
                                 }
 
                 if(dato.length > 3){
@@ -71,9 +72,9 @@ puntuaciones.prototype = {
 
 
 
-    var playButton3 = this.game.add.button(67,390,"botonFinal",this.goMenu,this)
-    playButton3.scale.x = 0.6;
-    playButton3.scale.y = 0.6;
+    var playButton3 = this.game.add.button(150,390,"botonFinal",this.goMenu,this)
+    playButton3.scale.x = 0.4;
+    playButton3.scale.y = 0.4;
     
 
     },

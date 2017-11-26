@@ -14,8 +14,6 @@ var juego = function(game){
     this.map = null;
     this.layer = null;
 
-    this.cereza = null;
-    this.fresa = null;
     this.pacman = null;
     this.pacman2 = null;
     this.fantasma1 = null;
@@ -37,7 +35,7 @@ var juego = function(game){
     this.game = game;
 
     this.timer = 0;
-    this.tiempo = 0;
+    this.tiempo;
     this.final = 5;
     this.contador;
     this.comer;
@@ -83,6 +81,7 @@ juego.prototype = {
     create: function(){
         
 
+            this.tiempo = 0;
             this.contador = this.final;
             this.timer = this.game.time.create(false);
 
@@ -119,9 +118,7 @@ juego.prototype = {
             this.map.setCollisionByExclusion([this.safetile], true, this.layer);
              /* El primer parametro son los ids que no van a tener colision. El true es que lo demas es colisionable y el tercer parametro es
                 la capa donde se crea la colision */
-        
 
-              
             this.pacman = new PACMAN('pacman',this,{x:148,y:185});
             this.pacman2 = new PACMAN2('pacman2',this,{x:148,y:280});
             this.fantasma1 = new FANTASMA1('ghosts',this,{x:300,y:185});
@@ -154,8 +151,6 @@ juego.prototype = {
 
             //Controles fantasma2 --> flechas de direccion
 
-            
-        
     },
         
     checkKeys: function () {
@@ -186,8 +181,6 @@ juego.prototype = {
                     puntuacion_pacman_dos = this.pacman2.score;
                     puntuacion_fantasma_uno = this.fantasma1.score;
                     puntuacion_fantasma_dos = this.fantasma2.score;
-
-                    //var puntos = {puntuacion_pacmans,puntuacion_fantasmas};
 
                     $.ajax({
 

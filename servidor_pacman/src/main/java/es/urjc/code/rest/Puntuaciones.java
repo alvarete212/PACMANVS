@@ -38,7 +38,7 @@ public class Puntuaciones {
         
         try{
 
-            PrintStream lectura = new PrintStream(new FileOutputStream("prueba.json"),true);
+            PrintStream lectura = new PrintStream(new FileOutputStream("puntuaciones.json"),true);
             lectura.print(c);
             lectura.close();
 
@@ -58,14 +58,14 @@ public class Puntuaciones {
         
         try{
 
-            File json = new File("prueba.json");  
+            File json = new File("puntuaciones.json");  
             ptos = gson.fromJson(data, Puntuacion.class);// data = los datos procedentes de javascript, se guardan en una variable del tipo Puntuacion
              
             if(json.exists()){ //el fichero ya estaba creado
 
                 if(puntos.isEmpty()){ //Si la lista esta vacia, la llenamos con los valores del fichero
 
-                    FileReader archivo = new FileReader("prueba.json");
+                    FileReader archivo = new FileReader("puntuaciones.json");
                     BufferedReader br = new BufferedReader(archivo);
                     java.lang.reflect.Type tipoListaPuntuacion = new TypeToken<List<Puntuacion>>(){}.getType();
                     puntos = gson.fromJson(br, tipoListaPuntuacion);
@@ -105,7 +105,7 @@ public class Puntuaciones {
             
             if(puntos.isEmpty()){ // Si la lista esta vacia, la llenamos con los valores del fichero
 
-                FileReader archivo = new FileReader("prueba.json");
+                FileReader archivo = new FileReader("puntuaciones.json");
                 BufferedReader br = new BufferedReader(archivo);
                 java.lang.reflect.Type tipoListaPuntuacion = new TypeToken<List<Puntuacion>>(){}.getType();
                 puntos = gson.fromJson(br, tipoListaPuntuacion);

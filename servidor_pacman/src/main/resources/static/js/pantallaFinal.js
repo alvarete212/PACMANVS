@@ -8,7 +8,8 @@ final.prototype = {
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         this.scale.pageAlignHorizontally = true;
         this.scale.pageAlignVertically = true;
-        game.load.image('boton', 'assets/boton_nueva_partida.png', 193, 71);
+        game.load.image('boton', 'assets/boton_nueva_partida.png', 193, 50);
+        game.load.image('boton_puntuacion', 'assets/boton_puntuaciones.png', 350, 50);
        
     
     },
@@ -22,15 +23,12 @@ final.prototype = {
         var puntosF1 = game.add.text(100, 220,'FANTASMA 1: ' +puntuacion_fantasma_uno,{font: '25px Arial', fill: '#ffffff'});
         var puntosF2 = game.add.text(100, 250,'FANTASMA 2: ' +puntuacion_fantasma_dos,{font: '25px Arial', fill: '#ffffff'});
 
-        //var texto = game.add.text(30, 10,'Pacmans:' + puntuacion_pantalla_final ,{font: '25px Arial', fill: '#ffffff'});
-        //this.scoreTextP.text = "Pacman: "+"\n" + this.scoreP;
-        //var vkey = game.input.keyboard.addkey(Phaser.Keyboard.V);
         var playButton = this.game.add.button(20,390,"boton",this.playTheGame,this)
         playButton.scale.x = 0.4;
         playButton.scale.y = 0.4;
-        var playButton2 = this.game.add.button(230,390,"boton",this.playTheGame2,this)
-        playButton2.scale.x = 0.4;
-        playButton2.scale.y = 0.4;
+        var playButton2 = this.game.add.button(230,390,"boton_puntuacion",this.playTheGame2,this)
+        playButton2.scale.x = 0.47;
+        playButton2.scale.y = 0.47;
         //playButton.anchor.setTo(0.5,0.5);
         
         var obj = null;
