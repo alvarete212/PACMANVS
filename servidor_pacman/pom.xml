@@ -5,7 +5,7 @@
 
 	<groupId>es.urjc.code.rest</groupId>
 	<artifactId>pacmanvs</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>v2.0</version>
 	<packaging>jar</packaging>
 
 	<name>pacmanvs</name>

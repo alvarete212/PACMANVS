@@ -124,6 +124,5 @@ public class PuntuacionesController {
         return cadena;
 
     }
-        
 
 }
