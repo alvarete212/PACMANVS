@@ -25,10 +25,13 @@ final.prototype = {
         //var texto = game.add.text(30, 10,'Pacmans:' + puntuacion_pantalla_final ,{font: '25px Arial', fill: '#ffffff'});
         //this.scoreTextP.text = "Pacman: "+"\n" + this.scoreP;
         //var vkey = game.input.keyboard.addkey(Phaser.Keyboard.V);
-        var playButton = this.game.add.button(230,390,"boton",this.playTheGame,this)
-        playButton.scale.x = 0.7;
-        playButton.scale.y = 0.7;
-        playButton.anchor.setTo(0.5,0.5);
+        var playButton = this.game.add.button(20,390,"boton",this.playTheGame,this)
+        playButton.scale.x = 0.4;
+        playButton.scale.y = 0.4;
+        var playButton2 = this.game.add.button(230,390,"boton",this.playTheGame2,this)
+        playButton2.scale.x = 0.4;
+        playButton2.scale.y = 0.4;
+        //playButton.anchor.setTo(0.5,0.5);
         
         var obj = null;
 
@@ -60,6 +63,10 @@ final.prototype = {
 
 	},
 	playTheGame: function(){
+		this.game.state.start("menu");
+    },
+    
+    playTheGame2: function(){
 		this.game.state.start("pantallaPuntuaciones");
 	}
 }
