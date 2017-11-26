@@ -1,29 +1,19 @@
 var puntuaciones = function(game){
-	//console.log("%cStarting my awesome game", "color:white; background:red");
-    //var comienzo;
-    var dato;
+	
     
 };
 
 puntuaciones.prototype = {
 	preload: function(){
 
-       
+        game.load.image('botonFinal', 'assets/boton_nueva_partida.png', 193, 71);
     
     },
 
   	create: function(){
         
-        //comienzo = game.add.audio('comienzo');
-        //var texto = game.add.text(80, game.world.height-80,'pulsa la tecla v para comenzar',{font: '25px Arial', fill: '#ffffff'});
-        //var vkey = game.input.keyboard.addkey(Phaser.Keyboard.V);
-      
-        /*var playButton = this.game.add.button(230,320,"boton",this.playTheGame,this)
-        playButton.scale.x = 0.7;
-        playButton.scale.y = 0.7;
-        playButton.anchor.setTo(0.5,0.5);*/
-        
-
+    
+    
         $.ajax({
             
             method:"GET",
@@ -51,15 +41,15 @@ puntuaciones.prototype = {
                 if(dato.length === 2){
                                     
                                     //this.puntuacionUnica = game.add.text(0, 0, "Partida 1" + dato[0].puntuacion_pacmans, { fontSize: "16px", fill: "#fff" });
-                                    this.prueba = game.add.text(70,90, "Partida 1: PACMANS: " +dato[0].puntuacion_pacmans+ " Fantasmas: "+dato[0].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
-                                    this.prueba = game.add.text(70,120, "Partida 2: PACMANS: " +dato[1].puntuacion_pacmans+ " Fantasmas: "+dato[1].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
+                                    this.prueba = game.add.text(70,90, "Partida 1: PACMANS: " +dato[1].puntuacion_pacmans+ " Fantasmas: "+dato[1].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
+                                    this.prueba = game.add.text(70,120, "Partida 2: PACMANS: " +dato[0].puntuacion_pacmans+ " Fantasmas: "+dato[0].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
                                 }
                 if(dato.length === 3){
                                     
                                     //this.puntuacionUnica = game.add.text(0, 0, "Partida 1" + dato[0].puntuacion_pacmans, { fontSize: "16px", fill: "#fff" });
-                                    this.prueba = game.add.text(70,90, "Partida 1: PACMANS: " +dato[0].puntuacion_pacmans+ " Fantasmas: "+dato[0].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
+                                    this.prueba = game.add.text(70,90, "Partida 1: PACMANS: " +dato[2].puntuacion_pacmans+ " Fantasmas: "+dato[2].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
                                     this.prueba = game.add.text(70,120, "Partida 2: PACMANS: " +dato[1].puntuacion_pacmans+ " Fantasmas: "+dato[1].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
-                                    this.prueba = game.add.text(70,150, "Partida 3: PACMANS: " +dato[2].puntuacion_pacmans+ " Fantasmas: "+dato[2].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
+                                    this.prueba = game.add.text(70,150, "Partida 3: PACMANS: " +dato[0].puntuacion_pacmans+ " Fantasmas: "+dato[0].puntuacion_fantasmas, { fontSize: "16px", fill: "#fff" });
                                 }
 
                 if(dato.length > 3){
@@ -81,9 +71,17 @@ puntuaciones.prototype = {
 
 
 
-            
+    var playButton3 = this.game.add.button(67,390,"botonFinal",this.goMenu,this)
+    playButton3.scale.x = 0.6;
+    playButton3.scale.y = 0.6;
+    
 
-	},
+    },
+    
+
+    goMenu: function(){
+		this.game.state.start("menu");
+    },
     
     
     
