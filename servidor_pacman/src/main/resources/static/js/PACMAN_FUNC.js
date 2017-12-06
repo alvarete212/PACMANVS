@@ -7,7 +7,7 @@ var PACMAN = function (key,game,startpos){
 
     this.velocidad = 60;
     this.estaMuriendo = false;
-
+    this.nombre = "pacman1";
     this.tiempo = 0;
     this.timer = 0;
     this.ataque = false;
@@ -125,6 +125,8 @@ PACMAN.prototype.mover = function (direccion) {
     }
 
     this.actual = direccion;
+    
+    
 
 };
 

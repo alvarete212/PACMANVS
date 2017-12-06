@@ -2,6 +2,23 @@
 
 //var game = new Phaser.Game(448, 496, Phaser.AUTO, 'game');
 
+
+/*$(document).ready(function() {
+        
+        connection = new WebSocket('ws://127.0.0.1:8080/chat');
+        connection.onerror = function(e) {
+                console.log("WS error: " + e);
+        }
+        connection.onmessage = function(msg) {
+                console.log("WS message: " + msg.data);
+                var message = JSON.parse(msg.data)
+                $('#chat').val($('#chat').val() + "\n" + message.name + ": " + message.posX + message.posY);
+        }
+        connection.onclose = function() {
+                console.log("Closing socket");
+        }
+
+});*/
 var puntuacion_pacmans;
 var puntuacion_fantasmas;
 var puntuacion_pacman_uno;
@@ -25,6 +42,7 @@ var juego = function(game){
     this.pills = null;
     this.numPills = 0;
 
+    this.manejado;
     //this.time = 30;
     this.safetile = 14;
     this.gridsize = 16;       
@@ -119,10 +137,48 @@ juego.prototype = {
              /* El primer parametro son los ids que no van a tener colision. El true es que lo demas es colisionable y el tercer parametro es
                 la capa donde se crea la colision */
 
+                /*if(personaje == "pacman1")
+
+                        this.manejado = new PACMAN('pacman',this,{x:148,y:185});
+
+                if(personaje == "pacman2")
+
+                        this.manejado = new PACMAN2('pacman2',this,{x:148,y:280});
+
+                if(personaje == "fantasma1")
+
+                        this.manejado = new FANTASMA1('ghosts',this,{x:300,y:185});
+
+                if(personaje == "fantasma2")
+
+                        this.manejado = new FANTASMA2('ghosts',this, {x: 300,y: 280});*/
+
             this.pacman = new PACMAN('pacman',this,{x:148,y:185});
             this.pacman2 = new PACMAN2('pacman2',this,{x:148,y:280});
             this.fantasma1 = new FANTASMA1('ghosts',this,{x:300,y:185});
             this.fantasma2 = new FANTASMA2('ghosts',this, {x: 300,y: 280});
+            //this.jugadores = new Array(this.pacman,this.pacman2,this.fantasma1,this.fantasma2);
+            
+            console.log("personaje: " + personaje);
+            if(personaje === "pacman1")
+            
+                this.manejado = this.pacman;
+
+            if(personaje === "pacman2")
+
+                        this.manejado = this.pacman2;
+
+            if(personaje === "fantasma1")
+
+                        this.manejado = this.fantasma1;
+
+            if(personaje === "fantasma2")
+
+                        this.manejado = this.fantasma2;
+
+
+            console.log("Manejado: " + this.manejado.nombre);
+            //this.manejado = this.jugadores[i];
             this.cursors = this.input.keyboard.createCursorKeys();
             this.comer.loopFull(0.6);
         
@@ -154,10 +210,10 @@ juego.prototype = {
     },
         
     checkKeys: function () {
-        this.pacman.comprobarTeclas(this.cursors);
-        this.fantasma1.comprobarTeclas(this.cursors);
+        this.manejado.comprobarTeclas(this.cursors);
+        /*this.fantasma1.comprobarTeclas(this.cursors);
         this.pacman2.comprobarTeclas(this.cursors);
-        this.fantasma2.comprobarTeclas(this.cursors);
+        this.fantasma2.comprobarTeclas(this.cursors);*/
     },
 
     update: function(){
@@ -165,12 +221,37 @@ juego.prototype = {
             this.scoreTextP.text = "Pacman: "+"\n" + this.scoreP;
             this.scoreTextF.text = "Ghosts: "+"\n" + this.scoreF;
             this.contadorTiempo.text = "Tiempo: " + this.contador;
-            this.pacman.update();
-            this.fantasma1.update();
+            this.manejado.update();
+            /*this.fantasma1.update();
             this.pacman2.update();
-            this.fantasma2.update();
+            this.fantasma2.update();*/
             this.checkKeys();
             console.log("Tiempo global " + this.tiempo );
+            
+            var msg = {
+                
+                name : this.manejado.nombre,
+                posX : this.manejado.sprite.x,
+                posY : this.manejado.sprite.y
+
+             }
+             console.log("posicion pacman: " + this.manejado.sprite.x + this.manejado.sprite.y);
+             connection.send(JSON.stringify(msg));
+            /*for(var i = 0; i < this.jugadores.length; i++){
+
+                var msg = {
+
+                        name : this.jugadores[i].nombre,
+                        posX : this.jugadores[i].sprite.x,
+                        posY : this.jugadores[i].sprite.y
+
+                }
+                console.log("posicion pacman: " + this.jugadores[i].sprite.x + this.jugadores[i].sprite.y);
+                connection.send(JSON.stringify(msg));
+
+            }*/
+
+
             if(this.tiempo === this.final || this.totaldots === 0){
 
                     this.timer.destroy();

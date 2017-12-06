@@ -1,3 +1,34 @@
+
+var connection;
+var personaje;
+$(document).ready(function() {
+        
+        connection = new WebSocket('ws://127.0.0.1:8080/chat');
+        connection.onerror = function(e) {
+                console.log("WS error: " + e);
+        }
+        connection.onmessage = function(msg) {
+                console.log("WS message: " + msg.data);
+                var message = JSON.parse(msg.data)
+                personaje = message.name;
+                console.log(personaje);
+        }
+        connection.onclose = function() {
+                console.log("Closing socket");
+        }
+
+
+        $('#send-btn').click(function() {
+                var msg = {
+                        name : $('#name').val(),
+                        message : $('#message').val()
+                }
+                $('#chat').val($('#chat').val() + "\n" + msg.name + ": " + msg.message);
+                connection.send(JSON.stringify(msg));
+        });
+
+});
+
 var menu = function(game){
 	//console.log("%cStarting my awesome game", "color:white; background:red");
     var comienzo;
@@ -29,8 +60,11 @@ menu.prototype = {
         var playButton = this.game.add.button(230,320,"boton",this.playTheGame,this)
         playButton.scale.x = 0.7;
         playButton.scale.y = 0.7;
-		playButton.anchor.setTo(0.5,0.5);
-	},
+        playButton.anchor.setTo(0.5,0.5);
+        //prueba = game.add.text(70,110, "Nuevo jugador: " + getElement, { fontSize: "16px", fill: "#fff" });
+        },
+        
+
 	playTheGame: function(){
         
         

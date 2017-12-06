@@ -8,7 +8,7 @@ var FANTASMA2 = function (key,game,startpos){
         this.estaMuriendo = false;
         this.tiempo = 0;
         this.startPos = startpos;
-    
+        this.nombre = "fantasma2";
         this.timer = 0;
         this.ataque = false;
         this.huir = true;

@@ -7,7 +7,7 @@ var PACMAN2 = function (key,game,startpos){
     
         this.velocidad = 60;
         this.estaMuriendo = false;
-    
+        this.nombre = "pacman2";
         this.tiempo = 0;
         this.timer = 0;
         this.ataque = false;
