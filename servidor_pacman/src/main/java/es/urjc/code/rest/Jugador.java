@@ -11,12 +11,14 @@ public class Jugador{
     
     String name;
     String id;
+    int id_partida;
     WebSocketSession session;
     
-    public Jugador(String id,String n, WebSocketSession s){
+    public Jugador(String id,String n,int ip, WebSocketSession s){
     
         this.name = n;
         this.id = id;
+        this.id_partida = ip;
         this.session = s;
     }
     

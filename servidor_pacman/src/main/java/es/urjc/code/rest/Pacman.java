@@ -50,25 +50,22 @@ public class Pacman extends TextWebSocketHandler {
 
                 if(contador < 4){
 
+                    Partida actual = partidas.get(numP-1);
                     System.out.println("New user: " + session.getId() + "Partida:" + aux.getId());
                     sessions.put(session.getId(), session);
-                    System.out.println("Id partida: " + partidas.get(numP-1).getId());
-                    partidas.get(numP-1).addJugador(session.getId(), nombre[contador], session);
+                    System.out.println("Id partida: " + actual.getId());
+                    actual.addJugador(session.getId(), nombre[contador], session);
                     contador++;
                     System.out.println("Nuevo jugador");
-
+                    
+                    
+                    ObjectNode newNode = mapper.createObjectNode();
+                    newNode.put("name", actual.jugadores.get(actual.jugadores.size()-1).name);
+                    newNode.put("id", actual.jugadores.get(actual.jugadores.size()-1).id);
+                    newNode.put("id_p", actual.getId());
+                    actual.jugadores.get(actual.jugadores.size()-1).session.sendMessage(new TextMessage(newNode.toString())); 
                     if(contador == 4){
-                    
-                        for(Jugador participant : partidas.get(numP-1).jugadores) {
-                            
-                            ObjectNode newNode = mapper.createObjectNode();
-                            newNode.put("name", participant.name);
-                            participant.session.sendMessage(new TextMessage(newNode.toString())); 
-                            
-                            System.out.println("Jugador " + participant.id + " Nombre: " + newNode.toString());
-                            
-                        }
-                    
+
                         contador = 0;
                         
                     }

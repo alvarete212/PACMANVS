@@ -21,7 +21,7 @@ public class Partida {
     }
     public void addJugador(String id,String n,WebSocketSession s){
     
-        this.jugadores.add(new Jugador(id,n,s));
+        this.jugadores.add(new Jugador(id,n,this.id,s));
     
     }
     

@@ -42,22 +42,38 @@ var juego = function(game){
     this.pills = null;
     this.numPills = 0;
 
-    this.manejado;
     //this.time = 30;
     this.safetile = 14;
     this.gridsize = 16;       
     this.threshold = 3;
-
+    this.comienzo;
     this.scoreP;
     this.scoreF;
     this.game = game;
 
     this.timer = 0;
     this.tiempo;
-    this.final = 5;
+    this.final = 120;
     this.contador;
     this.comer;
     
+}
+
+var manejado = {
+
+    id : 0,
+    personaje : null,
+    id_partida : 0
+
+}
+connection.onmessage = function(msg) {
+    //console.log("WS message: " + msg.data);
+    var message = JSON.parse(msg.data)
+    manejado.personaje = message.name;
+    manejado.id = message.id;
+    manejado.id_partida = message.id_p;
+    console.log(manejado.personaje);
+
 }
 
 juego.prototype = {
@@ -119,6 +135,7 @@ juego.prototype = {
             this.map.addTilesetImage('pacman-tiles', 'tiles');
             this.layer = this.map.createLayer('Pacman');
 
+            this.comienzo = true;
             this.timer.start();
            //game.add.sprite(0,275,'pacman');
             this.dots = this.add.physicsGroup();//bolitas pequeñas
@@ -137,48 +154,14 @@ juego.prototype = {
              /* El primer parametro son los ids que no van a tener colision. El true es que lo demas es colisionable y el tercer parametro es
                 la capa donde se crea la colision */
 
-                /*if(personaje == "pacman1")
-
-                        this.manejado = new PACMAN('pacman',this,{x:148,y:185});
-
-                if(personaje == "pacman2")
-
-                        this.manejado = new PACMAN2('pacman2',this,{x:148,y:280});
-
-                if(personaje == "fantasma1")
-
-                        this.manejado = new FANTASMA1('ghosts',this,{x:300,y:185});
-
-                if(personaje == "fantasma2")
-
-                        this.manejado = new FANTASMA2('ghosts',this, {x: 300,y: 280});*/
-
             this.pacman = new PACMAN('pacman',this,{x:148,y:185});
             this.pacman2 = new PACMAN2('pacman2',this,{x:148,y:280});
             this.fantasma1 = new FANTASMA1('ghosts',this,{x:300,y:185});
             this.fantasma2 = new FANTASMA2('ghosts',this, {x: 300,y: 280});
-            //this.jugadores = new Array(this.pacman,this.pacman2,this.fantasma1,this.fantasma2);
+            this.jugadores = new Array(this.pacman,this.pacman2,this.fantasma1,this.fantasma2);
             
-            console.log("personaje: " + personaje);
-            if(personaje === "pacman1")
-            
-                this.manejado = this.pacman;
+            console.log("personaje: " + manejado.personaje);
 
-            if(personaje === "pacman2")
-
-                        this.manejado = this.pacman2;
-
-            if(personaje === "fantasma1")
-
-                        this.manejado = this.fantasma1;
-
-            if(personaje === "fantasma2")
-
-                        this.manejado = this.fantasma2;
-
-
-            console.log("Manejado: " + this.manejado.nombre);
-            //this.manejado = this.jugadores[i];
             this.cursors = this.input.keyboard.createCursorKeys();
             this.comer.loopFull(0.6);
         
@@ -210,33 +193,45 @@ juego.prototype = {
     },
         
     checkKeys: function () {
-        this.manejado.comprobarTeclas(this.cursors);
+        manejado.personaje.comprobarTeclas(this.cursors);
         /*this.fantasma1.comprobarTeclas(this.cursors);
         this.pacman2.comprobarTeclas(this.cursors);
         this.fantasma2.comprobarTeclas(this.cursors);*/
     },
 
     update: function(){
-        
+
+            if(this.comienzo)
+
+                this.asignacion();
+
             this.scoreTextP.text = "Pacman: "+"\n" + this.scoreP;
             this.scoreTextF.text = "Ghosts: "+"\n" + this.scoreF;
             this.contadorTiempo.text = "Tiempo: " + this.contador;
-            this.manejado.update();
-            /*this.fantasma1.update();
-            this.pacman2.update();
-            this.fantasma2.update();*/
+            manejado.personaje.update();
+
+            /*for(var j = 0; j < this.jugadores.length; j++){
+
+                if(this.jugadores[j] != manejado.personaje)
+
+                    this.jugadores[j].update();
+
+            }*/
+            //this.fantasma1.update();
+            //this.pacman2.update();
+            //this.fantasma2.update();
             this.checkKeys();
             console.log("Tiempo global " + this.tiempo );
             
-            var msg = {
+            /*var msg = {
                 
                 name : this.manejado.nombre,
                 posX : this.manejado.sprite.x,
                 posY : this.manejado.sprite.y
 
-             }
-             console.log("posicion pacman: " + this.manejado.sprite.x + this.manejado.sprite.y);
-             connection.send(JSON.stringify(msg));
+             }*/
+             //console.log("posicion " + this.manejado.nombre + ": " + this.manejado.sprite.x + this.manejado.sprite.y);
+             //connection.send(JSON.stringify(msg));
             /*for(var i = 0; i < this.jugadores.length; i++){
 
                 var msg = {
@@ -292,9 +287,19 @@ juego.prototype = {
 
     },
         
-    accionPulsar: function(){
+    asignacion: function(){
             
-                //Lo que queremos que haga cuando se pulsa el botón.
+                
+            var i = 0;
+
+            while(manejado.personaje != this.jugadores[i].nombre){
+
+                i++;
+
+            }
+            manejado.personaje = this.jugadores[i];
+            console.log("Manejado: " + manejado.personaje.nombre);
+            this.comienzo = false;
             
     },
 
