@@ -55,9 +55,7 @@ menu.prototype = {
                 console.log("WS error: " + e);
         }
 
-        connection.onclose = function() {
-                console.log("Closing socket");
-        }
+        
 
 
         /*$('#send-btn').click(function() {

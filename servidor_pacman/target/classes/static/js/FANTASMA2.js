@@ -142,7 +142,7 @@ var FANTASMA2 = function (key,game,startpos){
                 this.game.physics.arcade.collide(this.sprite, this.game.layer);
                 this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.comerDot, null, this);
                 this.game.physics.arcade.overlap(this.sprite, this.game.pills, this.comerPill, null, this);
-                if(this.huir){
+                if(!this.ataque){
                     
                     this.game.physics.arcade.overlap(this.sprite,this.game.pacman.sprite, this.volver,null,this);
                     this.game.physics.arcade.overlap(this.sprite,this.game.pacman2.sprite, this.volver,null,this);
@@ -194,7 +194,7 @@ var FANTASMA2 = function (key,game,startpos){
                 this.direcciones[3] = this.game.map.getTileAbove(this.game.layer.index, this.marcador.x, this.marcador.y);
                 this.direcciones[4] = this.game.map.getTileBelow(this.game.layer.index, this.marcador.x, this.marcador.y);
     
-                this.comprobarTeclas();
+                //this.comprobarTeclas();
         
                 if(this.girando !== Phaser.NONE){
         
@@ -273,7 +273,7 @@ FANTASMA2.prototype.comerDot = function(FANTASMA2,dot){
     
         pill.kill();
     
-        this.huir = false;
+        //this.huir = false;
         this.ataque = true;
         this.timer = this.game.time.create(false);
         

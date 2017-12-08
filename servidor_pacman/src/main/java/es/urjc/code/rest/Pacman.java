@@ -12,6 +12,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.math.BigDecimal;
 import java.util.HashMap;
 
 public class Pacman extends TextWebSocketHandler {
@@ -60,18 +61,18 @@ public class Pacman extends TextWebSocketHandler {
                     
                     
                     ObjectNode newNode = mapper.createObjectNode();
+                    newNode.put("funcion", "setJugador");
                     newNode.put("name", actual.jugadores.get(actual.jugadores.size()-1).name);
                     newNode.put("id", actual.jugadores.get(actual.jugadores.size()-1).id);
                     newNode.put("id_p", actual.getId());
                     actual.jugadores.get(actual.jugadores.size()-1).session.sendMessage(new TextMessage(newNode.toString())); 
+                    
                     if(contador == 4){
 
                         contador = 0;
                         
                     }
-                        
-                        
-                    
+
                 }
              
              }catch (Exception e){
@@ -99,17 +100,21 @@ public class Pacman extends TextWebSocketHandler {
 
 	private void sendOtherParticipants(WebSocketSession session, JsonNode node) throws IOException {
 
-		System.out.println("Message sent: " + node.toString());
+		
 		
 		ObjectNode newNode = mapper.createObjectNode();
+                int idP = node.get("id_p").asInt();
+                String idJ = node.get("id").asText();
+                newNode.put("funcion", "actualizar");
 		newNode.put("name", node.get("name").asText());
-		newNode.put("posX", node.get("posX").asText());
-                newNode.put("posY", node.get("posY").asText());
+		newNode.put("direccion", node.get("direccion").asText());
+                //newNode.put("posY", node.get("posY").asText());
 		
 		
-		for(WebSocketSession participant : sessions.values()) {
-			if(!participant.getId().equals(session.getId())) {
-				participant.sendMessage(new TextMessage(newNode.toString()));
+		for(Jugador participant : partidas.get(idP).jugadores) {
+			if(!participant.id.equals(idJ)) {
+                                System.out.println("Message sent: " + newNode.toString());
+				participant.session.sendMessage(new TextMessage(newNode.toString()));
 			}
 		}
 	}

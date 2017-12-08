@@ -2,23 +2,6 @@
 
 //var game = new Phaser.Game(448, 496, Phaser.AUTO, 'game');
 
-
-/*$(document).ready(function() {
-        
-        connection = new WebSocket('ws://127.0.0.1:8080/chat');
-        connection.onerror = function(e) {
-                console.log("WS error: " + e);
-        }
-        connection.onmessage = function(msg) {
-                console.log("WS message: " + msg.data);
-                var message = JSON.parse(msg.data)
-                $('#chat').val($('#chat').val() + "\n" + message.name + ": " + message.posX + message.posY);
-        }
-        connection.onclose = function() {
-                console.log("Closing socket");
-        }
-
-});*/
 var puntuacion_pacmans;
 var puntuacion_fantasmas;
 var puntuacion_pacman_uno;
@@ -67,14 +50,43 @@ var manejado = {
 
 }
 connection.onmessage = function(msg) {
-    //console.log("WS message: " + msg.data);
-    var message = JSON.parse(msg.data)
-    manejado.personaje = message.name;
-    manejado.id = message.id;
-    manejado.id_partida = message.id_p;
-    console.log(manejado.personaje);
+    console.log("WS message: " + msg.data);
+    var message = JSON.parse(msg.data);
+    funciones[message.funcion](message);
 
 }
+
+connection.onclose = function() {
+
+    console.log("Closing socket");
+}
+
+
+var funciones = {
+
+    setJugador : function (message){
+
+        manejado.personaje = message.name;
+        manejado.id = message.id;
+        manejado.id_partida = message.id_p;
+        console.log("Estado " + connection.statusCode);
+
+
+    },
+
+    actualizar : function (message){
+
+        var i = 0;
+        while(message.name != juego.jugadores[i].nombre)
+
+            i++;
+
+        juego.jugadores[i].mover (message.direccion);
+
+        console.log("Cambia direccion : " + juego.jugadores[i].nombre);
+    }
+
+};
 
 juego.prototype = {
 
@@ -160,7 +172,9 @@ juego.prototype = {
             this.fantasma2 = new FANTASMA2('ghosts',this, {x: 300,y: 280});
             this.jugadores = new Array(this.pacman,this.pacman2,this.fantasma1,this.fantasma2);
             
-            console.log("personaje: " + manejado.personaje);
+            this.asignacion();
+
+            console.log("personaje: " + manejado.personaje.nombre);
 
             this.cursors = this.input.keyboard.createCursorKeys();
             this.comer.loopFull(0.6);
@@ -168,7 +182,7 @@ juego.prototype = {
             this.scoreTextP = this.game.add.text(1, 255, "PacMan" +this.scoreP, { fontSize: "16px", fill: "#fff" });
             this.scoreTextF = this.game.add.text(1, 160, "Ghosts" + this.scoreF, { fontSize: "16px", fill: "#fff" });
             this.contadorTiempo = this.game.add.text(180, 1, "Contador" + this.contador, {fontSize: "16px", fill: "#fff"});
-            //Controles pacman1
+            /*//Controles pacman1
             this.cursors["w"] = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
             this.cursors["a"] = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
             this.cursors["s"] = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
@@ -188,7 +202,7 @@ juego.prototype = {
             this.cursors["k"] = this.game.input.keyboard.addKey(Phaser.Keyboard.K);
             this.cursors["l"] = this.game.input.keyboard.addKey(Phaser.Keyboard.L);
 
-            //Controles fantasma2 --> flechas de direccion
+            //Controles fantasma2 --> flechas de direccion*/
 
     },
         
@@ -201,22 +215,36 @@ juego.prototype = {
 
     update: function(){
 
-            if(this.comienzo)
-
-                this.asignacion();
-
             this.scoreTextP.text = "Pacman: "+"\n" + this.scoreP;
             this.scoreTextF.text = "Ghosts: "+"\n" + this.scoreF;
             this.contadorTiempo.text = "Tiempo: " + this.contador;
             manejado.personaje.update();
+            var actualizacion = {
+                
+                id : manejado.id,
+                id_p : manejado.id_partida,
+                direccion : manejado.personaje.actual
 
-            /*for(var j = 0; j < this.jugadores.length; j++){
+            }
+            console.log("direccion: " + manejado.personaje.actual);
+            try{
+
+                console.log("Entra");
+                connection.send(JSON.stringify(actualizacion));
+
+            }catch(e){
+
+                console.log(e);
+
+            }
+            
+            for(var j = 0; j < this.jugadores.length; j++){
 
                 if(this.jugadores[j] != manejado.personaje)
 
                     this.jugadores[j].update();
 
-            }*/
+            }
             //this.fantasma1.update();
             //this.pacman2.update();
             //this.fantasma2.update();

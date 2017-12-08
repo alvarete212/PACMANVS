@@ -144,7 +144,7 @@ var PACMAN2 = function (key,game,startpos){
             this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.comerDot, null, this);
             this.game.physics.arcade.overlap(this.sprite, this.game.pills, this.comerPill, null, this);
 
-            if(this.huir){
+            if(!this.ataque){
 
                 this.game.physics.arcade.overlap(this.sprite,this.game.fantasma1.sprite, this.volver,null,this);
                 this.game.physics.arcade.overlap(this.sprite,this.game.fantasma2.sprite, this.volver,null,this);
@@ -165,7 +165,7 @@ var PACMAN2 = function (key,game,startpos){
                 }else{
                     
                     this.ataque = false;
-                    this.huir = true;
+                    //this.huir = true;
                     this.tiempo = 0;
                     this.timer.destroy();
                     //console.log("Modo normal");
@@ -197,7 +197,7 @@ var PACMAN2 = function (key,game,startpos){
             this.direcciones[3] = this.game.map.getTileAbove(this.game.layer.index, this.marcador.x, this.marcador.y);
             this.direcciones[4] = this.game.map.getTileBelow(this.game.layer.index, this.marcador.x, this.marcador.y);
 
-            this.comprobarTeclas();
+            //this.comprobarTeclas();
     
             if(this.girando !== Phaser.NONE){
     
@@ -221,30 +221,30 @@ var PACMAN2 = function (key,game,startpos){
         
     PACMAN2.prototype.comprobarTeclas = function(){
     
-        if (this.game.cursors.f.isDown ||
-            this.game.cursors.h.isDown ||
-            this.game.cursors.t.isDown ||
-            this.game.cursors.g.isDown) {
+        if (this.game.cursors.left.isDown ||
+            this.game.cursors.right.isDown ||
+            this.game.cursors.up.isDown ||
+            this.game.cursors.down.isDown) {
             this.keyPressTimer = this.game.time.time + this.KEY_COOLING_DOWN_TIME;
         }
     
-        if(this.game.cursors.f.isDown && this.actual !== Phaser.LEFT){
+        if(this.game.cursors.left.isDown && this.actual !== Phaser.LEFT){
     
             this.quieroIr = Phaser.LEFT;
     
-        }else if(this.game.cursors.h.isDown && this.actual !== Phaser.RIGHT){
+        }else if(this.game.cursors.right.isDown && this.actual !== Phaser.RIGHT){
     
             this.quieroIr = Phaser.RIGHT;
     
         }
     
-        else if(this.game.cursors.t.isDown && this.actual !== Phaser.UP){
+        else if(this.game.cursors.up.isDown && this.actual !== Phaser.UP){
     
             this.quieroIr = Phaser.UP;
     
         }
     
-        else if(this.game.cursors.g.isDown && this.actual !== Phaser.DOWN){
+        else if(this.game.cursors.down.isDown && this.actual !== Phaser.DOWN){
     
             this.quieroIr = Phaser.DOWN;
     
@@ -276,7 +276,7 @@ var PACMAN2 = function (key,game,startpos){
     
         pill.kill();
     
-        this.huir = false;
+        //this.huir = false;
         this.ataque = true;
         this.timer = this.game.time.create(false);
         this.game.numPills --;

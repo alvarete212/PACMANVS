@@ -127,6 +127,7 @@ PACMAN.prototype.mover = function (direccion) {
     this.actual = direccion;
     
     
+    
 
 };
 
@@ -146,7 +147,7 @@ PACMAN.prototype.update = function() {
         this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.comerDot, null, this);
         this.game.physics.arcade.overlap(this.sprite, this.game.pills, this.comerPill, null, this);
 
-        if(this.huir){
+        if(!this.ataque){
 
             this.game.physics.arcade.overlap(this.sprite,this.game.fantasma1.sprite, this.volver,null,this);
             this.game.physics.arcade.overlap(this.sprite,this.game.fantasma2.sprite, this.volver,null,this);
@@ -167,7 +168,7 @@ PACMAN.prototype.update = function() {
             }else{
                 
                 this.ataque = false;
-                this.huir = true;
+                //this.huir = true;
                 this.tiempo = 0;
                 this.timer.destroy();
                 //console.log("Modo normal");
@@ -199,7 +200,7 @@ PACMAN.prototype.update = function() {
         this.direcciones[3] = this.game.map.getTileAbove(this.game.layer.index, this.marcador.x, this.marcador.y);
         this.direcciones[4] = this.game.map.getTileBelow(this.game.layer.index, this.marcador.x, this.marcador.y);
 
-        this.comprobarTeclas();
+        //this.comprobarTeclas();
 
         if(this.girando !== Phaser.NONE){
 
@@ -223,30 +224,30 @@ PACMAN.prototype.update = function() {
     
 PACMAN.prototype.comprobarTeclas = function(){
 
-    if (this.game.cursors.a.isDown ||
-        this.game.cursors.d.isDown ||
-        this.game.cursors.w.isDown ||
-        this.game.cursors.s.isDown) {
+    if (this.game.cursors.left.isDown ||
+        this.game.cursors.right.isDown ||
+        this.game.cursors.up.isDown ||
+        this.game.cursors.down.isDown) {
         this.keyPressTimer = this.game.time.time + this.KEY_COOLING_DOWN_TIME;
     }
 
-    if(this.game.cursors.a.isDown && this.actual !== Phaser.LEFT){
+    if(this.game.cursors.left.isDown && this.actual !== Phaser.LEFT){
 
         this.quieroIr = Phaser.LEFT;
 
-    }else if(this.game.cursors.d.isDown && this.actual !== Phaser.RIGHT){
+    }else if(this.game.cursors.right.isDown && this.actual !== Phaser.RIGHT){
 
         this.quieroIr = Phaser.RIGHT;
 
     }
 
-    else if(this.game.cursors.w.isDown && this.actual !== Phaser.UP){
+    else if(this.game.cursors.up.isDown && this.actual !== Phaser.UP){
 
         this.quieroIr = Phaser.UP;
 
     }
 
-    else if(this.game.cursors.s.isDown && this.actual !== Phaser.DOWN){
+    else if(this.game.cursors.down.isDown && this.actual !== Phaser.DOWN){
 
         this.quieroIr = Phaser.DOWN;
 
@@ -278,7 +279,7 @@ PACMAN.prototype.comerPill = function(PACMAN, pill){
 
     pill.kill();
 
-    this.huir = false;
+    //this.huir = false;
     this.ataque = true;
     this.timer = this.game.time.create(false);
     this.game.numPills --;

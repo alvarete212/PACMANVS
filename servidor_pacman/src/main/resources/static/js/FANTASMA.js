@@ -143,7 +143,7 @@ FANTASMA1.prototype.update = function() {
             this.game.physics.arcade.collide(this.sprite, this.game.layer);
             this.game.physics.arcade.overlap(this.sprite, this.game.dots, this.comerDot, null, this);
             this.game.physics.arcade.overlap(this.sprite, this.game.pills, this.comerPill, null, this);
-            if(this.huir){
+            if(!this.ataque){
 
                 this.game.physics.arcade.overlap(this.sprite,this.game.pacman.sprite, this.volver,null,this);
                 this.game.physics.arcade.overlap(this.sprite,this.game.pacman2.sprite, this.volver,null,this);
@@ -163,7 +163,7 @@ FANTASMA1.prototype.update = function() {
                 }else{
                     
                     this.ataque = false;
-                    this.huir = true;
+                    //this.huir = true;
                     this.timer.destroy();
                     this.tiempoAtaque = 0;
                     //console.log("Modo normal");
@@ -196,7 +196,7 @@ FANTASMA1.prototype.update = function() {
             this.direcciones[3] = this.game.map.getTileAbove(this.game.layer.index, this.marcador.x, this.marcador.y);
             this.direcciones[4] = this.game.map.getTileBelow(this.game.layer.index, this.marcador.x, this.marcador.y);
 
-            this.comprobarTeclas();
+            //this.comprobarTeclas();
     
             if(this.girando !== Phaser.NONE){
     
@@ -220,30 +220,30 @@ FANTASMA1.prototype.update = function() {
     
 FANTASMA1.prototype.comprobarTeclas = function(){
 
-    if (this.game.cursors.j.isDown ||
-        this.game.cursors.l.isDown ||
-        this.game.cursors.i.isDown ||
-        this.game.cursors.k.isDown) {
+    if (this.game.cursors.left.isDown ||
+        this.game.cursors.right.isDown ||
+        this.game.cursors.up.isDown ||
+        this.game.cursors.down.isDown) {
         this.keyPressTimer = this.game.time.time + this.KEY_COOLING_DOWN_TIME;
     }
 
-    if(this.game.cursors.j.isDown && this.actual !== Phaser.LEFT){
+    if(this.game.cursors.left.isDown && this.actual !== Phaser.LEFT){
 
         this.quieroIr = Phaser.LEFT;
 
-    }else if(this.game.cursors.l.isDown && this.actual !== Phaser.RIGHT){
+    }else if(this.game.cursors.right.isDown && this.actual !== Phaser.RIGHT){
 
         this.quieroIr = Phaser.RIGHT;
 
     }
 
-    else if(this.game.cursors.i.isDown && this.actual !== Phaser.UP){
+    else if(this.game.cursors.up.isDown && this.actual !== Phaser.UP){
 
         this.quieroIr = Phaser.UP;
 
     }
 
-    else if(this.game.cursors.k.isDown && this.actual !== Phaser.DOWN){
+    else if(this.game.cursors.down.isDown && this.actual !== Phaser.DOWN){
 
         this.quieroIr = Phaser.DOWN;
 
@@ -275,7 +275,7 @@ FANTASMA1.prototype.comerPill = function(FANTASMA1, pill){
 
     pill.kill();
 
-    this.huir = false;
+    //this.huir = false;
     this.ataque = true;
     this.timer = this.game.time.create(false);
     
