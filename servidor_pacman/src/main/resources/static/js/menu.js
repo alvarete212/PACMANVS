@@ -2,7 +2,6 @@
 var connection;
 var personaje;
 
-
 var menu = function(game){
 	//console.log("%cStarting my awesome game", "color:white; background:red");
     var comienzo;
@@ -23,6 +22,7 @@ menu.prototype = {
   	create: function(){
         
         comienzo = game.add.audio('comienzo');
+        inicio_p = true;
         //var texto = game.add.text(80, game.world.height-80,'pulsa la tecla v para comenzar',{font: '25px Arial', fill: '#ffffff'});
         //var vkey = game.input.keyboard.addkey(Phaser.Keyboard.V);
         var mapa = game.add.sprite(0,0, 'mapa');
@@ -44,7 +44,7 @@ menu.prototype = {
         
         comienzo.play();
 
-        this.game.state.start("pacman");
+        game.state.start("pacman");
 
 		
 	}
@@ -55,7 +55,17 @@ menu.prototype = {
                 console.log("WS error: " + e);
         }
 
-        
+        /*connection.onmessage = function(msg) {
+
+                console.log("WS message: " + msg.data);
+                var message = JSON.parse(msg.data);
+                if(message.inicio_p)
+                        
+                        menu.playTheGame
+                                        
+                funciones[message.funcion](message);
+            
+        }**/
 
 
         /*$('#send-btn').click(function() {

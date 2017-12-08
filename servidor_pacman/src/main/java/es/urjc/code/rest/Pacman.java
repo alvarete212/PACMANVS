@@ -69,6 +69,13 @@ public class Pacman extends TextWebSocketHandler {
                     
                     if(contador == 4){
 
+                        /*ObjectNode newNode1 = mapper.createObjectNode();
+                        newNode1.put("inicio_p", true);
+                        for(Jugador participant : partidas.get(actual.getId()).jugadores) {
+;
+                            participant.session.sendMessage(new TextMessage(newNode1.toString()));
+                            
+                    }*/
                         contador = 0;
                         
                     }
@@ -101,22 +108,37 @@ public class Pacman extends TextWebSocketHandler {
 	private void sendOtherParticipants(WebSocketSession session, JsonNode node) throws IOException {
 
 		
-		
-		ObjectNode newNode = mapper.createObjectNode();
+		//System.out.println("Entra al metodo");
                 int idP = node.get("id_p").asInt();
                 String idJ = node.get("id").asText();
-                newNode.put("funcion", "actualizar");
-		newNode.put("name", node.get("name").asText());
-		newNode.put("direccion", node.get("direccion").asText());
-                //newNode.put("posY", node.get("posY").asText());
-		
-		
-		for(Jugador participant : partidas.get(idP).jugadores) {
-			if(!participant.id.equals(idJ)) {
-                                System.out.println("Message sent: " + newNode.toString());
-				participant.session.sendMessage(new TextMessage(newNode.toString()));
-			}
-		}
+                //System.out.println("Guarda las variables");
+		ObjectNode newNode = mapper.createObjectNode();
+                
+                try{
+                
+                    newNode.put("funcion", "actualizar");
+                    newNode.put("name", node.get("name").asText());
+                    newNode.put("id", node.get("id").asText());
+                    newNode.put("direccion", node.get("direccion").asInt());
+                    newNode.put("posX", node.get("posX").asInt());
+                    newNode.put("posY", node.get("posY").asInt());
+
+                    System.out.println("Message sent 1: " + newNode.toString());
+                    for(Jugador participant : partidas.get(idP).jugadores) {
+                        //System.out.println("Entra al bucle");
+                            if(!participant.id.equals(idJ)) {
+                                    System.out.println("Nombre: " + participant.name + " id: " + participant.session.getId());
+                                    System.out.println("Message sent: " + newNode.toString());
+                                    participant.session.sendMessage(new TextMessage(newNode.toString()));
+                            }
+                    }
+                
+                }catch(Exception e){
+                
+                    System.out.println(e);
+                    
+                }
+                
 	}
 
 }

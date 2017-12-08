@@ -1,5 +1,3 @@
-
-
 //var game = new Phaser.Game(448, 496, Phaser.AUTO, 'game');
 
 var puntuacion_pacmans;
@@ -8,6 +6,7 @@ var puntuacion_pacman_uno;
 var puntuacion_pacman_dos;
 var puntuacion_fantasma_uno;
 var puntuacion_fantasma_dos;
+var partida;
 
 var juego = function(game){
 
@@ -19,6 +18,7 @@ var juego = function(game){
     this.fantasma1 = null;
     this.fantasma2 = null;
 
+    this.jugadores = null;
     this.dots = null;
     this.numDots = 0;
     this.totaldots = 0;
@@ -50,8 +50,10 @@ var manejado = {
 
 }
 connection.onmessage = function(msg) {
+    
     console.log("WS message: " + msg.data);
     var message = JSON.parse(msg.data);
+  
     funciones[message.funcion](message);
 
 }
@@ -60,33 +62,6 @@ connection.onclose = function() {
 
     console.log("Closing socket");
 }
-
-
-var funciones = {
-
-    setJugador : function (message){
-
-        manejado.personaje = message.name;
-        manejado.id = message.id;
-        manejado.id_partida = message.id_p;
-        console.log("Estado " + connection.statusCode);
-
-
-    },
-
-    actualizar : function (message){
-
-        var i = 0;
-        while(message.name != juego.jugadores[i].nombre)
-
-            i++;
-
-        juego.jugadores[i].mover (message.direccion);
-
-        console.log("Cambia direccion : " + juego.jugadores[i].nombre);
-    }
-
-};
 
 juego.prototype = {
 
@@ -182,6 +157,9 @@ juego.prototype = {
             this.scoreTextP = this.game.add.text(1, 255, "PacMan" +this.scoreP, { fontSize: "16px", fill: "#fff" });
             this.scoreTextF = this.game.add.text(1, 160, "Ghosts" + this.scoreF, { fontSize: "16px", fill: "#fff" });
             this.contadorTiempo = this.game.add.text(180, 1, "Contador" + this.contador, {fontSize: "16px", fill: "#fff"});
+            
+            /*partida = new juego();
+            console.log("pacman: " + partida.jugadores[0].nombre);*/
             /*//Controles pacman1
             this.cursors["w"] = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
             this.cursors["a"] = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
@@ -221,15 +199,17 @@ juego.prototype = {
             manejado.personaje.update();
             var actualizacion = {
                 
+                name : manejado.personaje.nombre,
                 id : manejado.id,
                 id_p : manejado.id_partida,
+                posX : manejado.personaje.sprite.position.x,
+                posY : manejado.personaje.sprite.position.y,
                 direccion : manejado.personaje.actual
 
             }
             console.log("direccion: " + manejado.personaje.actual);
             try{
 
-                console.log("Entra");
                 connection.send(JSON.stringify(actualizacion));
 
             }catch(e){
@@ -328,9 +308,41 @@ juego.prototype = {
             manejado.personaje = this.jugadores[i];
             console.log("Manejado: " + manejado.personaje.nombre);
             this.comienzo = false;
-            
+
     },
 
 };
+
+
+var funciones = {
+    
+        setJugador : function (message){
+    
+            manejado.personaje = message.name;
+            manejado.id = message.id;
+            manejado.id_partida = message.id_p;
+
+        },
+    
+        actualizar : function (message){
+    
+            console.log("Entra a actualizar");
+            var i = 0;
+            while(message.name != partida.jugadores[i].nombre){
+    
+                i++;
+    
+            }
+            /*manejado.id = message.id;
+            console.log("Cambia id : " + manejado.id);*/
+            
+            partida.jugadores[i].sprite.position.x = message.posX;
+            partida.jugadores[i].sprite.position.y = message.posY;
+            console.log("Movido: " + partida.jugadores[i].nombre);
+            partida.jugadores[i].mover (message.direccion);
+        }
+        
+    
+    };
 //game.state.add('Game', juego, true);
 
