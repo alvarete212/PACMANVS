@@ -6,7 +6,7 @@ var puntuacion_pacman_uno;
 var puntuacion_pacman_dos;
 var puntuacion_fantasma_uno;
 var puntuacion_fantasma_dos;
-var partida;
+
 
 var juego = function(game){
 
@@ -18,7 +18,6 @@ var juego = function(game){
     this.fantasma1 = null;
     this.fantasma2 = null;
 
-    this.jugadores = null;
     this.dots = null;
     this.numDots = 0;
     this.totaldots = 0;
@@ -42,6 +41,8 @@ var juego = function(game){
     
 }
 
+
+ var jugadores;
 var manejado = {
 
     id : 0,
@@ -145,7 +146,7 @@ juego.prototype = {
             this.pacman2 = new PACMAN2('pacman2',this,{x:148,y:280});
             this.fantasma1 = new FANTASMA1('ghosts',this,{x:300,y:185});
             this.fantasma2 = new FANTASMA2('ghosts',this, {x: 300,y: 280});
-            this.jugadores = new Array(this.pacman,this.pacman2,this.fantasma1,this.fantasma2);
+            jugadores = new Array(this.pacman,this.pacman2,this.fantasma1,this.fantasma2);
             
             this.asignacion();
 
@@ -218,11 +219,11 @@ juego.prototype = {
 
             }
             
-            for(var j = 0; j < this.jugadores.length; j++){
+            for(var j = 0; j < jugadores.length; j++){
 
-                if(this.jugadores[j] != manejado.personaje)
+                if(jugadores[j] != manejado.personaje)
 
-                    this.jugadores[j].update();
+                    jugadores[j].update();
 
             }
             //this.fantasma1.update();
@@ -300,14 +301,13 @@ juego.prototype = {
                 
             var i = 0;
 
-            while(manejado.personaje != this.jugadores[i].nombre){
+            while(manejado.personaje != jugadores[i].nombre){
 
                 i++;
 
             }
-            manejado.personaje = this.jugadores[i];
+            manejado.personaje = jugadores[i];
             console.log("Manejado: " + manejado.personaje.nombre);
-            this.comienzo = false;
 
     },
 
@@ -328,7 +328,7 @@ var funciones = {
     
             console.log("Entra a actualizar");
             var i = 0;
-            while(message.name != partida.jugadores[i].nombre){
+            while(message.name != jugadores[i].nombre){
     
                 i++;
     
@@ -336,10 +336,10 @@ var funciones = {
             /*manejado.id = message.id;
             console.log("Cambia id : " + manejado.id);*/
             
-            partida.jugadores[i].sprite.position.x = message.posX;
-            partida.jugadores[i].sprite.position.y = message.posY;
-            console.log("Movido: " + partida.jugadores[i].nombre);
-            partida.jugadores[i].mover (message.direccion);
+            jugadores[i].sprite.position.x = message.posX;
+            jugadores[i].sprite.position.y = message.posY;
+            console.log("Movido: " + jugadores[i].nombre);
+            jugadores[i].mover (message.direccion);
         }
         
     
