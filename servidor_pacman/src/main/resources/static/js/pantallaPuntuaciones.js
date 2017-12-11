@@ -1,7 +1,4 @@
-var puntuaciones = function(game){
-	
-    
-};
+var puntuaciones = function(game){};
 
 puntuaciones.prototype = {
 	preload: function(){
@@ -17,7 +14,7 @@ puntuaciones.prototype = {
         $.ajax({
             
             method:"GET",
-            url: "http://localhost:8080/actualizarPuntuacion",          
+            url: "http://" + window.location.host + "/actualizarPuntuacion",          
             processData: false,
             headers: {
 
@@ -27,9 +24,6 @@ puntuaciones.prototype = {
             }).done(function(data, textStatus, jqXHR){
                 
                 dato = JSON.parse(data);
-                //this.prueba = game.add.text(0,0, "Prueba", { fontSize: "16px", fill: "#fff" });
-                //this.score = game.add.text(1, 255, "PacMan" + dato[0].puntuacion_pacmans, { fontSize: "16px", fill: "#fff" });
-                //this.score.text = "Puntos: "+"\n" + dato[1].puntuacion_pacmans;
                 console.log(textStatus+" " + jqXHR.statusCode());
                 
                 this.prueba = game.add.text(120,50, "PUNTUACIONES ", { fontSize: "24px", fill: "#fff" });
@@ -81,6 +75,15 @@ puntuaciones.prototype = {
     
 
     goMenu: function(){
+
+
+        var actualizacion = {
+            
+            nueva_partida: true
+            
+        }
+                
+        connection.send(JSON.stringify(actualizacion));
 		this.game.state.start("menu");
     },
     

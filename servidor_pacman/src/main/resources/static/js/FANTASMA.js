@@ -147,6 +147,7 @@ FANTASMA1.prototype.update = function() {
 
                 this.game.physics.arcade.overlap(this.sprite,this.game.pacman.sprite, this.volver,null,this);
                 this.game.physics.arcade.overlap(this.sprite,this.game.pacman2.sprite, this.volver,null,this);
+                
             }
                 
             if(this.ataque){

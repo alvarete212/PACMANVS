@@ -38,6 +38,14 @@ final.prototype = {
 
 	},
 	playTheGame: function(){
+
+    var actualizacion = {
+
+      nueva_partida: true
+
+    }
+    
+    connection.send(JSON.stringify(actualizacion));
 		this.game.state.start("menu");
     },
     

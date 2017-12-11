@@ -25,18 +25,8 @@ public class Pacman extends TextWebSocketHandler {
         private Partida aux;
         public String[] nombre = new String[4];
         
+        void Pacman(WebSocketSession session) throws Exception{
         
-        public void nuevaPartida(){
-        
-            aux = new Partida(numP);
-            partidas.put(aux.getId(), aux);
-            numP++;
-            System.out.println("Nueva partida");
-        
-        }
-	@Override
-	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-            
             nombre[0] = "pacman1";
             nombre[1] = "pacman2";
             nombre[2] = "fantasma1";
@@ -87,6 +77,22 @@ public class Pacman extends TextWebSocketHandler {
                 System.out.println(e);
                 
             }
+        
+        }
+        
+        public void nuevaPartida(){
+        
+            aux = new Partida(numP);
+            partidas.put(aux.getId(), aux);
+            numP++;
+            System.out.println("Nueva partida");
+        
+        }
+        
+	@Override
+	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+            
+            Pacman(session);
             
 	}
 	
@@ -101,8 +107,24 @@ public class Pacman extends TextWebSocketHandler {
 		
 		System.out.println("Message received: " + message.getPayload());
 		JsonNode node = mapper.readTree(message.getPayload());
-		
-		sendOtherParticipants(session, node);
+
+                if(node.get("nueva_partida") != null)
+                    
+                    Pacman(session);
+                    
+                else if(node.get("destruir").asBoolean() == true){
+                
+                    partidas.remove(node.get("id_p").asInt());
+                    //sessions.remove(node.get("id").asText());
+                    System.out.println("Se destruye partida " + node.get("id_p").asInt());
+                    //System.out.println("Se destruye jugador " + node.get("id").asText());
+                
+                }
+
+                else
+                    
+                    sendOtherParticipants(session, node);
+                
 	}
 
 	private void sendOtherParticipants(WebSocketSession session, JsonNode node) throws IOException {
@@ -122,6 +144,7 @@ public class Pacman extends TextWebSocketHandler {
                     newNode.put("direccion", node.get("direccion").asInt());
                     newNode.put("posX", node.get("posX").asInt());
                     newNode.put("posY", node.get("posY").asInt());
+                    newNode.put("ataque", node.get("ataque").asBoolean());
 
                     System.out.println("Message sent 1: " + newNode.toString());
                     for(Jugador participant : partidas.get(idP).jugadores) {
