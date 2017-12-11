@@ -7,6 +7,11 @@ var menu = function(game){
     var comienzo;
 };
 
+  
+connection = new WebSocket('ws://'+ window.location.host +'/chat');
+connection.onerror = function(e) {
+        console.log("WS error: " + e);
+}
 menu.prototype = {
 	preload: function(){
 
@@ -23,8 +28,6 @@ menu.prototype = {
         
         comienzo = game.add.audio('comienzo');
         inicio_p = true;
-        //var texto = game.add.text(80, game.world.height-80,'pulsa la tecla v para comenzar',{font: '25px Arial', fill: '#ffffff'});
-        //var vkey = game.input.keyboard.addkey(Phaser.Keyboard.V);
         var mapa = game.add.sprite(0,0, 'mapa');
         var logoJuego = game.add.sprite(0, 0, 'logo');
         logoJuego.scale.x = 0.637;
@@ -35,7 +38,7 @@ menu.prototype = {
         playButton.scale.x = 0.7;
         playButton.scale.y = 0.7;
         playButton.anchor.setTo(0.5,0.5);
-        //prueba = game.add.text(70,110, "Nuevo jugador: " + getElement, { fontSize: "16px", fill: "#fff" });
+
         },
         
 
@@ -49,30 +52,3 @@ menu.prototype = {
 		
 	}
 }
-  
-        connection = new WebSocket('ws://127.0.0.1:8080/chat');
-        connection.onerror = function(e) {
-                console.log("WS error: " + e);
-        }
-
-        /*connection.onmessage = function(msg) {
-
-                console.log("WS message: " + msg.data);
-                var message = JSON.parse(msg.data);
-                if(message.inicio_p)
-                        
-                        menu.playTheGame
-                                        
-                funciones[message.funcion](message);
-            
-        }**/
-
-
-        /*$('#send-btn').click(function() {
-                var msg = {
-                        name : $('#name').val(),
-                        message : $('#message').val()
-                }
-                $('#chat').val($('#chat').val() + "\n" + msg.name + ": " + msg.message);
-                connection.send(JSON.stringify(msg));
-        });*/
