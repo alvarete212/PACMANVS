@@ -11,6 +11,7 @@ public class Jugador{
     
     String name;
     String id;
+    boolean listo;
     int id_partida;
     WebSocketSession session;
     
@@ -20,6 +21,7 @@ public class Jugador{
         this.id = id;
         this.id_partida = ip;
         this.session = s;
+        this.listo = false;
     }
     
 }

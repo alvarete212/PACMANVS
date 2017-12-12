@@ -25,7 +25,38 @@ public class Pacman extends TextWebSocketHandler {
         private Partida aux;
         public String[] nombre = new String[4];
         
-        void Pacman(WebSocketSession session) throws Exception{
+        public void comenzarPartida(WebSocketSession session,int idp) throws IOException{
+        
+            int contador = 0;
+                
+                for(Jugador participant : partidas.get(idp).jugadores) {
+                
+                    if(participant.listo)
+                        contador++;
+                /*System.out.println("Nombre: " + participant.name + " id: " + participant.session.getId());
+                System.out.println("Message sent: " + newNode1.toString());
+                participant.session.sendMessage(new TextMessage(newNode1.toString()));*/
+                            
+                }  
+
+            
+            if(contador == 3){
+            
+                ObjectNode newNode1 = mapper.createObjectNode();
+                newNode1.put("funcion", "playTheGame");
+
+                for(Jugador participant : partidas.get(idp).jugadores) {
+
+                    System.out.println("Nombre: " + participant.name + " id: " + participant.session.getId());
+                    System.out.println("Message sent: " + newNode1.toString());
+                    participant.session.sendMessage(new TextMessage(newNode1.toString()));
+
+                    }  
+
+            }
+
+        }
+        public void Pacman(WebSocketSession session) throws Exception{
         
             nombre[0] = "pacman1";
             nombre[1] = "pacman2";
@@ -46,7 +77,7 @@ public class Pacman extends TextWebSocketHandler {
                     sessions.put(session.getId(), session);
                     System.out.println("Id partida: " + actual.getId());
                     actual.addJugador(session.getId(), nombre[contador], session);
-                    contador++;
+                    
                     System.out.println("Nuevo jugador");
                     
                     
@@ -56,16 +87,10 @@ public class Pacman extends TextWebSocketHandler {
                     newNode.put("id", actual.jugadores.get(actual.jugadores.size()-1).id);
                     newNode.put("id_p", actual.getId());
                     actual.jugadores.get(actual.jugadores.size()-1).session.sendMessage(new TextMessage(newNode.toString())); 
-                    
+                    contador++;
                     if(contador == 4){
-
-                        /*ObjectNode newNode1 = mapper.createObjectNode();
-                        newNode1.put("inicio_p", true);
-                        for(Jugador participant : partidas.get(actual.getId()).jugadores) {
-;
-                            participant.session.sendMessage(new TextMessage(newNode1.toString()));
-                            
-                    }*/
+                        
+                         
                         contador = 0;
                         
                     }
@@ -108,7 +133,12 @@ public class Pacman extends TextWebSocketHandler {
 		System.out.println("Message received: " + message.getPayload());
 		JsonNode node = mapper.readTree(message.getPayload());
 
-                if(node.get("nueva_partida") != null)
+                if(node.get("listo") != null){
+                    
+                    partidas.get(node.get("idP").asInt()).jugadores.get(node.get("id").asInt()).listo = node.get("listo").asBoolean();
+                    comenzarPartida(session,node.get("idP").asInt());
+                    
+                }else if(node.get("nueva_partida") != null)
                     
                     Pacman(session);
                     

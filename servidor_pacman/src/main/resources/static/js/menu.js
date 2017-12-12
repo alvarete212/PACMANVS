@@ -1,6 +1,6 @@
 
-var connection;
-var personaje;
+/*var connection;
+var personaje;*/
 
 var menu = function(game){
 	//console.log("%cStarting my awesome game", "color:white; background:red");
@@ -8,10 +8,10 @@ var menu = function(game){
 };
 
   
-connection = new WebSocket('ws://'+ window.location.host +'/chat');
+/*connection = new WebSocket('ws://'+ window.location.host +'/chat');
 connection.onerror = function(e) {
         console.log("WS error: " + e);
-}
+}*/
 menu.prototype = {
 	preload: function(){
 
@@ -47,7 +47,7 @@ menu.prototype = {
         
         comienzo.play();
 
-        game.state.start("pacman");
+        game.state.start("espera");
 
 		
 	}

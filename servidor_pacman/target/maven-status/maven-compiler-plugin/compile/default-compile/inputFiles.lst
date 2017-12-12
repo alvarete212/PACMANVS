@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 C:\Users\Laura\Desktop\PACMANVS\servidor_pacman\src\main\java\es\urjc\code\rest\Jugador.java
 C:\Users\Laura\Desktop\PACMANVS\servidor_pacman\src\main\java\es\urjc\code\rest\Partida.java
 C:\Users\Laura\Desktop\PACMANVS\servidor_pacman\src\main\java\es\urjc\code\rest\PuntuacionesController.java
 C:\Users\Laura\Desktop\PACMANVS\servidor_pacman\src\main\java\es\urjc\code\rest\Puntuacion.java
 C:\Users\Laura\Desktop\PACMANVS\servidor_pacman\src\main\java\es\urjc\code\rest\RestEjem1bApplication.java
 C:\Users\Laura\Desktop\PACMANVS\servidor_pacman\src\main\java\es\urjc\code\rest\Pacman.java
+=======
+C:\Users\Ivan\Desktop\ProyectoREDES\PACMANVS\servidor_pacman\src\main\java\es\urjc\code\rest\Partida.java
+C:\Users\Ivan\Desktop\ProyectoREDES\PACMANVS\servidor_pacman\src\main\java\es\urjc\code\rest\PuntuacionesController.java
+C:\Users\Ivan\Desktop\ProyectoREDES\PACMANVS\servidor_pacman\src\main\java\es\urjc\code\rest\Pacman.java
+C:\Users\Ivan\Desktop\ProyectoREDES\PACMANVS\servidor_pacman\src\main\java\es\urjc\code\rest\Puntuacion.java
+C:\Users\Ivan\Desktop\ProyectoREDES\PACMANVS\servidor_pacman\src\main\java\es\urjc\code\rest\Jugador.java
+C:\Users\Ivan\Desktop\ProyectoREDES\PACMANVS\servidor_pacman\src\main\java\es\urjc\code\rest\RestEjem1bApplication.java
+>>>>>>> d8fa9e58dc583bc1e29597f106119908cd89986e
