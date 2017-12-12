@@ -71,10 +71,10 @@ espera.prototype = {
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         this.scale.pageAlignHorizontally = true;
         this.scale.pageAlignVertically = true;
-        game.load.image('pacman1', 'assets/LOGO.png');
-        game.load.image('pacman2', 'assets/boton_comenzar.png', 193, 71);
-        game.load.image('fantasma1', 'assets/map_inicio.png');
-        game.load.image('fantasma2', 'assets/LOGO.png');
+        game.load.image('pacman1', 'assets/pacman1.png');
+        game.load.image('pacman2', 'assets/pacman2.png', 193, 71);
+        game.load.image('fantasma1', 'assets/fantasma1.png');
+        game.load.image('fantasma2', 'assets/fantasma2.png');
 
     },
         create: function(){
@@ -82,29 +82,24 @@ espera.prototype = {
         //var sprites = [pacman1,pacman2,fantasma1,fantasma2];
 
         var mapa = game.add.sprite(0,0, 'mapa');
-        
+        comienzo = game.add.audio('comienzo');
         mapa.scale.x = 2;
         mapa.scale.y = 2;
-        
-        if(manejado.personaje == "pacman1"){
 
-                var pacman1 = game.add.sprite(0,0, 'pacman1'); 
-                console.log("Po si que entra");
-
-
-        }
-        
+        if(manejado.personaje == "pacman1")
+                var pacman1 = game.add.sprite(80,80, 'pacman1');       
         if(manejado.personaje == "pacman2")
-        var pacman2 = game.add.sprite(0,0, 'pacman2');
+                var pacman2 = game.add.sprite(80,80, 'pacman2');
         if(manejado.personaje == "fantasma1")
-        var fantasma1 = game.add.sprite(0,0, 'fantasma1');
+                var fantasma1 = game.add.sprite(80,80, 'fantasma1');
         if(manejado.personaje == "fantasma2")
-        var fantasma2 = game.add.sprite(0,0, 'fantasma2');  
+                var fantasma2 = game.add.sprite(80,80, 'fantasma2');  
 
         jugar = false;
         
         comienzo = game.add.audio('comienzo');
-        this.tiempo = this.game.add.text(1, 255, null, { fontSize: "16px", fill: "#fff" });
+        this.tiempo = this.game.add.text(80, 400, null, { fontSize: "30px", fill: "#fff" });
+        this.titulo = this.game.add.text(80, 20, "TU AVATAR", { fontSize: "48px", fill: "#fff" });
 
         var actualizacion = {
 
@@ -133,6 +128,7 @@ espera.prototype = {
                         this.tiempo.text = "La partida empieza en: " +  (5 - this.contador);
                         if(this.contador == 5){
         
+                                comienzo.play();
                                 game.state.start("pacman");
         
                         }

@@ -33,14 +33,11 @@ public class Pacman extends TextWebSocketHandler {
                 
                     if(participant.listo)
                         contador++;
-                /*System.out.println("Nombre: " + participant.name + " id: " + participant.session.getId());
-                System.out.println("Message sent: " + newNode1.toString());
-                participant.session.sendMessage(new TextMessage(newNode1.toString()));*/
                             
                 }  
 
             
-            if(contador == 3){
+            if(contador == 4){
             
                 ObjectNode newNode1 = mapper.createObjectNode();
                 newNode1.put("funcion", "playTheGame");
