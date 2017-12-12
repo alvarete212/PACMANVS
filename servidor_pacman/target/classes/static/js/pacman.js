@@ -49,21 +49,6 @@ var manejado = {
 
 }
 
-
-/*connection.onmessage = function(msg) {
-    
-    console.log("WS message: " + msg.data);
-    var message = JSON.parse(msg.data);
-  
-    funciones[message.funcion](message);
-
-}
-
-connection.onclose = function() {
-
-    console.log("Closing socket");
-}*/
-
 juego.prototype = {
 
     init: function(){
