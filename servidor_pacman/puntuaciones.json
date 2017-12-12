@@ -142,5 +142,9 @@
   {
     "puntuacion_pacmans": "0",
     "puntuacion_fantasmas": "1700"
+  },
+  {
+    "puntuacion_pacmans": "5300",
+    "puntuacion_fantasmas": "0"
   }
 ]

@@ -271,35 +271,6 @@ juego.prototype = {
 };
 
 
-funciones.prototype = {
-    
-        /*setJugador : function (message){
-    
-            manejado.personaje = message.name;
-            manejado.id = message.id;
-            manejado.id_partida = message.id_p;
 
-        },*/
-    
-        actualizar : function (message){
-    
-            console.log("Entra a actualizar");
-            var i = 0;
-            while(message.name != jugadores[i].nombre){
-    
-                i++;
-    
-            }
-
-            jugadores[i].sprite.position.x = message.posX;
-            jugadores[i].sprite.position.y = message.posY;
-            jugadores[i].ataque = message.ataque;
-            console.log("Movido: " + jugadores[i].nombre);
-            jugadores[i].mover (message.direccion);
-
-        }
-        
-    
-    };
 
 

@@ -40,7 +40,7 @@ public class Pacman extends TextWebSocketHandler {
                 }  
 
             
-            if(contador == 4){
+            if(contador == 3){
             
                 ObjectNode newNode1 = mapper.createObjectNode();
                 newNode1.put("funcion", "playTheGame");
