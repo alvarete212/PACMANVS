@@ -106,6 +106,8 @@ Las pantallas y como se consigue acceder a ellases bastante simple. Se ha uiliza
 
 Actualización: Se añade una pantalla adicional una vez se finaliza la partida, en el que se mostrarán las últimas tres partidas jugadas.
 
+Actualización 2: Se ha añadido la pantalla de espera de de conexión.
+
 **PANTALLAS FINALES**
 
 Una vez terminado el juego, podemos ver las diferentes pantallas que se muestran. La funcionalidad no cambia con respecto al diagrama anteriormente presentado, por lo que la funcionalidad es la misma. Se muestra ya con los cambios gráficos finales. Si fuese necesario, puede sufrir cambios debido a la integración en diferentes equipos.
@@ -113,6 +115,8 @@ Una vez terminado el juego, podemos ver las diferentes pantallas que se muestran
 ![alt text](DIAGRAMA_PANTALLAS_VISUAL.png)
 
 Actualización: Se ha añadido la imagen final correspondiente a la pantalla de puntuaciones.
+
+Actualización 2: Se ha añadido la imagen de la pantalla de espera.
 
 **DIAGRAMA UML**
 
