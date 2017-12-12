@@ -120,6 +120,8 @@ El siguiente diagrama UML del juego. Se compone de las clases Puntuacion, Puntua
 
 ![alt text](PacmanVSUML.png)
 
+Actualización: Se han añadido los elementos referentes a la parte de Websockets, que son las clases Pacman, Partida y Jugador. Pacman tendrá dos HashMap, referentes a sessions y partidas. En partida tendremos un arraylist de los jugadores. En Jugador, lo que tendremos serán las propias sessions, que se asignarán a cada jugador.
+
 **INSTRUCCIONES DE EJECUCIÓN**
 
 **Para ejecutar el juego se deben seguir los siguientes pasos:**
