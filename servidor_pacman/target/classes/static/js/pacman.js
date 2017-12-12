@@ -100,7 +100,6 @@ juego.prototype = {
 
     create: function(){
         
-
             this.tiempo = 0;
             this.contador = this.final;
             this.timer = this.game.time.create(false);
