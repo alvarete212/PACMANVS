@@ -163,7 +163,6 @@ juego.prototype = {
                 posY : manejado.personaje.sprite.position.y,
                 direccion : manejado.personaje.actual,
                 ataque : manejado.personaje.ataque,
-                destruir : false
 
             }
             console.log("direccion: " + manejado.personaje.actual);
@@ -194,10 +193,10 @@ juego.prototype = {
                 var actualizacion = {
                     
                     destruir : true,
-                    id : manejado.id,
                     id_p: manejado.id_partida
                    
                 }
+                
                 connection.send(JSON.stringify(actualizacion));
                     this.timer.destroy();
                     this.comer.stop();

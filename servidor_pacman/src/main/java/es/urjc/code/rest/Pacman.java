@@ -132,14 +132,14 @@ public class Pacman extends TextWebSocketHandler {
 
                 if(node.get("listo") != null){
                     
-                    partidas.get(node.get("idP").asInt()).jugadores.get(node.get("id").asInt()).listo = node.get("listo").asBoolean();
+                    partidas.get(node.get("idP").asInt()).jugadores.get(node.get("id").asInt()).listo = true;
                     comenzarPartida(session,node.get("idP").asInt());
                     
                 }else if(node.get("nueva_partida") != null)
                     
                     Pacman(session);
                     
-                else if(node.get("destruir").asBoolean() == true){
+                else if(node.get("destruir") != null){
                 
                     partidas.remove(node.get("id_p").asInt());
                     //sessions.remove(node.get("id").asText());
