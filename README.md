@@ -152,3 +152,11 @@ Actualización: Se han añadido los elementos referentes a la parte de Websocket
 
 4.-Volver a ejecutar el juego.
 
+**PROTOCOLO WEBSOCKETS**
+
+El protocolo empleado en PACMANVS es el siguiente. 
+
+El servidor tiene disponible todos los archivos del juego para su ejecución. Una vez se realiza la conexión entre todos los dispositivos, en una pantalla de previa al juego se esperan a los jugadores necesarios para comenzar la ejecución, que deben ser de 4. Los mensajes que se envían entre los dispositivos están compuestos de una función y los parámetros que se desean analizar en ellos. 
+
+Ya sea un mensaje enviado como recibido, se envía una cadena de texto (aunque se hace en formato "JSON") que luego se convertirá para poder leer todos los atributos enviados de forma más sencilla y así poder trabajar con ellos ya sea en el cliente o en el servidor, manejándolos de la forma adecuada.
+
