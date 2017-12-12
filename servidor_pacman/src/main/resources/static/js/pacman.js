@@ -34,7 +34,7 @@ var juego = function(game){
 
     this.timer = 0;
     this.tiempo;
-    this.final = 5;
+    this.final = 120;
     this.contador;
     this.comer;
     
@@ -50,7 +50,7 @@ var manejado = {
 }
 
 
-connection.onmessage = function(msg) {
+/*connection.onmessage = function(msg) {
     
     console.log("WS message: " + msg.data);
     var message = JSON.parse(msg.data);
@@ -62,7 +62,7 @@ connection.onmessage = function(msg) {
 connection.onclose = function() {
 
     console.log("Closing socket");
-}
+}*/
 
 juego.prototype = {
 
@@ -271,15 +271,15 @@ juego.prototype = {
 };
 
 
-var funciones = {
+funciones.prototype = {
     
-        setJugador : function (message){
+        /*setJugador : function (message){
     
             manejado.personaje = message.name;
             manejado.id = message.id;
             manejado.id_partida = message.id_p;
 
-        },
+        },*/
     
         actualizar : function (message){
     
