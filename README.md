@@ -102,23 +102,29 @@ obtenido también cada jugador de forma individual, aunque está pendiente de te
 Las pantallas y como se consigue acceder a ellases bastante simple. Se ha uilizado como base el PACMAN original, que únicamente mostraba un escenario y pantalla. Por ello, hemos añadido para comenzar partida un botón de comienzo y además, las puntuaciones individuales de cada personaje, porque recordemos que estamos ante un videojuego para 4 personas que se unirán por la red. Tenemos 3 pantallas principales, y se puede acceder a ella tal y como se muestra a continuación.
 
 
-![alt text](diagramas_pantallas2.jpg)
+![alt text](DIAGRAMA_PANTALLAS3.png)
 
 Actualización: Se añade una pantalla adicional una vez se finaliza la partida, en el que se mostrarán las últimas tres partidas jugadas.
+
+Actualización 2: Se ha añadido la pantalla de espera de de conexión.
 
 **PANTALLAS FINALES**
 
 Una vez terminado el juego, podemos ver las diferentes pantallas que se muestran. La funcionalidad no cambia con respecto al diagrama anteriormente presentado, por lo que la funcionalidad es la misma. Se muestra ya con los cambios gráficos finales. Si fuese necesario, puede sufrir cambios debido a la integración en diferentes equipos.
 
-![alt text](diagramas_pantallas_imagenes.png)
+![alt text](DIAGRAMA_PANTALLAS_VISUAL.png)
 
 Actualización: Se ha añadido la imagen final correspondiente a la pantalla de puntuaciones.
+
+Actualización 2: Se ha añadido la imagen de la pantalla de espera.
 
 **DIAGRAMA UML**
 
 El siguiente diagrama UML del juego. Se compone de las clases Puntuacion, PuntuacionesController, RestEjem1bApplication y las asociaciones que se establecen entre ellas. Se han incluido los métodos POST y GET porque se consideran importantes dentro de lo que es el uso de la aplicación.
 
-![alt text](diagramaUMLPacman.png)
+![alt text](PacmanVSUML.png)
+
+Actualización: Se han añadido los elementos referentes a la parte de Websockets, que son las clases Pacman, Partida y Jugador. Pacman tendrá dos HashMap, referentes a sessions y partidas. En partida tendremos un arraylist de los jugadores. En Jugador, lo que tendremos serán las propias sessions, que se asignarán a cada jugador.
 
 **INSTRUCCIONES DE EJECUCIÓN**
 

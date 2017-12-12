@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <testsuite name="es.urjc.code.rest.RestEjem1bApplicationTests" time="0.026" tests="1" errors="0" skipped="0" failures="0">
+=======
+<<<<<<< HEAD
+<testsuite name="es.urjc.code.rest.RestEjem1bApplicationTests" time="0.012" tests="1" errors="0" skipped="0" failures="0">
+=======
+<testsuite name="es.urjc.code.rest.RestEjem1bApplicationTests" time="0.027" tests="1" errors="0" skipped="0" failures="0">
+>>>>>>> d8fa9e58dc583bc1e29597f106119908cd89986e
+>>>>>>> 844d8208d007e40350f07a531c2d382549fb138c
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_151\jre\bin"/>
@@ -15,7 +23,11 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+<<<<<<< HEAD
+    <property name="user.dir" value="C:\Users\Laura\Desktop\PACMANVS\servidor_pacman"/>
+=======
     <property name="user.dir" value="C:\Users\Ivan\Desktop\ProyectoREDES\PACMANVS\servidor_pacman"/>
+>>>>>>> d8fa9e58dc583bc1e29597f106119908cd89986e
     <property name="java.runtime.version" value="1.8.0_151-b12"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_151\jre\lib\endorsed"/>
@@ -60,5 +72,13 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
+<<<<<<< HEAD
   <testcase name="contextLoads" classname="es.urjc.code.rest.RestEjem1bApplicationTests" time="0.026"/>
+=======
+<<<<<<< HEAD
+  <testcase name="contextLoads" classname="es.urjc.code.rest.RestEjem1bApplicationTests" time="0.012"/>
+=======
+  <testcase name="contextLoads" classname="es.urjc.code.rest.RestEjem1bApplicationTests" time="0.027"/>
+>>>>>>> d8fa9e58dc583bc1e29597f106119908cd89986e
+>>>>>>> 844d8208d007e40350f07a531c2d382549fb138c
 </testsuite>

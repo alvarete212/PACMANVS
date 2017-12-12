@@ -1,4 +1,12 @@
 -------------------------------------------------------------------------------
 Test set: es.urjc.code.rest.RestEjem1bApplicationTests
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.447 sec - in es.urjc.code.rest.RestEjem1bApplicationTests
+=======
+<<<<<<< HEAD
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.102 sec - in es.urjc.code.rest.RestEjem1bApplicationTests
+=======
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.83 sec - in es.urjc.code.rest.RestEjem1bApplicationTests
+>>>>>>> d8fa9e58dc583bc1e29597f106119908cd89986e
+>>>>>>> 844d8208d007e40350f07a531c2d382549fb138c
