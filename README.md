@@ -165,10 +165,19 @@ Se especifican a continuación el tipo de mensajes y variables utilizados en la 
 -->Por parte del servidor.
 
 El método que gestiona todos los envíos y recepciones de mensajes es el método handleTextMessage. En él, se recibe la sesión del websocket que hemos creado (relacionado con la partida) y el mensaje que hemos introducido en éste. Dependiendo de la información, tenemos;
+
 --->Si dentro del nodo tenemos que la variable listo existe, ponemos en todos los persojanes la variable a true para poder comenzar la partida nueva y llamar a la función que lo gestiona, "comenzarPartida()".
+
+
 --->Si en el nodo tenemos la variable "nueva_partida" procederemos a gestionar la creación de la nueva partida (es decir, hemos abierto por primera vez, por ejemplo, el navegador) llamando a los métodos correspondientes primero dentro del servidor.
+
+
 --->Si enviamos la información de destruir, destruiremos la partida en la que nos encontrábamos, para poder gestionar siguientes.
+
+
 --->Si no se cumple ninguna de las anteriores, damos por hecho que estamos en la partida y llamámos al método "sendOtherParticipants()" que busca actualizar la información de cada uno de los personajes opuestos al que controlamos en nuestra pantalla.
+
+
 
 Dentro del método sendOtherParticipants() gestionamos toda la información que deseamos mandar a los equipos cliente. Creamos así todos los nodos necesarios, que contendrán la información de:
 
