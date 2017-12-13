@@ -160,6 +160,40 @@ El servidor tiene disponible todos los archivos del juego para su ejecución. Un
 
 Ya sea un mensaje enviado como recibido, se envía una cadena de texto (aunque se hace en formato "JSON") que luego se convertirá para poder leer todos los atributos enviados de forma más sencilla y así poder trabajar con ellos ya sea en el cliente o en el servidor, manejándolos de la forma adecuada.
 
+Se especifican a continuación el tipo de mensajes y variables utilizados en la aplicación.
+
+-->Por parte del servidor.
+
+El método que gestiona todos los envíos y recepciones de mensajes es el método handleTextMessage. En él, se recibe la sesión del websocket que hemos creado (relacionado con la partida) y el mensaje que hemos introducido en éste. Dependiendo de la información, tenemos;
+--->Si dentro del nodo tenemos que la variable listo existe, ponemos en todos los persojanes la variable a true para poder comenzar la partida nueva y llamar a la función que lo gestiona, "comenzarPartida()".
+--->Si en el nodo tenemos la variable "nueva_partida" procederemos a gestionar la creación de la nueva partida (es decir, hemos abierto por primera vez, por ejemplo, el navegador) llamando a los métodos correspondientes primero dentro del servidor.
+--->Si enviamos la información de destruir, destruiremos la partida en la que nos encontrábamos, para poder gestionar siguientes.
+--->Si no se cumple ninguna de las anteriores, damos por hecho que estamos en la partida y llamámos al método "sendOtherParticipants()" que busca actualizar la información de cada uno de los personajes opuestos al que controlamos en nuestra pantalla.
+
+Dentro del método sendOtherParticipants() gestionamos toda la información que deseamos mandar a los equipos cliente. Creamos así todos los nodos necesarios, que contendrán la información de:
+
+-Función ------> Contiene la función a la que llamamos en JavaScript
+-Nombre  ------> Nombre del personaje
+-id      ------> Identificador
+-Direccion ----> Dirección a la que se mueve
+-PosX    ------> Posiciones actuales en el eje X
+-PosY    ------> Posiciones actuales en el eje Y
+-Ataque  ------> Si está atacando a los demás personajes.
+
+Así pues se envía la información a JavaScript y éste es capaz de gestionar la información gracias a un Array de funciones que se han creado en el videojuego. Éstas son principalmente:
+
+---> setJugador(): Que lo que hace, es configurar nuestro jugador principal, asignándonos imagen, controles, etc.
+---> playTheGame(): Llama a la función para comenzar el juego.
+---> Actualizar(): Actualiza las posiciones de los PacMan y/o fantasmas que no controlamos.
+
+Tengamos en cuenta que al estar aplicando los estados de Phaser para cambiar entre pantallas, una vez abrimos el HTML, TODOS los estados se cargan a la vez en memoria y residen en ella. Es decir, no por llamar al fichero "pacman.js" después de "espera.js" las variables y/o funciones de "espera.js" no van a ser accesibles. Esto nos permite tener el código más claro.
+
+Una vez llega un mensaje del websocket, se analiza la información parseándolo en JSON y se accede a la función que se estaba llamando en ese momento.
+
+Cabe destacar que el personaje que controlamos se hace con las flechas de dirección y que sólo nos actualizamos nuestra comprobación de teclas, al igual que sólo iremos actualizando la posición de los contrarios. 
+
+Al mandar la posición de los personajes contrarios, deberemos ir coprobando también sus colisiones con el mundo y si han cogido o no puntos, al igual que pills, aunque debido a los datos que se envían, JavaScript es capaz de gestionar todo ello de forma independiente.
+
 **DEMOSTRACIÓN**
 
 https://www.youtube.com/watch?v=AmGX1b4pLFM&feature=youtu.be
