@@ -160,3 +160,6 @@ El servidor tiene disponible todos los archivos del juego para su ejecución. Un
 
 Ya sea un mensaje enviado como recibido, se envía una cadena de texto (aunque se hace en formato "JSON") que luego se convertirá para poder leer todos los atributos enviados de forma más sencilla y así poder trabajar con ellos ya sea en el cliente o en el servidor, manejándolos de la forma adecuada.
 
+**DEMOSTRACIÓN**
+
+https://www.youtube.com/watch?v=AmGX1b4pLFM&feature=youtu.be
