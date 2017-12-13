@@ -173,18 +173,38 @@ El método que gestiona todos los envíos y recepciones de mensajes es el métod
 Dentro del método sendOtherParticipants() gestionamos toda la información que deseamos mandar a los equipos cliente. Creamos así todos los nodos necesarios, que contendrán la información de:
 
 -Función ------> Contiene la función a la que llamamos en JavaScript
+
+
 -Nombre  ------> Nombre del personaje
+
+
 -id      ------> Identificador
+
+
 -Direccion ----> Dirección a la que se mueve
+
+
 -PosX    ------> Posiciones actuales en el eje X
+
+
 -PosY    ------> Posiciones actuales en el eje Y
+
+
 -Ataque  ------> Si está atacando a los demás personajes.
+
+
 
 Así pues se envía la información a JavaScript y éste es capaz de gestionar la información gracias a un Array de funciones que se han creado en el videojuego. Éstas son principalmente:
 
 ---> setJugador(): Que lo que hace, es configurar nuestro jugador principal, asignándonos imagen, controles, etc.
+
+
 ---> playTheGame(): Llama a la función para comenzar el juego.
+
+
 ---> Actualizar(): Actualiza las posiciones de los PacMan y/o fantasmas que no controlamos.
+
+
 
 Tengamos en cuenta que al estar aplicando los estados de Phaser para cambiar entre pantallas, una vez abrimos el HTML, TODOS los estados se cargan a la vez en memoria y residen en ella. Es decir, no por llamar al fichero "pacman.js" después de "espera.js" las variables y/o funciones de "espera.js" no van a ser accesibles. Esto nos permite tener el código más claro.
 
