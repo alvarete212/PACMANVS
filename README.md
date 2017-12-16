@@ -122,12 +122,11 @@ Actualización 2: Se ha añadido la imagen de la pantalla de espera.
 
 El siguiente diagrama UML del juego. Se compone de las clases Puntuacion, PuntuacionesController, RestEjem1bApplication y las asociaciones que se establecen entre ellas. Se han incluido los métodos POST y GET porque se consideran importantes dentro de lo que es el uso de la aplicación.
 
-![alt text](PacmanVSUML.png)
-<<<<<<< HEAD
-=======
+![alt text](PacmanVSUML.jpg)
+
 
 Actualización: Se han añadido los elementos referentes a la parte de Websockets, que son las clases Pacman, Partida y Jugador. Pacman tendrá dos HashMap, referentes a sessions y partidas. En partida tendremos un arraylist de los jugadores. En Jugador, lo que tendremos serán las propias sessions, que se asignarán a cada jugador.
->>>>>>> 9a1cbed1056267e4ef794235d7429f68528d4f64
+
 
 **INSTRUCCIONES DE EJECUCIÓN**
 
