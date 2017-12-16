@@ -1,17 +1,16 @@
 
-var connection;
-var personaje;
+/*var connection;
+var personaje;*/
 
 var menu = function(game){
 	//console.log("%cStarting my awesome game", "color:white; background:red");
-    var comienzo;
 };
 
   
-connection = new WebSocket('ws://'+ window.location.host +'/chat');
+/*connection = new WebSocket('ws://'+ window.location.host +'/chat');
 connection.onerror = function(e) {
         console.log("WS error: " + e);
-}
+}*/
 menu.prototype = {
 	preload: function(){
 
@@ -26,7 +25,7 @@ menu.prototype = {
     },
   	create: function(){
         
-        comienzo = game.add.audio('comienzo');
+       
         inicio_p = true;
         var mapa = game.add.sprite(0,0, 'mapa');
         var logoJuego = game.add.sprite(0, 0, 'logo');
@@ -45,9 +44,9 @@ menu.prototype = {
 	playTheGame: function(){
         
         
-        comienzo.play();
+        
 
-        game.state.start("pacman");
+        game.state.start("espera");
 
 		
 	}

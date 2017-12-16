@@ -34,7 +34,7 @@ var juego = function(game){
 
     this.timer = 0;
     this.tiempo;
-    this.final = 5;
+    this.final = 120;
     this.contador;
     this.comer;
     
@@ -47,21 +47,6 @@ var manejado = {
     personaje : null,
     id_partida : 0
 
-}
-
-
-connection.onmessage = function(msg) {
-    
-    console.log("WS message: " + msg.data);
-    var message = JSON.parse(msg.data);
-  
-    funciones[message.funcion](message);
-
-}
-
-connection.onclose = function() {
-
-    console.log("Closing socket");
 }
 
 juego.prototype = {
@@ -100,7 +85,6 @@ juego.prototype = {
 
     create: function(){
         
-
             this.tiempo = 0;
             this.contador = this.final;
             this.timer = this.game.time.create(false);
@@ -179,7 +163,6 @@ juego.prototype = {
                 posY : manejado.personaje.sprite.position.y,
                 direccion : manejado.personaje.actual,
                 ataque : manejado.personaje.ataque,
-                destruir : false
 
             }
             console.log("direccion: " + manejado.personaje.actual);
@@ -210,10 +193,10 @@ juego.prototype = {
                 var actualizacion = {
                     
                     destruir : true,
-                    id : manejado.id,
                     id_p: manejado.id_partida
                    
                 }
+                
                 connection.send(JSON.stringify(actualizacion));
                     this.timer.destroy();
                     this.comer.stop();
@@ -271,35 +254,6 @@ juego.prototype = {
 };
 
 
-var funciones = {
-    
-        setJugador : function (message){
-    
-            manejado.personaje = message.name;
-            manejado.id = message.id;
-            manejado.id_partida = message.id_p;
 
-        },
-    
-        actualizar : function (message){
-    
-            console.log("Entra a actualizar");
-            var i = 0;
-            while(message.name != jugadores[i].nombre){
-    
-                i++;
-    
-            }
-
-            jugadores[i].sprite.position.x = message.posX;
-            jugadores[i].sprite.position.y = message.posY;
-            jugadores[i].ataque = message.ataque;
-            console.log("Movido: " + jugadores[i].nombre);
-            jugadores[i].mover (message.direccion);
-
-        }
-        
-    
-    };
 
 
